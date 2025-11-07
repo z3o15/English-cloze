@@ -303,15 +303,112 @@ body {
     }
     
     .english-text {
-        font-size: 16px;
+        font-size: 18px;
     }
     
     .chinese-text {
-        font-size: 15px;
+        font-size: 17px;
+    }
+    
+    /* 案例部分单词样式调整 */
+    .word {
+        font-size: 18px;
     }
     
     .title {
         font-size: 20px;
+    }
+    
+    /* 书信格式内容手机端样式调整 */
+    .format-box {
+        font-size: 18px;
+        line-height: 1.8;
+        padding: 20px;
+    }
+    
+    /* 句型内容手机端样式调整 */
+    .sentence-pattern {
+        font-size: 18px;
+        line-height: 1.8;
+        padding: 15px;
+    }
+    
+    /* 有益身心部分保持合适大小 */
+    .sentence-pattern h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    /* 书信类型标签手机端样式调整 */
+    .letter-type {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    /* 翻译样式手机端调整 */
+    .translation {
+        font-size: 14px;
+    }
+    
+    /* 按钮样式手机端调整 */
+    .read-section-btn {
+        font-size: 18px;
+        padding: 4px 8px;
+    }
+    
+    /* 提高按钮在手机端的可点击性 */
+    .read-section-btn, .read-directions-btn {
+        min-width: 40px;
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* 图表页面特定元素手机端样式调整 */
+    .chart-desc {
+        font-size: 16px;
+    }
+    
+    .expression-title {
+        font-size: 20px;
+    }
+    
+    .chinese-translation {
+        font-size: 16px;
+    }
+    
+    .template-title {
+        font-size: 22px;
+    }
+    
+    .case-title {
+        font-size: 22px;
+    }
+    
+    /* 书信格式示例手机端样式调整 */
+    .letter-format-example {
+        font-size: 18px;
+        line-height: 1.8;
+        padding: 20px;
+    }
+    
+    /* 图表类型卡片手机端样式调整 */
+    .chart-type-card {
+        min-width: 280px;
+        margin-bottom: 15px;
+    }
+    
+    /* 表达式项手机端样式调整 */
+    .expression-item {
+        padding: 15px;
+    }
+    
+    /* 模板内容手机端样式调整 */
+    .template-content {
+        font-size: 18px;
+        line-height: 1.8;
+        padding: 20px;
     }
 }
 
