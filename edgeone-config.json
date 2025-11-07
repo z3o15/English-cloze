@@ -1,0 +1,130 @@
+{
+  "version": "1.0",
+  "name": "英语作文学习系统",
+  "description": "英语书信和图表作文学习系统，提供单词翻译、语音朗读等功能",
+  "type": "static-website",
+  "settings": {
+    "indexDocument": "index.html",
+    "errorDocument": "404.html",
+    "customHeaders": [
+      {
+        "source": "*.html",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "assets/*",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000"
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/",
+        "target": "/index.html",
+        "statusCode": 200
+      }
+    ]
+  },
+  "deployment": {
+    "sourceDir": ".",
+    "excludeFiles": [
+      "edgeone-config.json",
+      "README.md",
+      ".gitignore"
+    ],
+    "includeFiles": [
+      "**/*.html",
+      "**/*.css",
+      "**/*.js",
+      "**/*.png",
+      "**/*.jpg",
+      "**/*.jpeg",
+      "**/*.gif",
+      "**/*.svg",
+      "**/*.ico"
+    ]
+  },
+  "performance": {
+    "compression": {
+      "enabled": true,
+      "types": [
+        "text/html",
+        "text/css",
+        "application/javascript",
+        "application/json",
+        "image/svg+xml"
+      ]
+    },
+    "minification": {
+      "html": true,
+      "css": true,
+      "js": true
+    }
+  },
+  "security": {
+    "https": {
+      "enabled": true,
+      "redirectHttpToHttps": true
+    },
+    "securityHeaders": [
+      {
+        "key": "X-Content-Type-Options",
+        "value": "nosniff"
+      },
+      {
+        "key": "X-Frame-Options",
+        "value": "DENY"
+      },
+      {
+        "key": "X-XSS-Protection",
+        "value": "1; mode=block"
+      },
+      {
+        "key": "Referrer-Policy",
+        "value": "strict-origin-when-cross-origin"
+      }
+    ]
+  },
+  "cdn": {
+    "enabled": true,
+    "cacheTtl": {
+      "default": 86400,
+      "assets": 31536000
+    },
+    "gzip": true,
+    "brotli": true
+  },
+  "domains": {
+    "primary": "your-domain.com",
+    "aliases": [
+      "www.your-domain.com"
+    ]
+  },
+  "build": {
+    "commands": [],
+    "outputDir": "."
+  },
+  "hooks": {
+    "preDeploy": [],
+    "postDeploy": []
+  },
+  "environment": {
+    "production": {
+      "url": "https://your-domain.com",
+      "env": {}
+    },
+    "staging": {
+      "url": "https://staging.your-domain.com",
+      "env": {}
+    }
+  }
+}
