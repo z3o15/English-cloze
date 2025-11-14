@@ -1,0 +1,147 @@
+/* 共用页面样式 - 书信作文和图表作文页面 */
+
+/* CSS变量定义 - 统一的内边距和间距值 */
+:root {
+    --content-padding-primary: 15px;  /* 主级内容容器内边距 */
+    --content-padding-secondary: 8px;  /* 次级内容容器内边距 */
+    --content-margin: 15px 0;          /* 内容容器外边距 */
+    --nested-content-margin: 10px 0;   /* 嵌套内容容器外边距 */
+    --content-bg-primary: #ffffff;     /* 主级内容容器背景色 */
+    --content-bg-secondary: #f9f9f9;   /* 次级内容容器背景色 */
+}
+
+/* 页面整体背景设置为浅灰色 */
+body {
+    background-color: #f5f5f5;
+}
+
+/* 统一颜色类 */
+.color-blue {
+    color: #2A8ED3;
+}
+
+.color-red {
+    color: #FF0000;
+}
+
+.color-green {
+    color: #53AF6C;
+}
+
+.color-gray {
+    color: #9CA5AB;
+}
+
+/* 统一内容容器样式 */
+.format-box, .content-box {
+    background: var(--content-bg-primary);
+    border-radius: 5px;
+    padding: var(--content-padding-primary);
+    margin: var(--content-margin);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 修复嵌套content-box的宽度问题 */
+.content-box .content-box {
+    /* 使用负边距补偿嵌套造成的宽度损失 */
+    margin-left: calc(-1 * var(--content-padding-primary));
+    margin-right: calc(-1 * var(--content-padding-primary));
+    padding: var(--content-padding-secondary) var(--content-padding-primary);
+    margin-top: var(--nested-content-margin);
+    margin-bottom: var(--nested-content-margin);
+    background-color: var(--content-bg-secondary);
+    width: auto;
+}
+
+/* 三层及更深嵌套的content-box样式 */
+.content-box .content-box .content-box {
+    background-color: var(--content-bg-primary);
+    border-left: 3px solid #e0e0e0;
+}
+
+/* 四层及更深嵌套的content-box样式 */
+.content-box .content-box .content-box .content-box {
+    background-color: var(--content-bg-secondary);
+    border-left-color: #d0d0d0;
+}
+
+/* 统一朗读按钮样式 */
+.read-section-btn, .read-btn {
+    background: none;
+    border: none;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 8px;
+    transition: all 0.2s ease;
+    color: #87CEEB;
+    opacity: 0.7;
+}
+
+.read-section-btn:hover, .read-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.read-section-btn.reading, .read-btn.reading {
+    color: #4A90E2;
+    opacity: 1;
+    animation: pulse 1.5s infinite;
+}
+
+/* 图表页面特定的朗读按钮样式 */
+.read-btn {
+    font-weight: bold;
+}
+
+/* 书信页面特定的朗读按钮样式 */
+.read-section-btn {
+    /* 可以添加书信页面特定的样式 */
+}
+
+/* 脉冲动画 */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* 响应式设计 - 针对嵌套容器的宽度问题 */
+@media (max-width: 768px) {
+    /* 在小屏幕上调整内边距值 */
+    :root {
+        --content-padding-primary: 12px;
+        --content-padding-secondary: 6px;
+        --content-margin: 12px 0;
+        --nested-content-margin: 8px 0;
+    }
+    
+    /* 确保嵌套容器在小屏幕上不会超出父容器 */
+    .content-box .content-box {
+        margin-left: calc(-1 * var(--content-padding-primary));
+        margin-right: calc(-1 * var(--content-padding-primary));
+        padding-left: var(--content-padding-primary);
+        padding-right: var(--content-padding-primary);
+        overflow-x: hidden; /* 防止水平溢出 */
+    }
+}
+
+@media (max-width: 480px) {
+    /* 在超小屏幕上进一步调整内边距值 */
+    :root {
+        --content-padding-primary: 10px;
+        --content-padding-secondary: 5px;
+        --content-margin: 10px 0;
+        --nested-content-margin: 6px 0;
+    }
+    
+    /* 在超小屏幕上简化嵌套容器的样式 */
+    .content-box .content-box {
+        border-left-width: 2px;
+    }
+    
+    .content-box .content-box .content-box .content-box {
+        border-left-width: 1px;
+    }
+}

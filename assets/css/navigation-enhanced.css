@@ -1,0 +1,191 @@
+/* 导航增强样式 - 确保在所有页面上的导航一致性 */
+
+/* 导航容器样式 - 增强版本 */
+.navbar {
+    background-color: #0066cc !important;
+    padding: 1rem 0 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    min-height: 60px; /* 确保最小高度一致 */
+    position: relative;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* 导航容器内部样式 */
+.navbar .container {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    width: 100% !important;
+    min-height: inherit;
+}
+
+/* 品牌名称样式 */
+.navbar-brand {
+    color: white !important;
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+    font-family: 'Arial', 'Microsoft YaHei', sans-serif !important;
+    line-height: 1.2 !important;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+/* 导航列表样式 */
+.navbar-nav {
+    display: flex !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+/* 导航项样式 */
+.nav-item {
+    margin-left: 1rem !important;
+    flex-shrink: 0;
+}
+
+/* 第一个导航项不设置左边距 */
+.nav-item:first-child {
+    margin-left: 0 !important;
+}
+
+/* 导航链接样式 */
+.nav-link {
+    color: white !important;
+    text-decoration: none !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 4px !important;
+    transition: background-color 0.2s ease !important;
+    font-size: 1rem !important;
+    font-family: 'Arial', 'Microsoft YaHei', sans-serif !important;
+    line-height: 1.4 !important;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+/* 导航链接悬停和活动状态 */
+.nav-link:hover, .nav-link.active {
+    background-color: rgba(255,255,255,0.1) !important;
+}
+
+/* 响应式设计 - 增强版本 */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.75rem 0 !important;
+        min-height: auto;
+    }
+    
+    .navbar .container {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 0 15px !important;
+    }
+    
+    .navbar-nav {
+        margin-top: 1rem !important;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-item {
+        margin: 0 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .navbar-brand {
+        font-size: 1.25rem !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem !important;
+        padding: 0.4rem 0.8rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.5rem 0 !important;
+    }
+    
+    .navbar .container {
+        padding: 0 10px !important;
+    }
+    
+    .navbar-brand {
+        font-size: 1.1rem !important;
+    }
+    
+    .nav-link {
+        font-size: 0.85rem !important;
+        padding: 0.3rem 0.6rem !important;
+    }
+    
+    .nav-item {
+        margin: 0 0.25rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+}
+
+/* 确保在不同浏览器中的一致性 */
+.navbar, .navbar:before, .navbar:after,
+.navbar .container, .navbar .container:before, .navbar .container:after,
+.navbar-nav, .navbar-nav:before, .navbar-nav:after,
+.nav-item, .nav-item:before, .nav-item:after,
+.nav-link, .nav-link:before, .nav-link:after {
+    box-sizing: border-box !important;
+}
+
+/* 防止内容溢出 */
+.navbar-nav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 滚动条样式（仅在需要时显示） */
+.navbar-nav::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
+
+/* 确保在打印时导航正常显示 */
+@media print {
+    .navbar {
+        background-color: #0066cc !important;
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+    }
+    
+    .nav-link {
+        color: white !important;
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+    }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    .navbar {
+        background-color: #004499 !important;
+        border: 2px solid white !important;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+        background-color: rgba(255,255,255,0.2) !important;
+        border: 1px solid white !important;
+    }
+}
+
+/* 减少动画模式支持 */
+@media (prefers-reduced-motion: reduce) {
+    .nav-link {
+        transition: none !important;
+    }
+}

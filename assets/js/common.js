@@ -36,7 +36,7 @@ function initializeWordClickEvents() {
 
 // 初始化朗读按钮
 function initializeReadButtons() {
-    const readButtons = document.querySelectorAll('.read-section-btn, .read-directions-btn');
+    const readButtons = document.querySelectorAll('.read-btn, .read-section-btn, .read-directions-btn');
     readButtons.forEach(button => {
         button.addEventListener('click', function() {
             const title = this.getAttribute('title') || '';
@@ -118,17 +118,22 @@ function readSectionText(button) {
     
     // 精确查找策略：根据按钮的位置和类型确定要朗读的内容
     
-    // 情况1: 按钮是letter-type（信件类型）内的按钮
-    if (button.previousElementSibling && button.previousElementSibling.classList.contains('letter-type')) {
-        // 查找按钮父元素的下一个兄弟元素（sentence-pattern）
-        const parentDiv = button.parentElement;
-        if (parentDiv && parentDiv.nextElementSibling && parentDiv.nextElementSibling.classList.contains('sentence-pattern')) {
+    // 情况1: 按钮是content-title内的按钮（简化后的结构）
+    if (button.parentElement.classList.contains('content-title')) {
+        // 查找按钮父元素的下一个兄弟元素（content-box）
+        const parentDiv = button.parentElement.parentElement;
+        if (parentDiv && parentDiv.nextElementSibling && parentDiv.nextElementSibling.classList.contains('content-box')) {
             textElement = parentDiv.nextElementSibling;
         }
-        // 如果没有找到，查找父级容器内的sentence-pattern
+        // 如果没有找到，查找父级容器内的content-box
         else {
-            const container = button.parentElement;
-            textElement = container.querySelector('.sentence-pattern');
+            const container = button.closest('.content-box');
+            if (container) {
+                const nextBox = container.nextElementSibling;
+                if (nextBox && nextBox.classList.contains('content-box')) {
+                    textElement = nextBox;
+                }
+            }
         }
     }
     // 情况2: 按钮是标题内的按钮（如"动词词组"、"模板"、"案例"）
@@ -157,8 +162,8 @@ function readSectionText(button) {
             }
         }
     }
-    // 情况3: 按钮在sentence-pattern内（如主体段必备句型）
-    else if (button.parentElement.classList.contains('sentence-pattern')) {
+    // 情况3: 按钮在content-box内（如主体段必备句型）
+    else if (button.parentElement.classList.contains('content-box')) {
         textElement = button.parentElement;
     }
     // 情况4: 开头段部分的按钮 - 特殊处理
@@ -227,7 +232,7 @@ function readSectionText(button) {
         // 查找按钮附近的文本元素
         // 先查找同级的下一个元素
         if (button.nextElementSibling &&
-            (button.nextElementSibling.classList.contains('sentence-pattern') ||
+            (button.nextElementSibling.classList.contains('content-box') ||
              button.nextElementSibling.classList.contains('format-box') ||
              button.nextElementSibling.classList.contains('english-text'))) {
             textElement = button.nextElementSibling;
@@ -235,7 +240,7 @@ function readSectionText(button) {
         // 查找父级容器内的文本元素
         else {
             const container = button.parentElement;
-            textElement = container.querySelector('.sentence-pattern') ||
+            textElement = container.querySelector('.content-box') ||
                           container.querySelector('.format-box') ||
                           container.querySelector('.english-text');
         }
@@ -246,7 +251,7 @@ function readSectionText(button) {
         const parentSection = button.closest('.section');
         if (parentSection) {
             // 查找section内所有可能的文本元素
-            const candidates = parentSection.querySelectorAll('.sentence-pattern, .format-box, .english-text');
+            const candidates = parentSection.querySelectorAll('.content-box, .sentence-pattern, .format-box, .english-text');
             // 找到第一个非空的候选元素
             for (let candidate of candidates) {
                 if (candidate.textContent.trim().length > 0) {
@@ -374,7 +379,7 @@ function stopReading() {
         speechSynthesis.cancel();
         isReading = false;
         // 移除所有按钮的reading状态
-        const readingButtons = document.querySelectorAll('.read-section-btn.reading, .read-directions-btn.reading');
+        const readingButtons = document.querySelectorAll('.read-btn.reading, .read-section-btn.reading, .read-directions-btn.reading');
         readingButtons.forEach(button => {
             button.classList.remove('reading');
         });
@@ -417,7 +422,7 @@ function setDefaultTranslations(level = 2) {
 
 // 设置案例部分显示所有超过3个字母的单词的翻译
 function setCaseStudyTranslations() {
-    const caseSection = document.querySelector('.section .format-box .english-text');
+    const caseSection = document.querySelector('.section .content-box .english-text');
     if (caseSection) {
         const caseWords = caseSection.querySelectorAll('.word');
         caseWords.forEach(wordElement => {

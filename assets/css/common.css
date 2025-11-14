@@ -124,7 +124,6 @@ body {
 .title {
     font-size: 22px;
     font-weight: bold;
-    margin-bottom: 25px;
     color: #222;
 }
 
@@ -226,13 +225,6 @@ body {
     background-color: #0052a3;
 }
 
-/* 句型样式 */
-.sentence-pattern {
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: #f5f5f5;
-    border-radius: 5px;
-}
 
 .letter-type {
     font-weight: bold;
@@ -326,18 +318,7 @@ body {
         padding: 20px;
     }
     
-    /* 句型内容手机端样式调整 */
-    .sentence-pattern {
-        font-size: 18px;
-        line-height: 1.8;
-        padding: 15px;
-    }
     
-    /* 有益身心部分保持合适大小 */
-    .sentence-pattern h3 {
-        font-size: 20px;
-        margin-bottom: 15px;
-    }
     
     /* 书信类型标签手机端样式调整 */
     .letter-type {
@@ -409,6 +390,36 @@ body {
         font-size: 18px;
         line-height: 1.8;
         padding: 20px;
+    }
+    
+    /* 大作文写作指南手机端样式调整 */
+    .highlight-red, .highlight-blue, .highlight-green, .highlight-gray {
+        font-size: 18px;
+    }
+    
+    .expression-category ul {
+        font-size: 18px;
+        line-height: 1.8;
+    }
+    
+    .expression-category ul li {
+        margin-bottom: 10px;
+    }
+    
+    /* 修复expression-grid在手机端的显示问题 */
+    .expression-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    /* 修复大作文部分的表格在手机端的显示问题 */
+    .data-table {
+        font-size: 14px;
+    }
+    
+    .data-table th, .data-table td {
+        padding: 8px;
+        font-size: 14px;
     }
 }
 

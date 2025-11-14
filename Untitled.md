@@ -1,168 +1,211 @@
-书信格式
+大作文注意事项
 
-```
-齐头式
-称谓（居左）
-正文齐头式：
-每段首行顶格，段与段间空一行
-落款（居左）
-
-三段式(7句)
-开头段(1句)-直奔主题-必备句型(1个)
-主体段(4句)-问啥答啥-引出话题(1个)
-必备句型(3个)
-结尾段(2句)-礼貌结束-必备句型(2个)
-```
-
-开头段-直奔主题-必备句型1个
-I am writing this letter/email to do目的+<font color="#FF0000">for</font>+原因
-我写这封信/邮件是为了某事。
-
-do sth.（根据信件类型选择）
-感谢信：<font color="#2A8ED3">express my sincere</font> <font color="#FF0000">gratitude </font>for your kind help
-对你热心的帮助致以真诚的谢意
-建议信：<font color="#2A8ED3">make some</font> <font color="#FF0000">suggestions </font>concerning sth./doing sth.
-给出关于某事的建议
-投诉信：<font color="#2A8ED3">make my complaint</font> <font color="#FF0000">concerning </font>sth./doing sth.
-表达我对某事的不满
-祝贺信：<font color="#2A8ED3">show my sincere</font> <font color="#FF0000">congratulations </font>to you because句子/for sth./doing sth
-因为某事向你表示我真诚的祝贺
-道歉信：<font color="#2A8ED3">offer my sincere</font> <font color="#FF0000">apology </font>to you because句子/for sth./doing sth
-(invitation)
-因为某事向你表示我真诚的款意
-邀请信：<font color="#FF0000">invite </font> <font color="#2A8ED3">you to participate in</font> 活动 on behalf of 某人/组织
-
-代表某人/组织邀请你来参加活动
-通知信：<font color="#2A8ED3">have </font>某人 <font color="#FF0000">informed </font>that 句子 通知某人某事
+1. 格式： （不写标题）
+   2．字数：字数适当，180词左右
+   3．字迹：字迹工整，尽量不涂改（写错单词轻轻划掉即可）
 
 
 
-主体段-问啥答啥-引出话题1个
-
-As we all know
-
-
-
-主体段-必备句型3个
-
-1. It is necessary for you to do sth.
-   对你而言，做某事是有必要/建议/有益的。
-2. Another choice is that you can do sth.
-   另一个选择是你可以做某事。
-3. It would be beneficial/advantageous that+句子，
-   做某事是有益的。
+引出图表
+三段式(7/8句)  
+开头段 (2/3句)   
+​	描述图表
+​	比大小/比趋势
+主体段 (3包)   
+​	分析原因
+​     有时间变化 重点「比趋势
+      ​无时间变化重点「比大小
+结尾段 (2句)  
+​	评价+建议/预测
 
 
 
-```
-动词词组(do sth.)
-有益身心
-savor the life 品味人生/自由/青春
-promote the qualities of life 提升生活质量
-reduce one's stress 减轻压力
-be exposed to new ideas 接触新思想/经验
-broaden the mind 开阔视野/心胸
-enlighten the mind 启迪心灵
-have a wide range of knowledge 有广泛的知识
-
-提高能力
-integrate with other people well 与人很好地交往
-share experience/ideas/knowledge 分享经验/想法/知识
-improve social skills and competence 提高社会技能和能力
-give full play to one's ability 充分发挥能力
-adapt oneself to the society 使自己适应社会
-bring you a much better and brighter future 带来更好更光明的未来
-```
-
-------------
 
 
 
-信件模板
 
-邀请信
-Please let me know whether you can come and <font color="#2A8ED3">whether</font> the time is <font color="#2A8ED3">convenient </font>for you<font color="#9CA5AB"> by sending me an email or calling me</font>. I am looking forward to your reply.
-请给我发邮件或打电话告诉我你是否能来，时间是否方便。期待您的回复。
+【比大小】 类   [引出图表」句型
 
-感谢信
-Once again,please accept my heartfelt gratitude<font color="#9CA5AB"> and I sincerely hope that I can
-repay your kindness in the near future</font>. I am looking forward to your reply.
-<font color="#9CA5AB">我真诚地希望在不久的将来能报答你的好意，</font>请再次接受我衷心的感谢。我期待着你的答复。
+1. The chart clearly illustrates <font color="#FF0000">that+句子</font>。
+   上图清晰显示，
+  <font color="#FF0000">that+句子</font>： <font color="#2A8ED3">调查对象</font> have different purposes of / show different attitudes towards <font color="#2A8ED3">图表话题</font>
+  <font color="#9CA5AB">调查对象对于图表话题有不同的目的/有不同的态度</font>
 
-祝贺信
-Once again,I take pride in your <font color="#2A8ED3">achievements </font>and would like to extend my best wishes for your success. I am looking forward to hear<font color="#2A8ED3">ing</font> more good news from you.
-我再次为你们的成就感到骄傲，并向你的成功致以最美好的祝愿。我期待着从你那里听到更多的好消息。
+  Based on the data offered, one can clearly see that <font color="#FF0000">描述对象1</font> ranks the first/highest among
+  all the categories, accounting for <font color="#FF0000">数据1</font>. Next are <font color="#2A8ED3">描述对象2</font> and <font color="#2A8ED3">描述对象3</font> (with <font color="#2A8ED3">数据2</font> and <font color="#2A8ED3">数据
+  3</font> respectively), while <font color="#2A8ED3">描述对象4</font> only constitutes <font color="#2A8ED3">数据4</font>.
 
-建议信
-hope you will find these <font color="#2A8ED3">proposals </font>useful. And I would be ready to discuss this matter with you to further details.
-我希望这些建议对你有所帮助的。我将准备与你进一步讨论这个问题的细节。
+  <font color="#9CA5AB">根据提供的数据，我们可以清楚地看出描述对象1在所有项中排名第一，占了数据1。其次是描述对象2和3,
+  分别占数据2和3，而描述对象4只占了数据4.</font>
 
-道歉信
-I sincerely wish you could understand my situation and accept my <font color="#2A8ED3">apology</font>, <font color="#9CA5AB">and I apologize in advance for any inconvenience thus caused. </font>Please let me know which solution you prefer at your earliest <font color="#2A8ED3">convenience</font>.
-我真诚地希望您能理解我的情况并接受我的道歉，<font color="#9CA5AB">并对由此造成的不便表示歉意</font>。请尽早告诉我您喜欢哪种解决方案。
+  注意：如果有4个以上的描述对象，重点写最值，中间值可以放在一起写或忽略某个数据。 
 
-投诉信
-I would <font color="#2A8ED3">appreciate </font>it a lot if you could take <font color="#2A8ED3">my complaint</font> seriously <font color="#9CA5AB">and see to it prompt</font>. I am looking forward to your reply at your earliest convenience.
-如果您能认真对待我的投诉并及时处理，我将不胜感激。我期待着您在方便的时候尽早答复
+  
 
-----------------
+「引出话题」句型
+From my perspective, it is of no difficulty to come up with two key factors to
+account for the scene.
+<font color="#9CA5AB">从我的角度来看想出解释这一现象的两个关键因素并不困难。</font>
 
-书信类小作文模版
-Dear XXX,
-I am writing this letter//email to do<font color="#2A8ED3">【目的】</font>+for<font color="#2A8ED3">【原因】</font>.
-As we all know,there are many benefits,/suggestions to do sth<font color="#2A8ED3">（题干已知信息）</font>。To begin with, it would be beneficial,/suggestive that we can<font color="#53AF6C">（话题语料）</font>and<font color="#53AF6C">（话题语料）</font>。In addition,it is necessary for us to<font color="#53AF6C">（话题语料）</font>and<font color="#53AF6C">（话题语料）</font>。Last but not least,another advantage/advice is that you can<font color="#53AF6C"> (话
-题语料）</font>and<font color="#53AF6C">（话题语料）</font>.
+「2个原因」背2个句型    
 
-I am looking forward to your reply at your earliest convenience.
-Yours,
+1. The first contributing factor is that +句子。
 
-XX（审题）
+   <font color="#9CA5AB"> 第一个起作用的因素是 </font>
 
--------------------------
+2. Another important factor that cannot be ignored is that +句子
+   <font color="#9CA5AB">另一个不能忽视的重要因素是。</font>
 
 
 
-亲爱的某某，
-我写这封信/邮件是出于<font color="#2A8ED3">已知信息1</font>的目的，因为<font color="#2A8ED3">什么原因</font>。
-正如我们所知，做<font color="#2A8ED3">已知信息2</font>有很多好处/建议。首先，好处<font color="#53AF6C">建议1</font>。其次，好处<font color="#53AF6C">建议2</font>。最后但非不重要的是，好处
-<font color="#53AF6C">建议3</font>.
-热切期盼在您方便的时候回复。
-些致
-某某
+## 常用词汇和短语
+
+### 生活相关
+
+<li>enjoy scenery - 欣赏美景</li>
+<li>enjoy numerous exhibits from around the world - 欣赏世界各地的多种展览</li>
+<li>undertake further study - 进行深造</li>
+<li>start a business - 创业</li>
+<li>learn/acquire language - 获取知识</li>
+<li>be lured to going out of campus - 乐意走出校园</li>
+<li>seek fun and enjoyment - 寻找快乐</li>
+<li>unwind and recharge - 放松和充电</li>
+<li>obtain fresh visiting experience - 获取新鲜观感</li>
+
+### 经济相关
+
+<li>boost/stimulate purchasing power - 提高购买力</li>
+<li>boost/stimulate sales in the market - 刺激市场销量</li>
+<li>(the market) reach saturation - 达到饱和</li>
+<li>leave little room for growth - 几乎没有增长空间</li>
+<li>(the growth) remain stagnant - 停滞不前</li>
+<li>(economy) grow steadily - 稳步发展</li>
+
+「评价」句型（积极消极各记一个）
+
+<font color="#FF0000">积极</font>
+
+In view of the analysis above, we can conclude that it <font color="#2A8ED3">is of little surprise</font> to see this scene in the current era.
+鉴于以上分析，在当今时代看到这种现象并不奇怪。
+
+<font color="#53AF6C">消极</font>
+
+In view of the analysis above, we can conclude that it <font color="#2A8ED3">is surprising</font> to see this phenomenon in the current era.
+鉴于以上分析，在当今时代看到这种现象是令人震惊的。
+
+<font color="#FF0000">积极-预测</font>
+
+Therefore, it can be predicted <font color="#2A8ED3">that 描述对象 will</font> still take up a large share in the future.
+因此，可以预测描述对象在未来也将占据很大份额。
+
+<font color="#53AF6C">消极-建议</font>
+
+Therefore, we need to take actions to address the problem.
+
+因此，我们需要采取行动来解决这一问题。
 
 
 
---------------------
 
-案例
 
-开头段-主体段-结尾段
+2016饼图范文（静态图通用）
+The chart clearly illustrates that <font color="#2A8ED3">college students</font> have different purposes of <font color="#2A8ED3">traveling</font>. Based on the data offered, one can clearly see that <font color="#2A8ED3">enjoying the beautiful scenery</font> ranks the first among all the categories, accounting for <font color="#2A8ED3">37%</font>. Next are <font color="#2A8ED3">relieving stress</font>, <font color="#2A8ED3">cultivating independent abilities</font> and <font color="#2A8ED3">others </font>with <font color="#2A8ED3">33%</font>,<font color="#2A8ED3"> 9%</font> and <font color="#2A8ED3">15%</font> respectively, while <font color="#2A8ED3">making friends</font> only constitutes <font color="#2A8ED3">6%</font>.  
 
-Dear classmates,
-I am writing this email to <font color="#2A8ED3">inform you some details that our class is to hold a charity sale
-for kids in need of help on the school playground in the evening of May 4th.</font>
-As we all know,there are many benefits to <font color="#2A8ED3">participate in the charity sale. </font>To begin with,it
-would be beneficial that we can <font color="#53AF6C">promote the qualities of the kids' lives</font> and <font color="#53AF6C">lighten financial
-burden of them and their family.</font> In addition,it is necessary for us to <font color="#53AF6C">shoulder the
-responsibility</font> and <font color="#53AF6C">be concerned about the society.</font> Last but not the least,another advantage is that you can <font color="#53AF6C">cultivate a strong sense of responsibility</font> and <font color="#53AF6C">achieve all-round development.</font>
-Please let me know whether you can come and whether the time is convenient for you. I am looking forward to your reply.
-Yours sincerely,
+From my perspective, it is of no difficulty to come up with two key factors to account for the scene. To begin with, the first contributing factor is that <font color="#53AF6C"><font color="#2A8ED3">traveling around</font></font>  enables <font color="#2A8ED3">college students</font> to <font color="#53AF6C">interact with local people</font> and <font color="#53AF6C">develop interpersonal relationship with them</font>. They can also <font color="#53AF6C">experience local culture in-depth</font>. In addition, another significant factor that cannot be ignored is that they can <font color="#53AF6C">make friends with people from different culture backgrounds</font> and <font color="#53AF6C">enjoy the good view</font> so that they can reduce their pressure.  
 
-Li Ming
+In view of the analysis above, we can conclude that it is of little surprise to see this scene in current era. (An increasing number of <font color="#53AF6C">college students are traveling in their spare time</font>. ) Therefore, it can be predicted that <font color="#2A8ED3">reducing stress</font> will take up a large share in the future.
 
------
+图位置预留
 
-亲爱的同学们：
 
-我写这封电子邮件是为了通知你一些细节，我们班将于5月4日晚上在学校操场为需要帮助的孩子举行慈善义卖。
 
-众所周知，参加慈善义卖有很多好处。首先，我们可以提高孩子们的生活质量，减轻他们和家人的经济负担
-这将是有益的。此外，我们有必要承担责任，关心社会。最后但并非最不重要的一点是，你可以培养强烈的责任感，
-实现全面发展。
+**「比趋势」类 「引出图表」句型** 
 
-请告诉我你是否能来，时间是否方便。我期待着你的回复。
+1. The chart clearly illustrates <font color="#2A8ED3">the remarkable changes in 话题</font> during the past several years. 
 
-谨上，
-李明
+上图清晰地显示，话题在过去几年里（明显）变化。 
 
----
+
+
+**「比趋势」句型框架** 
+
+Based on the data offered, one can clearly see that the <font color="#2A8ED3">number/amount of <font color="#FF0000">描述对象1 rose/fell</font> <font color="#2A8ED3">significantly/gradually</font> from <font color="#FF0000">数据 </font>in <font color="#2A8ED3">年份 </font>to <font color="#FF0000">数据 </font>in <font color="#2A8ED3">年份</font>, while that of <font color="#2A8ED3"><font color="#53AF6C">描述对象2</font> experienced a <font color="#2A8ED3">steady/ dramatic</font> <font color="#53AF6C">increase/decrease</font> during the same period, reaching <font color="#53AF6C">数据 </font>in <font color="#2A8ED3">年份</font>. 
+
+<font color="#9CA5AB">根据提供的数据，我们可以清楚地看出描述对象1的数据从年份数据</font>显著地/平稳地上升/下降<font color="#9CA5AB">到年份数据， 而描述对象2的数据在同一时期经历了</font>平稳的/显著的上升/下降，<font color="#9CA5AB">在年份达到数据。</font>
+
+
+
+
+
+**2017折线图范文（动态图通用）**
+
+The chart clearly illustrates <font color="#2A8ED3">the remarkable changes in the number of museums and their visitors in China</font> during the past several years. Based on the data offered, one can clearly see that <font color="#2A8ED3">the number of museums</font> rose significantly from <font color="#FF0000">4165 </font>in <font color="#FF0000">2013 </font>to <font color="#FF0000">4697 </font>in <font color="#FF0000">2015</font>, while that of <font color="#2A8ED3">their visitors</font> experienced a dramatic increase during the same period, reaching <font color="#FF0000">781.1 million</font> in <font color="#FF0000">2015</font>.  
+
+From my perspective, it is of no difficulty to come up with two key factors to account for the scene. To begin with, the first contributing factor is that <font color="#2A8ED3">visiting museums</font> enables <font color="#2A8ED3">people </font>to <font color="#53AF6C">appreciate numerous exhibits from around the world</font> and <font color="#53AF6C">enjoy more diverse culture</font>. In addition, another significant factor that cannot be ignored is that <font color="#2A8ED3">visitors </font>can <font color="#53AF6C">obtain fresh visiting experience</font> so that <font color="#2A8ED3">they </font>can <font color="#53AF6C">unwind and recharge themselves quickly</font>.  
+
+In view of the analysis above, we can conclude that it is of little surprise to see this scene in the current era. Therefore, it can be predicted that <font color="#2A8ED3">the number of museums and their visitors in China</font> will still keep this trend of growth in the future.
+
+图位置预留
+
+
+
+### **图表「比趋势」类模板**
+
+#### **第一部分：数据变化描述**
+
+The chart clearly illustrates the remarkable changes in the <font color="#2A8ED3">话题</font> during the past several years. Based on the data provided, one can clearly see that the number/amount of <font color="#2A8ED3">描述对象1</font> rose/fell significantly/gradually from <font color="#2A8ED3">数据 </font>in <font color="#2A8ED3">年份 </font>to <font color="#2A8ED3">数据 </font>in <font color="#2A8ED3">年份</font>, while that of <font color="#2A8ED3">描述对象2</font> experienced a gradual/significant increase/decrease during the same period, reaching <font color="#2A8ED3">数据 </font>in <font color="#2A8ED3">年份</font>.  
+
+From my perspective, it is of no difficulty to come up with two key factors to account for this phenomenon. To begin with, the first contributing factor is that <font color="#2A8ED3">[原因1]: 话题</font> enables people to <font color="#53AF6C">话题语料 </font>and <font color="#53AF6C">话题语料</font>. Besides, another important factor that cannot be ignored is that <font color="#2A8ED3">[原因2]</font>: they can <font color="#53AF6C">话题语料</font> and <font color="#53AF6C">话题语料</font> so that they can <font color="#53AF6C">话题语料</font>. <font color="#FF0000">【与比大小模板相同】</font>
+
+  (积极) 
+
+In view of the analysis above, we can conclude that it is of little surprise to see this phenomenon in the current era. Therefore, it can be predicted that <font color="#2A8ED3">描述对象</font> will still keep this trend of growth/decline in the future. 
+
+ (消极)
+
+In view of the analysis above, we can conclude that it is of surprise to see this phenomenon in the current era. Therefore, we need to take actions to address the problem.<font color="#FF0000">【与比大小模板相同】</font>
+
+
+
+图中清楚地说明了<font color="#2A8ED3">话题</font>在过去的几年里如何变化的。根据提供的数据，我们可以清楚地看到从哪年到哪描述对象1显著/轻微上升/下降从数据到数据，而描述对象2在同一时期经历一个轻微/显著上升/下降，在哪年达到数据。
+
+从我的角度来看，不难想到两个关键因素导致了这个现象。首先，第一个因素是原因1。此外，另一个不容忽视的重要因素是，原因2.
+（积极）鉴于上述分析，我们可以得出结论，在当今时代看到这种现象并不令人惊诉。因此，可以预测，描述对象1仍将在未来保持这种增长/下降趋势。
+
+（消极）鉴于上述分析，我们可以得出结论，在当今时代看到这种现象令人惊诉。因此，我们需要采取行动来解决这个问题。
+
+
+
+
+
+
+
+
+
+图表「比大小」类模板 
+
+The chart clearly illustrates people show different attitudes towards <font color="#2A8ED3">图表话题</font>. Based on the data provided, one can clearly see that <font color="#2A8ED3">描述对象1</font> ranks the first among all the categories, accounting for <font color="#2A8ED3">数据1</font>. Next are <font color="#2A8ED3">描述对象2</font> and <font color="#2A8ED3">描述对象3</font> with <font color="#2A8ED3">数据2</font> and <font color="#2A8ED3">数据3</font> respectively, while <font color="#2A8ED3">描述对象4</font> only constitute(s) <font color="#2A8ED3">数据4</font>.  
+
+From my perspective, it is of no difficulty to come up with two key factors to account for this phenomenon. To begin with, the first contributing factor is that <font color="#2A8ED3">[原因1]: 话题</font> enables people to <font color="#53AF6C">话题语料</font> and <font color="#53AF6C">话题语料</font>. Besides, another important factor that cannot be ignored is that <font color="#2A8ED3">[原因2]</font>: they can <font color="#53AF6C">话题语料</font> and <font color="#53AF6C">话题语料</font> so that they can <font color="#53AF6C">话题语料</font>. <font color="#FF0000">【与比趋势模板相同】</font>  
+
+积极
+
+In view of the analysis above, we can conclude that it is of little surprise to see this phenomenon in the current era. Therefore, it can be predicted that <font color="#2A8ED3">描述对象1</font> will still take up a large share in the future. 
+
+消极
+
+In view of the analysis above, we can conclude that it is of surprise to see this phenomenon in the current era. Therefore, we need to take actions to address the problem. <font color="#FF0000">【可用与比趋势模板相同】</font>
+
+
+
+
+
+该图清晰地显示出人们对不同的话题持有不同的观点。根据提供的数据，我们可以清楚地看到，描述对象1在所有类别中排名第一，占数据1。接下来是描述对象2和描述对象3，分别占有数据2和数据3，而描述对象4只占数据4.
+从我的角度来看，不难想到两个关键因素导致了这个现象。首先，第一个因素是原因1。此外，另一个不容忽视的重要因素是，原因2。鉴于上述分析，我们可以得出结论，在当今时代看到这种现象并不令人惊。
+积极
+
+鉴于上述分析，我们可以得出结论，在当今时代看到这种现象并不令人惊。因此，可以预测，描述对象1仍将在未来占据很大份额。
+
+消极
+
+鉴于上述分析，我们可以得出结论，在当今时代看到这种现象令人惊。因此，我们需要采取行动来解决这个问题，

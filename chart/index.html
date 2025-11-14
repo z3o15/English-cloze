@@ -5,167 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>图表作文 - 英语作文学习系统</title>
     <link rel="stylesheet" href="../assets/css/common.css">
-    <style>
-        /* 图表页面特定样式 */
-        .chart-intro {
-            background-color: #e8f5e9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #4caf50;
-        }
-        
-        .chart-types {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .chart-type-card {
-            flex: 1;
-            min-width: 200px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease;
-        }
-        
-        .chart-type-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .chart-icon {
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        
-        .chart-name {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-        
-        .chart-desc {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        
-        .expression-category {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f5f5f5;
-            border-radius: 8px;
-        }
-        
-        .expression-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        
-        .expression-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-        
-        .expression-item {
-            background: white;
-            padding: 10px;
-            border-radius: 5px;
-            border-left: 3px solid #4caf50;
-        }
-        
-        .english-expression {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .chinese-translation {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .template-section {
-            margin: 30px 0;
-            padding: 20px;
-            background-color: #f0f8ff;
-            border-radius: 8px;
-        }
-        
-        .template-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .template-content {
-            background: white;
-            padding: 15px;
-            border-radius: 5px;
-            line-height: 1.8;
-        }
-        
-        .highlight-placeholder {
-            background-color: #fff3cd;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-style: italic;
-        }
-        
-        .case-study {
-            margin: 30px 0;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-        }
-        
-        .case-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .chart-example {
-            margin: 20px 0;
-            text-align: center;
-        }
-        
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background-color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .data-table th, .data-table td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        
-        .data-table th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-        
-        .data-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        
-        .data-table tr:hover {
-            background-color: #f5f5f5;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/page-styles.css">
+    <link rel="stylesheet" href="../assets/css/navigation-enhanced.css">
 </head>
 <body>
     <!-- 导航栏 -->
@@ -188,234 +29,229 @@
 
     <div class="container">
         <div class="section">
-            <h1 class="title">图表作文</h1>
+            <h2 class="title">大作文写作指南</h2>
             
-            <div class="chart-intro">
-                <p>图表作文是英语学术写作中的重要形式，需要掌握描述数据、分析趋势和得出结论的技巧。本页面将帮助您学习各种图表类型的描述方法和常用表达。</p>
+            <!-- 基本要求 -->
+            <div class="content-box">
+                <div class="content-title">基本要求</div>
+                <ul>
+                    <li><strong>格式：</strong>不写标题</li>
+                    <li><strong>字数：</strong>字数适当，180词左右</li>
+                    <li><strong>字迹：</strong>字迹工整，尽量不涂改（写错单词轻轻划掉即可）</li>
+                </ul>
             </div>
-        </div>
-
-        <div class="separator"></div>
-
-        <div class="section">
-            <h2 class="title">常见图表类型</h2>
             
-            <div class="chart-types">
-                <div class="chart-type-card">
-                    <div class="chart-icon">📊</div>
-                    <div class="chart-name">柱状图 (Bar Chart)</div>
-                    <div class="chart-desc">用于比较不同类别之间的数据大小，展示数量关系</div>
-                </div>
+            <!-- 三段式结构 -->
+            <div class="content-title">三段式结构 (7/8句)<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+            <div class="content-box">
+                <ul>
+                    <strong>开头段 (2/3句)</strong>
+                    <li>引出图表</li>
+                    <li>描述图表</li>
+                    <li>比大小/比趋势</li>
+                    <strong>主体段 (2/3句)</strong>
+                    <li>分析原因</li>
+                    <li>有时间变化 重点「比趋势」</li>
+                    <li>无时间变化重点「比大小」</li>
+                   <strong>总结</strong>
+                    <li>评价+建议/预测</li>
+                </ul>
+            </div>
+            
+            <!-- 比大小类图表写作指南 -->
+            <div class="content-box">
+                <div class="content-title">"比大小"类图表写作指南</div>
                 
-                <div class="chart-type-card">
-                    <div class="chart-icon">📈</div>
-                    <div class="chart-name">线形图 (Line Chart)</div>
-                    <div class="chart-desc">用于显示数据随时间的变化趋势，展示发展动态</div>
-                </div>
+                <div class="content-title">引出图表句型<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="english-expression">The chart clearly illustrates <span class="color-red">that+句子</span>。</div>
+                <div class="chinese-translation">上图清晰显示，</div>
+                <div class="english-expression"><span class="color-red">that+句子</span>： <span class="color-blue">调查对象</span> have different purposes of / show different attitudes towards <span class="color-blue">图表话题</span></div>
+                <div class="chinese-translation"><span class="color-gray">调查对象对于图表话题有不同的目的/有不同的态度</span></div>
+                <div class="english-expression">Based on the data offered, one can clearly see that <span class="color-red">描述对象1</span> ranks the first/highest among all the categories, accounting for <span class="color-red">数据1</span>. Next are <span class="color-blue">描述对象2</span> and <span class="color-blue">描述对象3</span> (with <span class="color-blue">数据2</span> and <span class="color-blue">数据3</span> respectively), while <span class="color-blue">描述对象4</span> only constitutes <span class="color-blue">数据4</span>.</div>
+                <div class="chinese-translation"><span class="color-gray">根据提供的数据，我们可以清楚地看出描述对象1在所有项中排名第一，占了数据1。其次是描述对象2和3, 分别占数据2和3，而描述对象4只占了数据4.</span></div>
+                <div class="english-expression">注意：如果有4个以上的描述对象，重点写最值，中间值可以放在一起写或忽略某个数据。</div>
+                <div class="chinese-translation"></div>
                 
-                <div class="chart-type-card">
-                    <div class="chart-icon">🥧</div>
-                    <div class="chart-name">饼图 (Pie Chart)</div>
-                    <div class="chart-desc">用于展示各部分占总体的比例关系，显示组成结构</div>
-                </div>
+                <div class="content-title">引出话题句型<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="english-expression">From my perspective, it is of no difficulty to come up with two key factors to account for the scene.</div>
+                <div class="chinese-translation"><span class="color-gray">从我的角度来看想出解释这一现象的两个关键因素并不困难。</span></div>
                 
-                <div class="chart-type-card">
-                    <div class="chart-icon">📋</div>
-                    <div class="chart-name">表格 (Table)</div>
-                    <div class="chart-desc">用于呈现具体数值数据，便于精确比较和分析</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="separator"></div>
-
-        <div class="section">
-            <h2 class="title">常用表达句型<button class="read-section-btn" onclick="readSectionText(this)" title="朗读常用表达">▶</button></h2>
-            
-            <div class="expression-category">
-                <div class="expression-title">描述趋势</div>
-                <div class="expression-grid">
-                    <div class="expression-item">
-                        <div class="english-expression">increase / rise / grow</div>
-                        <div class="chinese-translation">增加 / 上升 / 增长</div>
-                    </div>
-                    <div class="expression-item">
-                        <div class="english-expression">decrease / fall / decline</div>
-                        <div class="chinese-translation">减少 / 下降 / 降低</div>
-                    </div>
-                    <div class="expression-item">
-                        <div class="english-expression">remain stable / stay constant</div>
-                        <div class="chinese-translation">保持稳定 / 维持不变</div>
-                    </div>
-                    <div class="expression-item">
-                        <div class="english-expression">fluctuate / vary</div>
-                        <div class="chinese-translation">波动 / 变化</div>
-                    </div>
-                </div>
+                <div class="content-title">2个原因句型<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="english-expression">The first contributing factor is that +句子。</div>
+                <div class="chinese-translation"><span class="color-gray">第一个起作用的因素是</span></div>
+                <div class="english-expression">Another important factor that cannot be ignored is that +句子</div>
+                <div class="chinese-translation"><span class="color-gray">另一个不能忽视的重要因素是。</span></div>
+                
+                <div class="content-title">评价句型<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="english-expression"><span class="color-red">积极</span></div>
+                <div class="english-expression">In view of the analysis above, we can conclude that it <span class="color-blue">is of little surprise</span> to see this scene in the current era.</div>
+                <div class="chinese-translation">鉴于以上分析，在当今时代看到这种现象并不奇怪。</div>
+                <div class="english-expression"><span class="color-green">消极</span></div>
+                <div class="english-expression">In view of the analysis above, we can conclude that it <span class="color-blue">is surprising</span> to see this phenomenon in the current era.</div>
+                <div class="chinese-translation">鉴于以上分析，在当今时代看到这种现象是令人震惊的。</div>
+                
+                <div class="content-title">预测/建议句型<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="english-expression"><span class="color-red">积极-预测</span></div>
+                <div class="english-expression">Therefore, it can be predicted <span class="color-blue">that 描述对象 will</span> still take up a large share in the future.</div>
+                <div class="chinese-translation">因此，可以预测描述对象在未来也将占据很大份额。</div>
+                <div class="english-expression"><span class="color-green">消极-建议</span></div>
+                <div class="english-expression">Therefore, we need to take actions to address the <span class="color-blue">problem</span>.</div>
+                <div class="chinese-translation">因此，我们需要采取行动来解决这一问题。</div>
             </div>
             
-            <div class="expression-category">
-                <div class="expression-title">数据对比</div>
-                <div class="expression-grid">
-                    <div class="expression-item">
-                        <div class="english-expression">compared with / in comparison with</div>
-                        <div class="chinese-translation">与...相比</div>
-                    </div>
-                    <div class="expression-item">
-                        <div class="english-expression">while / whereas</div>
-                        <div class="chinese-translation">而 / 然而</div>
-                    </div>
-                    <div class="expression-item">
-                        <div class="english-expression">the highest / the lowest</div>
-                        <div class="chinese-translation">最高 / 最低</div>
-                    </div>
-                    <div class="expression-item">
-                        <div class="english-expression">surpass / exceed</div>
-                        <div class="chinese-translation">超过 / 超出</div>
-                    </div>
-                </div>
+            <!-- 比趋势类图表写作指南 -->
+            <div class="content-box">
+                <div class="content-title">"比趋势"类图表写作指南</div>
+                
+                <div class="content-title">引出图表句型<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="english-expression">The chart clearly illustrates <span class="color-blue">the remarkable changes in 话题</span> during the past several years.</div>
+                <div class="chinese-translation">上图清晰地显示，话题在过去几年里（明显）变化。</div>
+                
+                <div class="content-title">比趋势句型框架<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="english-expression">Based on the <span class="color-blue">data</span> offered, one can clearly see that the <span class="color-blue">number/amount of <span class="color-red">描述对象1 rose/fell</span> <span class="color-blue">significantly/gradually</span> from <span class="color-red">数据 </span>in <span class="color-blue">年份 </span>to <span class="color-red">数据 </span>in <span class="color-blue">年份</span>, while that of <span class="color-blue"><span class="color-green">描述对象2</span></span> experienced a <span class="color-blue">steady/ dramatic</span> <span class="color-green">increase/decrease</span> during the same period, reaching <span class="color-green">数据 </span>in <span class="color-blue">年份</span>.</div>
+                <div class="chinese-translation"><span class="color-gray">根据提供的数据，我们可以清楚地看出描述对象1的数据从年份数据</span>显著地/平稳地上升/下降<span class="color-gray">到年份数据， 而描述对象2的数据在同一时期经历了</span>平稳的/显著的上升/下降，<span class="color-gray">在年份达到数据。</span></div>
             </div>
             
-            <div class="expression-category">
-                <div class="expression-title">占比表达</div>
-                <div class="expression-grid">
-                    <div class="expression-item">
-                        <div class="english-expression">account for / make up</div>
-                        <div class="chinese-translation">占（比例）</div>
-                    </div>
-                    <div class="expression-item">
-                        <div class="english-expression">constitute / comprise</div>
-                        <div class="chinese-translation">构成 / 组成</div>
-                    </div>
-                    <div class="expression-item">
-                        <div class="english-expression">the majority of</div>
-                        <div class="chinese-translation">大部分</div>
-                    </div>
-                    <div class="expression-item">
-                        <div class="english-expression">a small proportion of</div>
-                        <div class="chinese-translation">一小部分</div>
-                    </div>
+            <!-- 图表模板完整版 -->
+            <div class="content-box">
+                <div class="content-title">图表「比趋势」类模板</div>
+                
+                <div class="content-title">第一部分：数据变化描述<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="english-expression">
+                    The chart clearly illustrates the remarkable changes in the <span class="color-blue">话题</span> during the past several years. Based on the data provided, one can clearly see that the number/amount of <span class="color-blue">描述对象1</span> rose/fell significantly/gradually from <span class="color-blue">数据 </span>in <span class="color-blue">年份 </span>to <span class="color-blue">数据 </span>in <span class="color-blue">年份</span>, while that of <span class="color-blue">描述对象2</span> experienced a gradual/significant increase/decrease during the same period, reaching <span class="color-blue">数据 </span>in <span class="color-blue">年份</span>.
                 </div>
-            </div>
-        </div>
-
-        <div class="separator"></div>
-
-        <div class="section">
-            <h2 class="title">图表作文结构模板</h2>
-            
-            <div class="template-section">
-                <div class="template-title">开头段模板</div>
-                <div class="template-content">
-                    <p>The <span class="highlight-placeholder">图表类型</span> shows/illustrates/demonstrates <span class="highlight-placeholder">图表主题</span> over the period from <span class="highlight-placeholder">起始时间</span> to <span class="highlight-placeholder">结束时间</span>.</p>
-                    <p>Overall, it is clear that <span class="highlight-placeholder">总体趋势或主要发现</span>.</p>
+                <div class="chinese-translation">
+                    图中清楚地说明了<span class="color-blue">话题</span>在过去的几年里如何变化的。根据提供的数据，我们可以清楚地看到从哪年到哪描述对象1显著/轻微上升/下降从数据到数据，而描述对象2在同一时期经历一个轻微/显著上升/下降，在哪年达到数据。
+                </div>
+                 <div class="english-expression">
+                    From my perspective, it is of no difficulty to come up with two key factors to account for this phenomenon. To begin with, the first contributing factor is that <span class="color-blue">[原因1]: 话题</span> enables people to <span class="color-green">话题语料 </span>and <span class="color-green">话题语料</span>. Besides, another important factor that cannot be ignored is that <span class="color-blue">[原因2]</span>: they can <span class="color-green">话题语料</span> and <span class="color-green">话题语料</span> so that they can <span class="color-green">话题语料</span>. <span class="color-red">【与比大小模板相同】</span>
+                </div>
+                <div class="chinese-translation">
+                    从我的角度来看，不难想到两个关键因素导致了这个现象。首先，第一个因素是原因1。此外，另一个不容忽视的重要因素是，原因2。
+                </div>
+                <div class="english-expression">
+                    <strong>(积极)</strong><br>
+                    In view of the analysis above, we can conclude that it is of little surprise to see this phenomenon in the current era. Therefore, it can be predicted that <span class="color-blue">描述对象</span> will still keep this trend of growth/decline in the future.
+                </div>
+                <div class="chinese-translation">
+                    (积极) 鉴于上述分析，我们可以得出结论，在当今时代看到这种现象并不令人惊诉。因此，可以预测，描述对象1仍将在未来保持这种增长/下降趋势。
+                </div>
+                <div class="english-expression">
+                    <strong>(消极)</strong><br>
+                    In view of the analysis above, we can conclude that it is of surprise to see this phenomenon in the current era. Therefore, we need to take actions to address the problem.<span class="color-red">【与比大小模板相同】</span>
+                </div>
+                <div class="chinese-translation">
+                    (消极) 鉴于上述分析，我们可以得出结论，在当今时代看到这种现象令人惊诉。因此，我们需要采取行动来解决这个问题。
                 </div>
             </div>
             
-            <div class="template-section">
-                <div class="template-title">主体段模板</div>
-                <div class="template-content">
-                    <p>According to the data, <span class="highlight-placeholder">具体数据描述1</span>. In addition, <span class="highlight-placeholder">具体数据描述2</span>.</p>
-                    <p>It is worth noting that <span class="highlight-placeholder">值得注意的数据点</span>. By contrast, <span class="highlight-placeholder">对比数据</span>.</p>
-                </div>
-            </div>
-            
-            <div class="template-section">
-                <div class="template-title">结尾段模板</div>
-                <div class="template-content">
-                    <p>In conclusion, the <span class="highlight-placeholder">图表类型</span> reveals that <span class="highlight-placeholder">主要结论</span>.</p>
-                    <p>This trend may indicate that <span class="highlight-placeholder">趋势可能的原因或影响</span>.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="separator"></div>
-
-        <div class="section">
-            <h2 class="title">图表作文案例</h2>
-            
-            <div class="case-study">
-                <div class="case-title">柱状图案例 - 学生成绩分布<button class="read-section-btn" onclick="readSectionText(this)" title="朗读案例">▶</button></div>
+            <div class="content-box">
+                <div class="content-title">图表「比大小」类模板</div>
                 
-                <div class="chart-example">
-                    <div class="chart-placeholder">
-                        [柱状图：某班级学生各科目成绩分布]
+                <div class="content-title">第一部分：数据变化描述<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="english-expression">
+                    The chart clearly illustrates people show different attitudes towards <span class="color-blue">图表话题</span>. Based on the data provided, one can clearly see that <span class="color-blue">描述对象1</span> ranks the first among all the categories, accounting for <span class="color-blue">数据1</span>. Next are <span class="color-blue">描述对象2</span> and <span class="color-blue">描述对象3</span> with <span class="color-blue">数据2</span> and <span class="color-blue">数据3</span> respectively, while <span class="color-blue">描述对象4</span> only constitute(s) <span class="color-blue">数据4</span>.
+                </div>
+                <div class="chinese-translation">
+                    该图清晰地显示出人们对不同的话题持有不同的观点。根据提供的数据，我们可以清楚地看到，描述对象1在所有类别中排名第一，占数据1。接下来是描述对象2和描述对象3，分别占有数据2和数据3，而描述对象4只占数据4。
+                </div>
+                <div class="english-expression">
+                    From my perspective, it is of no difficulty to come up with two key factors to account for this phenomenon. To begin with, the first contributing factor is that <span class="color-blue">[原因1]: 话题</span> enables people to <span class="color-green">话题语料</span> and <span class="color-green">话题语料</span>. Besides, another important factor that cannot be ignored is that <span class="color-blue">[原因2]</span>: they can <span class="color-green">话题语料</span> and <span class="color-green">话题语料</span> so that they can <span class="color-green">话题语料</span>. <span class="color-red">【与比趋势模板相同】</span>
+                </div>
+                <div class="chinese-translation">
+                    从我的角度来看，不难想到两个关键因素导致了这个现象。首先，第一个因素是原因1。此外，另一个不容忽视的重要因素是，原因2。
+                </div>
+                <div class="english-expression">
+                    <strong>(积极)</strong><br>
+                    In view of the analysis above, we can conclude that it is of little surprise to see this phenomenon in the current era. Therefore, it can be predicted that <span class="color-blue">描述对象1</span> will still take up a large share in the future.
+                </div>
+                <div class="chinese-translation">
+                    (积极) 鉴于上述分析，我们可以得出结论，在当今时代看到这种现象并不令人惊。因此，可以预测，描述对象1仍将在未来占据很大份额。
+                </div>
+                <div class="english-expression">
+                    <strong>(消极)</strong><br>
+                    In view of the analysis above, we can conclude that it is of surprise to see this phenomenon in the current era. Therefore, we need to take actions to address the problem. <span class="color-red">【可用与比趋势模板相同】</span>
+                </div>
+                <div class="chinese-translation">
+                    (消极) 鉴于上述分析，我们可以得出结论，在当今时代看到这种现象令人惊。因此，我们需要采取行动来解决这个问题。
+                </div>
+            </div>
+            
+            <!-- 常用词汇和短语 -->
+            <div class="content-box">
+                <div class="content-title">常用词汇和短语<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                
+                <div class="content-title">生活相关<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <ul>
+                    <li>enjoy scenery - 欣赏美景</li>
+                    <li>enjoy numerous exhibits from around the world - 欣赏世界各地的多种展览</li>
+                    <li>undertake further study - 进行深造</li>
+                    <li>start a business - 创业</li>
+                    <li>learn/acquire language - 获取知识</li>
+                    <li>be lured to going out of campus - 乐意走出校园</li>
+                    <li>seek fun and enjoyment - 寻找快乐</li>
+                    <li>unwind and recharge - 放松和充电</li>
+                    <li>obtain fresh visiting experience - 获取新鲜观感</li>
+                </ul>
+                
+                <div class="content-title">经济相关<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <ul>
+                    <li>boost/stimulate purchasing power - 提高购买力</li>
+                    <li>boost/stimulate sales in the market - 刺激市场销量</li>
+                    <li>(the market) reach saturation - 达到饱和</li>
+                    <li>leave little room for growth - 几乎没有增长空间</li>
+                    <li>(the growth) remain stagnant - 停滞不前</li>
+                    <li>(economy) grow steadily - 稳步发展</li>
+                </ul>
+            </div>
+            
+            <!-- 完整范文示例 -->
+            <div class="content-box">
+                <div class="content-title">完整范文示例</div>
+                
+                    <div class="content-title">2016饼图范文（静态图通用）<button class="read-btn" onclick="readSectionText(this)" title="朗读范文">▶</button></div>
+                    
+                    <div class="chart-example">
+                        <div class="chart-placeholder">
+                            [饼图：大学生旅游目的分布]
+                        </div>
                     </div>
-                </div>
-                
-                <div class="english-text">
-                    <p><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">The</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">bar</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">chart</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">illustrates</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">distribution</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">student</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">grades</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">across</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">different</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">subjects</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">Class</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">10A</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">during</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">spring</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">semester</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
-                    <p><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">Overall</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">it</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">is</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">evident</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">that</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">Mathematics</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">had</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">highest</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">average</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">score</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">while</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">English</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">showed</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">most</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">consistent</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">performance</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">across</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">all</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">students</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
-                </div>
-                
-                <div class="chinese-text">
-                    <p>该柱状图展示了10A班学生在春季学期各科目成绩的分布情况。</p>
-                    <p>总体而言，很明显数学的平均分最高，而英语在所有学生中表现最为稳定。</p>
-                </div>
-            </div>
-            
-            <div class="case-study">
-                <div class="case-title">线形图案例 - 人口变化趋势<button class="read-section-btn" onclick="readSectionText(this)" title="朗读案例">▶</button></div>
-                
-                <div class="chart-example">
-                    <div class="chart-placeholder">
-                        [线形图：某城市2010-2020年人口变化趋势]
+                    
+                    <div class="english-text">
+                        <p><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">The</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">chart</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">clearly</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">illustrates</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">college</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">students</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">have</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">different</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">purposes</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">of</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">traveling</span></span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">Based</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">on</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">data</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">offered</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">one</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">can</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">clearly</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">see</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">enjoying</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">beautiful</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">scenery</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">ranks</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">first</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">among</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">all</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">categories</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">accounting</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">for</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">37%</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">Next</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">are</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">relieving</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">stress</span></span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">cultivating</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">independent</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">abilities</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">and</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">others</span></span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">with</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">33%</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span><span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)"> 9%</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">and</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">15%</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">respectively</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">while</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">making</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">friends</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">only</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">constitutes</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">6%</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
+                        
+                        <p><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">From</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">my</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">perspective</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">it</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">is</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">no</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">difficulty</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">to</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">come</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">up</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">with</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">two</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">key</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">factors</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">to</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">account</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">for</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">scene</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">To</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">begin</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">with</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">first</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">contributing</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">factor</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">is</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="color-green"><span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">traveling</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">around</span></span></span></span>  <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">enables</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">college</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">students</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">to</span></span> <span class="color-green"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">interact</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">with</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">local</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">people</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">and</span></span> <span class="color-green"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">develop</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">interpersonal</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">relationship</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">with</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">them</span></span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">They</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">can</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">also</span></span> <span class="color-green"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">experience</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">local</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">culture</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in-depth</span></span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">In</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">addition</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">another</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">significant</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">factor</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">that</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">cannot</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">be</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">ignored</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">is</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">they</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">can</span></span> <span class="color-green"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">make</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">friends</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">with</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">people</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">from</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">different</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">culture</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">backgrounds</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">and</span></span> <span class="color-green"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">enjoy</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">good</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">view</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">so</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">they</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">can</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">reduce</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">their</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">pressure</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
+                        
+                        <p><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">In</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">view</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">analysis</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">above</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">we</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">can</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">conclude</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">it</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">is</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">little</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">surprise</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">to</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">see</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">this</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">scene</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">current</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">era</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">(</span></span><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">An</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">increasing</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">number</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">of</span></span> <span class="color-green"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">college</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">students</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">are</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">traveling</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">their</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">spare</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">time</span></span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">)</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">Therefore</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">it</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">can</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">be</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">predicted</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">reducing</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">stress</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">will</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">take</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">up</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">a</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">large</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">share</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">future</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
                     </div>
-                </div>
+                    
+                    <div class="chinese-text">
+                        <p>该图表清晰显示大学生有不同的旅游目的。根据提供的数据，我们可以清楚地看出欣赏美景在所有类别中排名第一，占37%。其次是缓解压力、培养独立能力和其他，分别占33%、9%和15%，而交朋友只占6%。</p>
+                        <p>从我的角度来看，想出解释这一现象的两个关键因素并不困难。首先，第一个起作用的因素是环游使大学生能够与当地人互动并发展人际关系。他们还可以深入体验当地文化。此外，另一个不容忽视的重要因素是他们可以与来自不同文化背景的人交朋友并欣赏美景，从而减轻压力。</p>
+                        <p>鉴于以上分析，我们可以得出结论，在当今时代看到这种现象并不奇怪。（越来越多的大学生正在业余时间旅行。）因此，可以预测减轻压力在未来将占据很大份额。</p>
+                    </div>
                 
-                <div class="english-text">
-                    <p><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">The</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">line</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">graph</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">depicts</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">population</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">changes</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">City</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">X</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">between</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">2010</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">and</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">2020</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
-                    <p><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">According</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">to</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">data</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">population</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">experienced</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">steady</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">growth</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">during</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">this</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">period</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">increasing</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">from</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">approximately</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">500</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">000</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">to</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">over</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">750</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">000</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">residents</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
-                </div>
-                
-                <div class="chinese-text">
-                    <p>该线形图描述了X市在2010年至2020年间的人口变化情况。</p>
-                    <p>根据数据，该市人口在此期间经历了稳定增长，从约50万增加到超过75万居民。</p>
-                </div>
-            </div>
-            
-            <div class="case-study">
-                <div class="case-title">表格案例 - 销售数据对比<button class="read-section-btn" onclick="readSectionText(this)" title="朗读案例">▶</button></div>
-                
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>产品类别</th>
-                            <th>2021年销售额(万元)</th>
-                            <th>2022年销售额(万元)</th>
-                            <th>增长率</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>电子产品</td>
-                            <td>120</td>
-                            <td>150</td>
-                            <td>25%</td>
-                        </tr>
-                        <tr>
-                            <td>服装</td>
-                            <td>80</td>
-                            <td>75</td>
-                            <td>-6.25%</td>
-                        </tr>
-                        <tr>
-                            <td>食品</td>
-                            <td>200</td>
-                            <td>220</td>
-                            <td>10%</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <div class="english-text">
-                    <p><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">The</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">table</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">presents</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">a</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">comparison</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">sales</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">figures</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">for</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">different</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">product</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">categories</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">between</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">2021</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">and</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">2022</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
-                    <p><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">Notably</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">electronic</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">products</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">showed</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">highest</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">growth</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">rate</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">at</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">25%</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">while</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">clothing</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">experienced</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">a</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">decline</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">6.25%</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
-                </div>
-                
-                <div class="chinese-text">
-                    <p>该表格展示了2021年至2022年间不同产品类别的销售数据对比。</p>
-                    <p>值得注意的是，电子产品显示了最高的增长率，达到25%，而服装类别则下降了6.25%。</p>
+                    <div class="content-title">2017折线图范文（动态图通用）<button class="read-btn" onclick="readSectionText(this)" title="朗读范文">▶</button></div>
+                    
+                    <div class="chart-example">
+                        <div class="chart-placeholder">
+                            [折线图：中国博物馆数量及访客数量变化]
+                        </div>
+                    </div>
+                    
+                    <div class="english-text">
+                        <p><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">The</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">chart</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">clearly</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">illustrates</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">remarkable</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">changes</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">number</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">museums</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">and</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">their</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">visitors</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">China</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">during</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">past</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">several</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">years</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">Based</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">on</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">data</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">offered</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">one</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">can</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">clearly</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">see</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">number</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">museums</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">rose</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">significantly</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">from</span></span> <span class="color-red"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">4165</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="color-red"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">2013</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">to</span></span> <span class="color-red"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">4697</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="color-red"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">2015</span></span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">while</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">of</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">their</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">visitors</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">experienced</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">a</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">dramatic</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">increase</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">during</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">same</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">period</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">reaching</span></span> <span class="color-red"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">781.1</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">million</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="color-red"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">2015</span></span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
+                        
+                        <p><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">From</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">my</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">perspective</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">it</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">is</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">no</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">difficulty</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">to</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">come</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">up</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">with</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">two</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">key</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">factors</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">to</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">account</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">for</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">scene</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">To</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">begin</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">with</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">first</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">contributing</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">factor</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">is</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">visiting</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">museums</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">enables</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">people</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">to</span></span> <span class="color-green"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">appreciate</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">numerous</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">exhibits</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">from</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">around</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">world</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">and</span></span> <span class="color-green"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">enjoy</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">more</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">diverse</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">culture</span></span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">In</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">addition</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">another</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">significant</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">factor</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">that</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">cannot</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">be</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">ignored</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">is</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">visitors</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">can</span></span> <span class="color-green"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">obtain</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">fresh</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">visiting</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">experience</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">so</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">they</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">can</span></span> <span class="color-green"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">unwind</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">and</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">recharge</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">themselves</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">quickly</span></span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
+                        
+                        <p><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">In</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">view</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">analysis</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">above</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">we</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">can</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">conclude</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">it</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">is</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">little</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">surprise</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">to</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">see</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">this</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">scene</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">current</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">era</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">Therefore</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">,</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">it</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">can</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">be</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">predicted</span></span> <span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">that</span></span> <span class="color-blue"><span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">number</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">museums</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">and</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">their</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">visitors</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">China</span></span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">will</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">still</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">keep</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">this</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">trend</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">of</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">growth</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">in</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">the</span></span> <span class="word-wrap"><span class="word level-2" onclick="toggleTranslation(this)">future</span></span><span class="word-wrap"><span class="word level-1" onclick="toggleTranslation(this)">.</span></span></p>
+                    </div>
+                    
+                    <div class="chinese-text">
+                        <p>该图表清晰显示了中国博物馆数量及其访客数量在过去几年里的显著变化。根据提供的数据，我们可以清楚地看出博物馆数量从2013年的4165家显著增加到2015年的4697家，而其访客数量在同一时期经历了急剧增长，在2015年达到7.811亿。</p>
+                        <p>从我的角度来看，想出解释这一现象的两个关键因素并不困难。首先，第一个起作用的因素是参观博物馆使人们能够欣赏世界各地的众多展览并享受更多元的文化。此外，另一个不容忽视的重要因素是访客可以获得新鲜的参观体验，以便他们能够快速放松和充电。</p>
+                        <p>鉴于以上分析，我们可以得出结论，在当今时代看到这种现象并不奇怪。因此，可以预测中国博物馆数量及其访客数量在未来仍将保持这种增长趋势。</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -514,18 +350,321 @@
             "25%": {"translation": "25%", "level": 1},
             "clothing": {"translation": "服装", "level": 2},
             "decline": {"translation": "下降", "level": 2},
-            "6.25%": {"translation": "6.25%", "level": 1}
-        };
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // 默认只显示中级难度单词的翻译
-            EnglishLearningCommon.setDefaultTranslations(2);
+            "6.25%": {"translation": "6.25%", "level": 1},
             
-            // 案例部分：显示所有超过3个字母的单词的翻译
-            EnglishLearningCommon.setCaseStudyTranslations();
+            // 大作文相关词汇
+            "college": {"translation": "大学", "level": 2},
+            "students": {"translation": "学生", "level": 1},
+            "purposes": {"translation": "目的", "level": 2},
+            "traveling": {"translation": "旅行", "level": 2},
+            "Based": {"translation": "基于", "level": 2},
+            "offered": {"translation": "提供的", "level": 2},
+            "one": {"translation": "我们", "level": 1},
+            "can": {"translation": "可以", "level": 1},
+            "see": {"translation": "看到", "level": 1},
+            "enjoying": {"translation": "享受", "level": 2},
+            "beautiful": {"translation": "美丽的", "level": 2},
+            "scenery": {"translation": "风景", "level": 2},
+            "ranks": {"translation": "排名", "level": 2},
+            "first": {"translation": "第一", "level": 1},
+            "among": {"translation": "在...中", "level": 2},
+            "all": {"translation": "所有", "level": 1},
+            "categories": {"translation": "类别", "level": 2},
+            "accounting": {"translation": "占", "level": 2},
+            "for": {"translation": "对于", "level": 1},
+            "Next": {"translation": "接下来", "level": 1},
+            "are": {"translation": "是", "level": 1},
+            "relieving": {"translation": "缓解", "level": 2},
+            "stress": {"translation": "压力", "level": 2},
+            "cultivating": {"translation": "培养", "level": 2},
+            "independent": {"translation": "独立的", "level": 2},
+            "abilities": {"translation": "能力", "level": 2},
+            "others": {"translation": "其他", "level": 1},
+            "with": {"translation": "与", "level": 1},
+            "respectively": {"translation": "分别", "level": 2},
+            "making": {"translation": "交", "level": 1},
+            "friends": {"translation": "朋友", "level": 1},
+            "only": {"translation": "只", "level": 1},
+            "constitutes": {"translation": "构成", "level": 2},
+            "From": {"translation": "从", "level": 1},
+            "my": {"translation": "我的", "level": 1},
+            "perspective": {"translation": "角度", "level": 2},
+            "is": {"translation": "是", "level": 1},
+            "of": {"translation": "的", "level": 1},
+            "no": {"translation": "没有", "level": 1},
+            "difficulty": {"translation": "困难", "level": 2},
+            "to": {"translation": "来", "level": 1},
+            "come": {"translation": "想出", "level": 1},
+            "up": {"translation": "想出", "level": 1},
+            "two": {"translation": "两个", "level": 1},
+            "key": {"translation": "关键", "level": 2},
+            "factors": {"translation": "因素", "level": 2},
+            "account": {"translation": "解释", "level": 2},
+            "scene": {"translation": "现象", "level": 2},
+            "To": {"translation": "首先", "level": 1},
+            "begin": {"translation": "开始", "level": 1},
+            "with": {"translation": "与", "level": 1},
+            "first": {"translation": "第一个", "level": 1},
+            "contributing": {"translation": "起作用的", "level": 2},
+            "factor": {"translation": "因素", "level": 2},
+            "that": {"translation": "那个", "level": 1},
+            "traveling": {"translation": "旅行", "level": 2},
+            "around": {"translation": "环游", "level": 2},
+            "enables": {"translation": "使能够", "level": 2},
+            "interact": {"translation": "互动", "level": 2},
+            "local": {"translation": "当地", "level": 2},
+            "people": {"translation": "人", "level": 1},
+            "develop": {"translation": "发展", "level": 2},
+            "interpersonal": {"translation": "人际", "level": 2},
+            "relationship": {"translation": "关系", "level": 2},
+            "them": {"translation": "他们", "level": 1},
+            "They": {"translation": "他们", "level": 1},
+            "also": {"translation": "也", "level": 1},
+            "can": {"translation": "可以", "level": 1},
+            "experience": {"translation": "体验", "level": 2},
+            "culture": {"translation": "文化", "level": 2},
+            "in-depth": {"translation": "深入", "level": 2},
+            "In": {"translation": "此外", "level": 1},
+            "addition": {"translation": "此外", "level": 2},
+            "another": {"translation": "另一个", "level": 1},
+            "significant": {"translation": "重要的", "level": 2},
+            "cannot": {"translation": "不能", "level": 1},
+            "be": {"translation": "被", "level": 1},
+            "ignored": {"translation": "忽视", "level": 2},
+            "make": {"translation": "交", "level": 1},
+            "from": {"translation": "来自", "level": 1},
+            "different": {"translation": "不同的", "level": 1},
+            "backgrounds": {"translation": "背景", "level": 2},
+            "so": {"translation": "以便", "level": 1},
+            "reduce": {"translation": "减轻", "level": 2},
+            "their": {"translation": "他们的", "level": 1},
+            "pressure": {"translation": "压力", "level": 2},
+            "In": {"translation": "鉴于", "level": 1},
+            "view": {"translation": "鉴于", "level": 1},
+            "analysis": {"translation": "分析", "level": 2},
+            "above": {"translation": "以上", "level": 1},
+            "we": {"translation": "我们", "level": 1},
+            "conclude": {"translation": "得出结论", "level": 2},
+            "little": {"translation": "不", "level": 1},
+            "surprise": {"translation": "奇怪", "level": 2},
+            "current": {"translation": "当今", "level": 2},
+            "era": {"translation": "时代", "level": 2},
+            "An": {"translation": "越来越多", "level": 1},
+            "increasing": {"translation": "越来越多", "level": 2},
+            "number": {"translation": "数量", "level": 2},
+            "spare": {"translation": "业余", "level": 2},
+            "time": {"translation": "时间", "level": 1},
+            "Therefore": {"translation": "因此", "level": 2},
+            "predicted": {"translation": "预测", "level": 2},
+            "will": {"translation": "将", "level": 1},
+            "still": {"translation": "仍将", "level": 1},
+            "take": {"translation": "占据", "level": 1},
+            "large": {"translation": "很大", "level": 1},
+            "share": {"translation": "份额", "level": 2},
+            "future": {"translation": "未来", "level": 2},
+            
+            // 比趋势类范文词汇
+            "remarkable": {"translation": "显著的", "level": 2},
+            "changes": {"translation": "变化", "level": 2},
+            "museums": {"translation": "博物馆", "level": 2},
+            "visitors": {"translation": "访客", "level": 2},
+            "China": {"translation": "中国", "level": 1},
+            "rose": {"translation": "增加", "level": 2},
+            "significantly": {"translation": "显著地", "level": 2},
+            "4165": {"translation": "4165", "level": 1},
+            "2013": {"translation": "2013", "level": 1},
+            "4697": {"translation": "4697", "level": 1},
+            "2015": {"translation": "2015", "level": 1},
+            "experienced": {"translation": "经历", "level": 2},
+            "dramatic": {"translation": "急剧的", "level": 2},
+            "increase": {"translation": "增长", "level": 2},
+            "during": {"translation": "在...期间", "level": 2},
+            "same": {"translation": "同一", "level": 1},
+            "period": {"translation": "时期", "level": 2},
+            "reaching": {"translation": "达到", "level": 2},
+            "781.1": {"translation": "7.811", "level": 1},
+            "million": {"translation": "亿", "level": 2},
+            "visiting": {"translation": "参观", "level": 2},
+            "appreciate": {"translation": "欣赏", "level": 2},
+            "numerous": {"translation": "众多", "level": 2},
+            "exhibits": {"translation": "展览", "level": 2},
+            "world": {"translation": "世界", "level": 1},
+            "enjoy": {"translation": "享受", "level": 2},
+            "more": {"translation": "更多", "level": 1},
+            "diverse": {"translation": "多元", "level": 2},
+            "obtain": {"translation": "获得", "level": 2},
+            "fresh": {"translation": "新鲜", "level": 2},
+            "visiting": {"translation": "参观", "level": 2},
+            "unwind": {"translation": "放松", "level": 2},
+            "recharge": {"translation": "充电", "level": 2},
+            "themselves": {"translation": "自己", "level": 1},
+            "quickly": {"translation": "快速", "level": 2},
+            "keep": {"translation": "保持", "level": 1},
+            "trend": {"translation": "趋势", "level": 2},
+            "growth": {"translation": "增长", "level": 2}
+        };
+        
+        // 添加大作文部分的新单词翻译数据
+        Object.assign(EnglishLearningCommon.wordTranslations, {
+            // 比大小类范文词汇
+            "clearly": {"translation": "清晰地", "level": 2},
+            "illustrates": {"translation": "展示", "level": 2},
+            "that": {"translation": "那个", "level": 1},
+            "college": {"translation": "大学", "level": 2},
+            "students": {"translation": "学生", "level": 1},
+            "have": {"translation": "有", "level": 1},
+            "different": {"translation": "不同的", "level": 1},
+            "purposes": {"translation": "目的", "level": 2},
+            "traveling": {"translation": "旅行", "level": 2},
+            "Based": {"translation": "基于", "level": 2},
+            "on": {"translation": "在", "level": 1},
+            "data": {"translation": "数据", "level": 2},
+            "offered": {"translation": "提供的", "level": 2},
+            "one": {"translation": "我们", "level": 1},
+            "can": {"translation": "可以", "level": 1},
+            "see": {"translation": "看到", "level": 1},
+            "enjoying": {"translation": "享受", "level": 2},
+            "beautiful": {"translation": "美丽的", "level": 2},
+            "scenery": {"translation": "风景", "level": 2},
+            "ranks": {"translation": "排名", "level": 2},
+            "first": {"translation": "第一", "level": 1},
+            "among": {"translation": "在...中", "level": 2},
+            "all": {"translation": "所有", "level": 1},
+            "categories": {"translation": "类别", "level": 2},
+            "accounting": {"translation": "占", "level": 2},
+            "for": {"translation": "对于", "level": 1},
+            "Next": {"translation": "接下来", "level": 1},
+            "are": {"translation": "是", "level": 1},
+            "relieving": {"translation": "缓解", "level": 2},
+            "stress": {"translation": "压力", "level": 2},
+            "cultivating": {"translation": "培养", "level": 2},
+            "independent": {"translation": "独立的", "level": 2},
+            "abilities": {"translation": "能力", "level": 2},
+            "others": {"translation": "其他", "level": 1},
+            "with": {"translation": "与", "level": 1},
+            "respectively": {"translation": "分别", "level": 2},
+            "making": {"translation": "交", "level": 1},
+            "friends": {"translation": "朋友", "level": 1},
+            "only": {"translation": "只", "level": 1},
+            "constitutes": {"translation": "构成", "level": 2},
+            "From": {"translation": "从", "level": 1},
+            "my": {"translation": "我的", "level": 1},
+            "perspective": {"translation": "角度", "level": 2},
+            "is": {"translation": "是", "level": 1},
+            "of": {"translation": "的", "level": 1},
+            "no": {"translation": "没有", "level": 1},
+            "difficulty": {"translation": "困难", "level": 2},
+            "to": {"translation": "来", "level": 1},
+            "come": {"translation": "想出", "level": 1},
+            "up": {"translation": "想出", "level": 1},
+            "two": {"translation": "两个", "level": 1},
+            "key": {"translation": "关键", "level": 2},
+            "factors": {"translation": "因素", "level": 2},
+            "account": {"translation": "解释", "level": 2},
+            "scene": {"translation": "现象", "level": 2},
+            "To": {"translation": "首先", "level": 1},
+            "begin": {"translation": "开始", "level": 1},
+            "first": {"translation": "第一个", "level": 1},
+            "contributing": {"translation": "起作用的", "level": 2},
+            "factor": {"translation": "因素", "level": 2},
+            "that": {"translation": "那个", "level": 1},
+            "around": {"translation": "环游", "level": 2},
+            "enables": {"translation": "使能够", "level": 2},
+            "interact": {"translation": "互动", "level": 2},
+            "with": {"translation": "与", "level": 1},
+            "local": {"translation": "当地", "level": 2},
+            "people": {"translation": "人", "level": 1},
+            "develop": {"translation": "发展", "level": 2},
+            "interpersonal": {"translation": "人际", "level": 2},
+            "relationship": {"translation": "关系", "level": 2},
+            "them": {"translation": "他们", "level": 1},
+            "They": {"translation": "他们", "level": 1},
+            "also": {"translation": "也", "level": 1},
+            "experience": {"translation": "体验", "level": 2},
+            "culture": {"translation": "文化", "level": 2},
+            "in-depth": {"translation": "深入", "level": 2},
+            "In": {"translation": "此外", "level": 1},
+            "addition": {"translation": "此外", "level": 2},
+            "another": {"translation": "另一个", "level": 1},
+            "significant": {"translation": "重要的", "level": 2},
+            "cannot": {"translation": "不能", "level": 1},
+            "be": {"translation": "被", "level": 1},
+            "ignored": {"translation": "忽视", "level": 2},
+            "make": {"translation": "交", "level": 1},
+            "from": {"translation": "来自", "level": 1},
+            "backgrounds": {"translation": "背景", "level": 2},
+            "so": {"translation": "以便", "level": 1},
+            "reduce": {"translation": "减轻", "level": 2},
+            "their": {"translation": "他们的", "level": 1},
+            "pressure": {"translation": "压力", "level": 2},
+            "view": {"translation": "鉴于", "level": 1},
+            "analysis": {"translation": "分析", "level": 2},
+            "above": {"translation": "以上", "level": 1},
+            "we": {"translation": "我们", "level": 1},
+            "conclude": {"translation": "得出结论", "level": 2},
+            "little": {"translation": "不", "level": 1},
+            "surprise": {"translation": "奇怪", "level": 2},
+            "current": {"translation": "当今", "level": 2},
+            "era": {"translation": "时代", "level": 2},
+            "An": {"translation": "越来越多", "level": 1},
+            "increasing": {"translation": "越来越多", "level": 2},
+            "number": {"translation": "数量", "level": 2},
+            "are": {"translation": "正在", "level": 1},
+            "in": {"translation": "在", "level": 1},
+            "their": {"translation": "他们的", "level": 1},
+            "spare": {"translation": "业余", "level": 2},
+            "time": {"translation": "时间", "level": 1},
+            "Therefore": {"translation": "因此", "level": 2},
+            "predicted": {"translation": "预测", "level": 2},
+            "will": {"translation": "将", "level": 1},
+            "take": {"translation": "占据", "level": 1},
+            "up": {"translation": "占据", "level": 1},
+            "a": {"translation": "一个", "level": 1},
+            "large": {"translation": "很大", "level": 1},
+            "share": {"translation": "份额", "level": 2},
+            "future": {"translation": "未来", "level": 2},
+            
+            // 比趋势类范文词汇
+            "remarkable": {"translation": "显著的", "level": 2},
+            "changes": {"translation": "变化", "level": 2},
+            "museums": {"translation": "博物馆", "level": 2},
+            "visitors": {"translation": "访客", "level": 2},
+            "China": {"translation": "中国", "level": 1},
+            "rose": {"translation": "增加", "level": 2},
+            "significantly": {"translation": "显著地", "level": 2},
+            "4165": {"translation": "4165", "level": 1},
+            "2013": {"translation": "2013", "level": 1},
+            "4697": {"translation": "4697", "level": 1},
+            "2015": {"translation": "2015", "level": 1},
+            "experienced": {"translation": "经历", "level": 2},
+            "dramatic": {"translation": "急剧的", "level": 2},
+            "increase": {"translation": "增长", "level": 2},
+            "during": {"translation": "在...期间", "level": 2},
+            "same": {"translation": "同一", "level": 1},
+            "period": {"translation": "时期", "level": 2},
+            "reaching": {"translation": "达到", "level": 2},
+            "781.1": {"translation": "7.811", "level": 1},
+            "million": {"translation": "亿", "level": 2},
+            "visiting": {"translation": "参观", "level": 2},
+            "appreciate": {"translation": "欣赏", "level": 2},
+            "numerous": {"translation": "众多", "level": 2},
+            "exhibits": {"translation": "展览", "level": 2},
+            "world": {"translation": "世界", "level": 1},
+            "enjoy": {"translation": "享受", "level": 2},
+            "more": {"translation": "更多", "level": 1},
+            "diverse": {"translation": "多元", "level": 2},
+            "obtain": {"translation": "获得", "level": 2},
+            "fresh": {"translation": "新鲜", "level": 2},
+            "visiting": {"translation": "参观", "level": 2},
+            "unwind": {"translation": "放松", "level": 2},
+            "recharge": {"translation": "充电", "level": 2},
+            "themselves": {"translation": "自己", "level": 1},
+            "quickly": {"translation": "快速", "level": 2},
+            "keep": {"translation": "保持", "level": 1},
+            "trend": {"translation": "趋势", "level": 2},
+            "growth": {"translation": "增长", "level": 2}
         });
-        // 页面加载完成后的初始化
-        // 页面加载完成后的初始化
+
         document.addEventListener('DOMContentLoaded', function() {
             // 默认只显示中级难度单词的翻译
             EnglishLearningCommon.setDefaultTranslations(2);
