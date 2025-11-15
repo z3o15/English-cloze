@@ -562,9 +562,27 @@
         };
 
         // 语音合成对象
+        // 创建一个全局的朗读管理器
+        const readingManager = {
+            isReading: false,
+            stopReading() {
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                }
+                this.isReading = false;
+                // 移除所有按钮的 'reading' 类
+                document.querySelectorAll('.read-section-btn.reading, #readParagraph').forEach(btn => {
+                    btn.classList.remove('reading');
+                    if (btn.id === 'readParagraph') {
+                        btn.textContent = '朗读英文段落';
+                    }
+                });
+                removeHighlight();
+            }
+        };
+
         let speechSynthesis = window.speechSynthesis;
         let currentUtterance = null;
-        let isReading = false;
 
         function toggleTranslation(element) {
             const word = element.textContent;
@@ -621,8 +639,8 @@
 
         // 朗读整个英文段落
         function readEnglishParagraph() {
-            if (isReading) {
-                stopReading();
+            if (readingManager.isReading) {
+                readingManager.stopReading();
                 return;
             }
            
@@ -647,19 +665,21 @@
            
             // 设置朗读开始和结束的事件处理
             currentUtterance.onstart = function() {
-                isReading = true;
+                readingManager.isReading = true;
                 const readParagraphBtn = document.getElementById('readParagraph');
                 if (readParagraphBtn) {
                     readParagraphBtn.textContent = '正在朗读...';
+                    readParagraphBtn.classList.add('reading');
                 }
                 highlightWords();
             };
            
             currentUtterance.onend = function() {
-                isReading = false;
+                readingManager.isReading = false;
                 const readParagraphBtn = document.getElementById('readParagraph');
                 if (readParagraphBtn) {
                     readParagraphBtn.textContent = '朗读英文段落';
+                    readParagraphBtn.classList.remove('reading');
                 }
                 removeHighlight();
             };
@@ -669,8 +689,8 @@
 
         // 朗读指定部分的文本
         function readSectionText(button) {
-            if (isReading) {
-                stopReading();
+            if (readingManager.isReading) {
+                readingManager.stopReading();
                 return;
             }
             
@@ -844,13 +864,13 @@
             
             // 设置朗读开始和结束的事件处理
             currentUtterance.onstart = function() {
-                isReading = true;
+                readingManager.isReading = true;
                 button.classList.add('reading');
                 console.log('开始朗读:', text);
             };
             
             currentUtterance.onend = function() {
-                isReading = false;
+                readingManager.isReading = false;
                 button.classList.remove('reading');
                 console.log('朗读结束');
             };
@@ -906,87 +926,73 @@
                 }
             }
             
+            // 使用全局朗读管理器停止朗读
+            if (typeof readingManager !== 'undefined' && readingManager.stopReading) {
+                readingManager.stopReading();
+            } else {
+                // 兼容旧的stopReading函数
+                if (typeof stopReading !== 'undefined') {
+                    stopReading();
+                }
+            }
+            
             // 朗读英文部分
             if (englishParts.length > 0) {
-                const englishUtterance = new SpeechSynthesisUtterance(englishParts.join(' '));
-                englishUtterance.lang = 'en-US';
-                englishUtterance.rate = 0.9;
-                englishUtterance.pitch = 1;
-                englishUtterance.volume = 1;
-                speechSynthesis.speak(englishUtterance);
+                const utterance = new SpeechSynthesisUtterance(englishParts.join(' '));
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                utterance.onerror = function(event) {
+                    console.error('语音合成错误:', event.error);
+                };
+                speechSynthesis.speak(utterance);
             }
             
             // 朗读中文部分
             if (chineseParts.length > 0) {
-                const chineseUtterance = new SpeechSynthesisUtterance(chineseParts.join(''));
-                chineseUtterance.lang = 'zh-CN';
-                chineseUtterance.rate = 0.9;
-                chineseUtterance.pitch = 1;
-                chineseUtterance.volume = 1;
-                speechSynthesis.speak(chineseUtterance);
+                const utterance = new SpeechSynthesisUtterance(chineseParts.join(' '));
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                utterance.onerror = function(event) {
+                    console.error('语音合成错误:', event.error);
+                };
+                speechSynthesis.speak(utterance);
             }
         }
 
-        // 停止朗读
-        function stopReading() {
-            if (speechSynthesis.speaking) {
-                speechSynthesis.cancel();
-                isReading = false;
-                // 检查元素是否存在再设置文本
-                const readParagraphBtn = document.getElementById('readParagraph');
-                if (readParagraphBtn) {
-                    readParagraphBtn.textContent = '朗读英文段落';
-                }
-                removeHighlight();
-            }
+        // 清理文本，移除可能导致杂音的字符
+        function cleanTextForSpeech(text) {
+            return text.replace(/[\n\r]+/g, ' ').trim();
         }
 
-        // 高亮正在朗读的单词
+        // 高亮单词
         function highlightWords() {
-            const words = document.querySelectorAll('.word');
-            words.forEach(word => {
-                word.classList.add('reading');
-            });
+            const words = document.querySelectorAll('.word-wrap .word');
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index < words.length) {
+                    words[index].classList.add('reading');
+                    if (index > 0) {
+                        words[index - 1].classList.remove('reading');
+                    }
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    words[words.length - 1].classList.remove('reading');
+                }
+            }, 1000);
         }
 
         // 移除高亮
         function removeHighlight() {
-            const words = document.querySelectorAll('.word');
+            const words = document.querySelectorAll('.word-wrap .word');
             words.forEach(word => {
                 word.classList.remove('reading');
             });
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // 移除所有现有的翻译元素，因为我们将在点击时动态创建
-            const existingTranslations = document.querySelectorAll('.translation');
-            existingTranslations.forEach(trans => {
-                trans.remove();
-            });
-            
-            // 默认不显示任何单词的翻译（去除中级难度规则）
-            const words = document.querySelectorAll('.word');
-            // 移除原来的中级难度筛选逻辑
-            
-            // 案例部分：显示所有超过5个字母的单词的翻译
-            const caseSection = document.querySelector('.section .format-box .english-text');
-            if (caseSection) {
-                const caseWords = caseSection.querySelectorAll('.word');
-                caseWords.forEach(wordElement => {
-                    const word = wordElement.textContent.trim();
-                    const wordData = wordTranslations[word];
-                    
-                    // 显示所有超过5个字母的单词的翻译
-                    if (word.length > 5 && wordData) {
-                        const translation = document.createElement('span');
-                        translation.className = 'translation';
-                        translation.textContent = wordData.translation;
-                        translation.style.display = 'block';
-                        wordElement.parentNode.insertBefore(translation, wordElement.nextSibling);
-                    }
-                });
-            }
-        });
     </script>
 </body>
 </html>

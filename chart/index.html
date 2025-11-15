@@ -57,6 +57,7 @@
                 <div class="content-title">"比大小"类图表写作指南</div>
                 
                 <div class="content-title">引出图表句型<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="chart-intro-expressions">
                 <div class="english-expression">The chart clearly illustrates <span class="color-red">that+句子</span>。</div>
                 <div class="chinese-translation">上图清晰显示，</div>
                 <div class="english-expression"><span class="color-red">that+句子</span>： <span class="color-blue">调查对象</span> have different purposes of / show different attitudes towards <span class="color-blue">图表话题</span></div>
@@ -65,36 +66,45 @@
                 <div class="chinese-translation"><span class="color-gray">根据提供的数据，我们可以清楚地看出描述对象1在所有项中排名第一，占了数据1。其次是描述对象2和3, 分别占数据2和3，而描述对象4只占了数据4.</span></div>
                 <div class="english-expression">注意：如果有4个以上的描述对象，重点写最值，中间值可以放在一起写或忽略某个数据。</div>
                 <div class="chinese-translation"></div>
+                </div>
 
                 <br>
                 <div class="content-title">引出话题句型<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="topic-intro-expressions">
                 <div class="english-expression">From my perspective, it is of no difficulty to come up with two key factors to account for the scene.</div>
                 <div class="chinese-translation"><span class="color-gray">从我的角度来看想出解释这一现象的两个关键因素并不困难。</span></div>
+                </div>
                 
                 <br>
                 <div class="content-title">2个原因句型<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="two-reasons-expressions">
                 <div class="english-expression">The first contributing factor is that +句子。</div>
                 <div class="chinese-translation"><span class="color-gray">第一个起作用的因素是</span></div>
                 <div class="english-expression">Another important factor that cannot be ignored is that +句子</div>
                 <div class="chinese-translation"><span class="color-gray">另一个不能忽视的重要因素是。</span></div>
+                </div>
                 
                 <br>
                 <div class="content-title">评价句型<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="evaluation-expressions">
                 <div class="english-expression"><span class="color-red">积极</span></div>
                 <div class="english-expression">In view of the analysis above, we can conclude that it <span class="color-blue">is of little surprise</span> to see this scene in the current era.</div>
                 <div class="chinese-translation">鉴于以上分析，在当今时代看到这种现象并不奇怪。</div>
                 <div class="english-expression"><span class="color-green">消极</span></div>
                 <div class="english-expression">In view of the analysis above, we can conclude that it <span class="color-blue">is surprising</span> to see this phenomenon in the current era.</div>
                 <div class="chinese-translation">鉴于以上分析，在当今时代看到这种现象是令人震惊的。</div>
+                </div>
                 
                 <br>
                 <div class="content-title">预测/建议句型<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="prediction-suggestion-expressions">
                 <div class="english-expression"><span class="color-red">积极-预测</span></div>
                 <div class="english-expression">Therefore, it can be predicted <span class="color-blue">that 描述对象 will</span> still take up a large share in the future.</div>
                 <div class="chinese-translation">因此，可以预测描述对象在未来也将占据很大份额。</div>
                 <div class="english-expression"><span class="color-green">消极-建议</span></div>
                 <div class="english-expression">Therefore, we need to take actions to address the <span class="color-blue">problem</span>.</div>
                 <div class="chinese-translation">因此，我们需要采取行动来解决这一问题。</div>
+                </div>
             </div>
             
             <!-- 常用词汇和短语 -->
@@ -683,8 +693,8 @@
             // 初始化交互式单词翻译系统
             if (window.translationManager) {
                 // 确保单词翻译系统已初始化
-                console.log('图表页面单词翻译系统已初始化');
-                 
+                // 图表页面单词翻译系统已初始化
+                
                 // 使用新的markTranslatableAreas()函数标记可翻译区域
                 if (window.translationManager && window.translationManager.markTranslatableAreas) {
                     window.translationManager.markTranslatableAreas();

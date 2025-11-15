@@ -46,54 +46,80 @@ class ReadingManager {
     
     // 文本分段和标识系统
     segmentTextWithIds(text) {
-        if (!text || typeof text !== 'string') {
+        if (!text || typeof text !== 'string' || text.trim().length === 0) {
             console.warn('无效的文本输入:', text);
             return [];
         }
         
-        // 清理文本
-        const cleanText = text.trim();
-        if (cleanText.length === 0) {
-            console.warn('文本为空，无法分段');
-            return [];
+        // 首先清理文本
+        const cleanText = cleanTextForSpeech(text);
+        
+        // 如果文本长度不超过300个字符，作为单个段落处理
+        if (cleanText.length <= 300) {
+            return [{
+                id: 'short_segment_0',
+                text: cleanText,
+                index: 0
+            }];
         }
         
-        // 检查是否包含中文段落（连续5个以上中文字符）
-        const chineseParagraphRegex = /[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]{5,}/;
-        if (chineseParagraphRegex.test(cleanText)) {
-            console.log('检测到中文段落，不进行分段处理');
-            return [];
+        // 如果文本长度超过300个字符，按句子结束标点分段
+        const sentences = cleanText.match(/[^.!?]*[.!?]+/g) || [cleanText];
+        const segments = [];
+        let currentSegment = '';
+        let segmentIndex = 0;
+        
+        for (let i = 0; i < sentences.length; i++) {
+            const sentence = sentences[i];
+            
+            // 如果当前段落加上新句子不超过300个字符，添加到当前段落
+            if ((currentSegment + sentence).length <= 300) {
+                currentSegment += sentence;
+            } else {
+                // 如果当前段落不为空，保存当前段落
+                if (currentSegment.trim().length > 0) {
+                    segments.push({
+                        id: 'segment_' + segmentIndex++,
+                        text: currentSegment.trim(),
+                        index: segmentIndex - 1
+                    });
+                }
+                // 开始新的段落
+                currentSegment = sentence;
+            }
         }
         
-        // 将文本按句子分割，保留标点符号
-        const sentences = cleanText.match(/[^.!?]+[.!?]+/g) || [cleanText];
+        // 保存最后一个段落
+        if (currentSegment.trim().length > 0) {
+            segments.push({
+                id: 'segment_' + segmentIndex++,
+                text: currentSegment.trim(),
+                index: segmentIndex - 1
+            });
+        }
         
-        // 为每个段落添加唯一标识
-        this.textSegments = sentences
-            .filter(sentence => sentence && sentence.trim().length > 0) // 过滤空句子
-            .map((sentence, index) => ({
-                id: `segment_${index}`,
-                text: sentence.trim(),
-                index: index
-            }));
-        
-        console.log('文本分段完成，共', this.textSegments.length, '段');
-        return this.textSegments;
+        console.log('文本分段完成，共', segments.length, '段');
+        this.textSegments = segments;
+        return segments;
     }
     
     // 朗读队列控制系统
     processReadingQueue(button) {
+        // 检查是否已经在处理队列或队列为空
         if (this.isProcessingQueue || !this.readingQueue || this.readingQueue.length === 0) {
             console.log('队列正在处理或为空，跳过');
             return;
         }
         
+        // 设置处理状态和索引
         this.isProcessingQueue = true;
         this.currentReadingIndex = 0;
         this.currentButton = button;
         
-        // 第一句开始时设置按钮状态
+        // 更新读取状态
         this.isReading = true;
+        
+        // 更新按钮状态
         if (button && button.classList) {
             button.classList.add('reading');
         }
@@ -104,8 +130,8 @@ class ReadingManager {
         
         console.log('开始处理朗读队列，共', this.readingQueue.length, '段');
         
-        // 使用延迟确保状态设置完成
-        setTimeout(() => this.speakNextSegment(), 50);
+        // 立即调用 speakNextSegment，移除不必要的延迟
+        this.speakNextSegment();
     }
     
     // 基于API回调的朗读触发机制
@@ -130,12 +156,12 @@ class ReadingManager {
             
             const cleanText = cleanTextForSpeech(currentSegment.text);
             
-            // 检查是否包含中文段落（连续5个以上中文字符）
-            const chineseParagraphRegex = /[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]{5,}/;
-            if (chineseParagraphRegex.test(cleanText)) {
-                console.log('检测到中文段落，停止朗读');
-                this.completeReading();
-                return;
+            // 只在第一次处理段落时输出日志，避免重复输出
+            if (!currentSegment.logged) {
+                // 输出正在朗读的句子内容和ID
+                console.log('正在朗读句子 - ID:', currentSegment.id, '内容:', cleanText);
+                // 标记已输出日志
+                currentSegment.logged = true;
             }
             
             if (cleanText.length === 0) {
@@ -145,11 +171,13 @@ class ReadingManager {
                 return;
             }
             
-            console.log('准备朗读段落:', currentSegment.id, cleanText);
-            
             // 确保语音合成器就绪
             if (speechSynthesis.speaking) {
-                console.log('语音合成器正在忙碌，等待...');
+                // 添加检查，防止无限循环
+                if (this.currentReadingIndex >= this.readingQueue.length) {
+                    this.completeReading();
+                    return;
+                }
                 setTimeout(() => this.speakNextSegment(), 100);
                 return;
             }
@@ -163,42 +191,35 @@ class ReadingManager {
             // 添加错误处理
             utterance.onerror = (event) => {
                 console.error('朗读段落时出错:', event.error, '段落ID:', currentSegment?.id || 'unknown');
-                this.currentReadingIndex++;
-                setTimeout(() => this.speakNextSegment(), 200);
+                // 检查索引是否已经超出队列长度，防止重复调用
+                if (this.currentReadingIndex < this.readingQueue.length) {
+                    this.currentReadingIndex++;
+                    setTimeout(() => this.speakNextSegment(), 200);
+                }
             };
             
             // 核心解决思路：通过API回调（onend事件）触发下一段
             utterance.onend = () => {
-                console.log('段落朗读完成:', currentSegment?.id || 'unknown');
-                this.currentReadingIndex++;
-                // 使用短暂延迟确保浏览器状态更新
-                setTimeout(() => this.speakNextSegment(), 100);
-            };
-            
-            // 添加开始事件用于调试
-            utterance.onstart = () => {
-                console.log('开始朗读段落:', currentSegment?.id || 'unknown');
+                // 检查索引是否已经超出队列长度，防止重复调用
+                if (this.currentReadingIndex < this.readingQueue.length) {
+                    this.currentReadingIndex++;
+                    // 使用短暂延迟确保浏览器状态更新
+                    setTimeout(() => this.speakNextSegment(), 100);
+                }
             };
             
             // 记录当前要读的标识
             this.currentUtterance = utterance;
             
-            // 确保在下一个事件循环中调用speak
-            setTimeout(() => {
-                try {
-                    speechSynthesis.speak(utterance);
-                    console.log('已发送朗读指令:', currentSegment?.id || 'unknown');
-                } catch (speakError) {
-                    console.error('调用speak时出错:', speakError);
-                    this.currentReadingIndex++;
-                    setTimeout(() => this.speakNextSegment(), 200);
-                }
-            }, 10);
-            
+            // 触发朗读
+            speechSynthesis.speak(utterance);
         } catch (error) {
-            console.error('处理朗读段落时出错:', error, '段落ID:', this.readingQueue[this.currentReadingIndex]?.id || 'unknown');
-            this.currentReadingIndex++;
-            setTimeout(() => this.speakNextSegment(), 300);
+            console.error('处理朗读段落时发生异常:', error);
+            // 检查索引是否已经超出队列长度，防止重复调用
+            if (this.currentReadingIndex < this.readingQueue.length) {
+                this.currentReadingIndex++;
+                setTimeout(() => this.speakNextSegment(), 200);
+            }
         }
     }
     
@@ -226,12 +247,7 @@ class ReadingManager {
     
     // 停止朗读
     stopReading() {
-        console.log('停止朗读被调用，当前状态:', {
-            isReading: this.isReading,
-            isProcessingQueue: this.isProcessingQueue,
-            queueLength: this.readingQueue.length,
-            currentIndex: this.currentReadingIndex
-        });
+        console.log('停止朗读被调用，当前状态');
         
         if (speechSynthesis.speaking) {
             speechSynthesis.cancel();
@@ -247,6 +263,43 @@ class ReadingManager {
         removeHighlight();
         
         console.log('朗读已停止，所有状态已重置');
+    }
+
+    // 新增：统一的文本朗读接口
+    readText(text, useSegmentation = false) {
+        // 重置管理器状态
+        this.reset();
+
+        // 检查文本是否有效
+        if (!text || typeof text !== 'string' || text.trim().length === 0) {
+            console.warn('无效的朗读文本:', text);
+            return;
+        }
+
+        // 分段或作为整体处理
+        if (useSegmentation) {
+            this.readingQueue = this.segmentTextWithIds(text);
+        } else {
+            const cleanText = cleanTextForSpeech(text);
+            if (cleanText.length === 0) {
+                console.warn('清理后的文本为空:', text);
+                return;
+            }
+            this.readingQueue = [{
+                id: 'single_segment',
+                text: cleanText,
+                index: 0
+            }];
+        }
+
+        // 检查队列是否为空
+        if (this.readingQueue.length === 0) {
+            console.warn('朗读队列为空');
+            return;
+        }
+
+        // 开始处理队列
+        this.processReadingQueue(this.currentButton);
     }
     
     // 检查按钮是否正在朗读
@@ -291,10 +344,6 @@ class ReadingManager {
             if (buttonTitle === readingTitle && buttonText === readingText) {
                 // 如果是相同位置的按钮，但不是同一个按钮实例，则忽略
                 if (readingBtn !== button) {
-                    console.log('同一位置的其他按钮正在朗读，忽略当前按钮', {
-                        currentButton: buttonTitle,
-                        readingButton: readingTitle
-                    });
                     return true;
                 }
             }
@@ -444,773 +493,56 @@ function speakWord(word) {
     speechSynthesis.speak(utterance);
 }
 
-// 朗读指定部分的文本
+// 读取并朗读章节文本
 function readSectionText(button) {
-    console.log('readSectionText 被调用，当前 readingManager.isReading:', readingManager.isReading);
-    
+    // 检查是否正在朗读
     if (readingManager.isReading) {
-        console.log('正在朗读中，检查是否应该忽略当前按钮');
-        
-        // 检查是否应该忽略当前按钮（同一位置的其他按钮正在朗读）
-        if (readingManager.shouldIgnoreButton(button)) {
-            console.log('同一位置的其他按钮正在朗读，忽略当前按钮');
+        // 检查是否是同一个按钮
+        if (readingManager.currentButton === button) {
             return;
         }
-        
-        // 使用新的朗读管理器检查是否是同一个按钮
-        if (readingManager.isButtonReading(button)) {
-            console.log('同一个按钮被点击，忽略');
-            return; // 同一个按钮被点击，不做任何操作
-        }
-        
-        // 不同按钮被点击，停止当前朗读并开始新的
-        console.log('不同按钮被点击，停止当前朗读');
-        readingManager.stopReading();
-        // 添加短暂延迟，确保停止完成后再开始新的朗读
-        setTimeout(() => {
-            console.log('延迟后重新开始朗读');
-            readSectionTextInternal(button);
-        }, 100);
+    }
+    
+    // 更新当前按钮引用
+    readingManager.currentButton = button;
+    
+    // 获取按钮的标题和文本
+    const buttonTitle = button.title || '';
+    const buttonText = button.textContent || button.innerText || '';
+    
+    // 查找按钮对应的文本元素（只通过ID查找）
+    let textElement = findTextElementForButton(button, buttonTitle, buttonText);
+    
+    // 如果没有找到文本元素，记录日志并返回
+    if (!textElement) {
         return;
     }
     
-    // 直接调用内部函数处理朗读
-    readSectionTextInternal(button);
-}
-
-// 内部朗读处理函数
-function readSectionTextInternal(button) {
-    try {
-        // 获取按钮所在部分的文本内容
-        let textElement = null;
-        
-        // 检查按钮的title属性来确定要朗读的内容
-        const buttonTitle = button.getAttribute('title') || '';
-        const buttonText = button.parentElement ? button.parentElement.textContent.trim() : '';
-        
-        // 使用全新的精确查找策略
-        textElement = findTextElementForButton(button, buttonTitle, buttonText);
-        
-        if (!textElement) {
-            console.log('未找到文本元素', button, 'title:', buttonTitle, 'buttonText:', buttonText);
-            return;
-        }
-        
-        // 处理可能的对象形式（如图表页面范文部分）
-        const text = typeof textElement === 'object' && textElement.textContent !== undefined
-                    ? textElement.textContent
-                    : textElement.textContent || textElement;
-        
-        // 清理文本，移除可能导致杂音的字符
-        const cleanText = cleanTextForSpeech(text);
-        
-        console.log('获取到文本，长度:', cleanText.length, '内容:', cleanText);
-        console.log('文本元素详情:', {
-            textElement: textElement,
-            textElementType: typeof textElement,
-            textElementClass: textElement?.className,
-            textElementId: textElement?.id,
-            rawText: text,
-            cleanText: cleanText
-        });
-        
-        // 停止当前正在播放的语音
-        if (speechSynthesis.speaking) {
-            console.log('停止当前语音');
-            speechSynthesis.cancel();
-        }
-        
-        // 检查文本长度，如果太长则分段处理
-        const maxLength = 200; // 设置最大长度限制
-        if (cleanText.length > maxLength) {
-            console.log('文本较长，使用分段朗读');
-            // 分段朗读长文本 - 使用新的朗读管理器
-            speakLongText(cleanText, button);
-        } else {
-            console.log('文本较短，使用单段落朗读');
-            // 朗读短文本 - 使用新的朗读管理器确保一致性
-            try {
-                // 重置朗读管理器状态
-                readingManager.reset();
-                
-                // 将短文本作为单个段落加入队列
-                const shortSegment = {
-                    id: 'short_segment_0',
-                    text: cleanText,
-                    index: 0
-                };
-                
-                readingManager.readingQueue = [shortSegment];
-                
-                // 使用朗读管理器处理短文本
-                readingManager.processReadingQueue(button);
-                
-            } catch (error) {
-                console.error('短文本朗读初始化时出错:', error, '文本:', cleanText);
-                // 重置状态
-                readingManager.reset();
-                button.classList.remove('reading');
-            }
-        }
-    } catch (error) {
-        console.error('readSectionTextInternal 出错:', error);
-        // 重置状态
-        readingManager.reset();
-        button.classList.remove('reading');
-    }
-}
-
-// 精确查找按钮对应的文本元素
-function findTextElementForButton(button, buttonTitle, buttonText) {
-    let textElement = null;
-    
-    // 检测当前页面类型
-    const isChartPage = window.location.pathname.includes('chart');
-    const isLetterPage = window.location.pathname.includes('letter');
-    
-    // 添加调试信息，帮助定位问题
-    console.log('查找按钮对应的文本元素', {
-        buttonTitle: buttonTitle,
-        buttonText: buttonText,
-        isChartPage: isChartPage,
-        isLetterPage: isLetterPage,
-        buttonParent: button.parentElement ? button.parentElement.className : null,
-        buttonElement: button,
-        buttonParentElement: button.parentElement,
-        buttonGrandParentElement: button.parentElement?.parentElement
-    });
-    
-    // 策略1: 特殊处理"引出图表句型"按钮
-    if (buttonTitle.includes('引出图表句型') || buttonText.includes('引出图表句型')) {
-        // 查找按钮父元素（content-title）之后的所有english-expression元素
-        const contentTitle = button.parentElement;
-        let nextElement = contentTitle.nextElementSibling;
-        let allExpressions = [];
-        
-        // 收集所有english-expression元素的内容
-        while (nextElement) {
-            if (nextElement.classList.contains('english-expression')) {
-                allExpressions.push(nextElement.textContent.trim());
-                if (window.location.search.includes('debug=true')) {
-                    console.log('找到引出图表句型对应的english-expression元素');
-                }
-            }
-            // 如果遇到另一个content-title，停止查找
-            if (nextElement.classList.contains('content-title')) {
-                break;
-            }
-            nextElement = nextElement.nextElementSibling;
-        }
-        
-        // 如果找到了english-expression元素，合并所有内容
-        if (allExpressions.length > 0) {
-            textElement = {
-                textContent: allExpressions.join(' ')
-            };
-            if (window.location.search.includes('debug=true')) {
-                console.log('合并所有english-expression元素内容:', allExpressions.join(' '));
-            }
-        }
-        
-        // 如果没有找到english-expression，尝试查找english-text
-        if (!textElement) {
-            nextElement = contentTitle.nextElementSibling;
-            while (nextElement) {
-                if (nextElement.classList.contains('english-text')) {
-                    textElement = nextElement;
-                    if (window.location.search.includes('debug=true')) {
-                        console.log('找到引出图表句型对应的english-text元素');
-                    }
-                    break;
-                }
-                // 如果遇到另一个content-title，停止查找
-                if (nextElement.classList.contains('content-title')) {
-                    break;
-                }
-                nextElement = nextElement.nextElementSibling;
-            }
-        }
-        
-        return textElement;
+    // 获取文本内容
+    let text = '';
+    if (textElement.textContent !== undefined) {
+        text = textElement.textContent;
+    } else if (textElement.innerText !== undefined) {
+        text = textElement.innerText;
+    } else if (textElement.value !== undefined) {
+        text = textElement.value;
+    } else {
+        text = getTextFromElement(textElement);
     }
     
-    // 策略1.5: 通用按钮处理 - 基于按钮位置的精确查找
-    if (!textElement) {
-        console.log('使用通用按钮处理策略');
-        
-        // 获取按钮的父元素
-        const buttonParent = button.parentElement;
-        
-        // 如果按钮在content-title内
-        if (buttonParent && buttonParent.classList.contains('content-title')) {
-            // 特殊处理：引出话题句型按钮需要读取所有english-expression
-            if (buttonTitle.includes('引出话题句型') || buttonText.includes('引出话题句型')) {
-                // 查找content-title的下一个兄弟元素
-                let nextElement = buttonParent.nextElementSibling;
-                let allExpressions = [];
-                
-                // 收集所有english-expression元素的内容
-                while (nextElement) {
-                    if (nextElement.classList.contains('english-expression')) {
-                        allExpressions.push(nextElement.textContent.trim());
-                        console.log('找到引出话题句型对应的english-expression元素');
-                    }
-                    // 如果遇到另一个content-title，停止查找
-                    if (nextElement.classList.contains('content-title')) {
-                        break;
-                    }
-                    nextElement = nextElement.nextElementSibling;
-                }
-                
-                // 如果找到了english-expression元素，合并所有内容
-                if (allExpressions.length > 0) {
-                    textElement = {
-                        textContent: allExpressions.join(' ')
-                    };
-                    console.log('合并所有english-expression元素内容:', allExpressions.join(' '));
-                }
-            }
-            // 特殊处理：预测/建议句型按钮
-            else if (buttonTitle.includes('预测/建议句型') || buttonText.includes('预测/建议句型')) {
-                console.log('处理预测/建议句型按钮，使用通用策略');
-                
-                // 查找content-title的下一个兄弟元素
-                let nextElement = buttonParent.nextElementSibling;
-                let foundTexts = [];
-                
-                // 遍历后续兄弟元素，查找包含预测/建议内容的english-expression
-                while (nextElement) {
-                    if (nextElement.classList.contains('english-expression')) {
-                        const text = nextElement.textContent.trim();
-                        console.log('找到english-expression元素:', text);
-                        
-                        // 检查是否包含预测/建议相关内容
-                        if (text.includes('Therefore') &&
-                            (text.includes('predicted') || text.includes('take actions') ||
-                             text.includes('address') || text.includes('problem'))) {
-                            foundTexts.push(text);
-                            console.log('找到预测/建议相关文本:', text);
-                        }
-                    }
-                    
-                    // 如果遇到另一个content-title，停止查找
-                    if (nextElement.classList.contains('content-title')) {
-                        break;
-                    }
-                    nextElement = nextElement.nextElementSibling;
-                }
-                
-                if (foundTexts.length > 0) {
-                    textElement = {
-                        textContent: foundTexts.join(' ')
-                    };
-                    console.log('预测/建议句型找到的文本:', foundTexts);
-                }
-            }
-            // 其他情况：通用查找
-            else {
-                // 查找content-title的下一个兄弟元素
-                let nextElement = buttonParent.nextElementSibling;
-                
-                // 遍历后续兄弟元素，查找包含英文文本的元素
-                while (nextElement) {
-                    // 检查是否是content-box
-                    if (nextElement.classList.contains('content-box')) {
-                        // 在content-box内查找english-text或english-expression
-                        const englishText = nextElement.querySelector('.english-text, .english-expression');
-                        if (englishText) {
-                            textElement = englishText;
-                            break;
-                        } else {
-                            // 如果没有找到特定的英文文本元素，使用整个content-box
-                            textElement = nextElement;
-                            break;
-                        }
-                    }
-                
-                    // 如果遇到另一个content-title，停止查找
-                    if (nextElement.classList.contains('content-title') && nextElement !== buttonParent) {
-                        break;
-                    }
-                    
-                    nextElement = nextElement.nextElementSibling;
-                }
-            }
-        }
-        
-        // 如果还没找到，尝试在父级content-box内查找
-        if (!textElement) {
-            console.log('通用策略未找到文本，尝试在父级content-box内查找');
-            const parentContentBox = button.closest('.content-box');
-            if (parentContentBox) {
-                // 查找父级content-box内的所有english-text和english-expression
-                const allEnglishElements = parentContentBox.querySelectorAll('.english-text, .english-expression');
-                
-                console.log('父级content-box内找到的英文元素数量:', allEnglishElements.length);
-                
-                if (allEnglishElements.length > 0) {
-                    // 使用第一个找到的英文元素
-                    textElement = allEnglishElements[0];
-                    console.log('使用第一个英文元素:', textElement.textContent.trim());
-                } else {
-                    // 如果没有找到特定的英文元素，使用整个content-box
-                    textElement = parentContentBox;
-                    console.log('使用整个content-box作为文本元素');
-                }
-            }
-        }
+    // 如果文本为空，记录日志并返回
+    if (!text || text.trim().length === 0) {
+        return;
     }
     
-    // 如果找到了文本元素，直接返回
-    if (textElement) {
-        return textElement;
-    }
+    // 清理文本
+    const cleanText = cleanTextForSpeech(text);
     
-    // 策略2: 处理图表页面的按钮
-    if (isChartPage) {
-        // 情况2.1: 按钮在content-title内
-        if (button.parentElement.classList.contains('content-title')) {
-            // 特殊处理：引出图表句型已在策略1中处理
-            if (buttonTitle.includes('引出图表句型') || buttonText.includes('引出图表句型')) {
-                // 已在策略1中处理，这里跳过
-                return null;
-            }
-            
-            // 特殊处理：比大小类和比趋势类的范文部分
-            if (buttonTitle.includes('范文') || buttonText.includes('范文')) {
-                // 查找当前content-box内的所有english-text
-                const parentContentBox = button.closest('.content-box');
-                if (parentContentBox) {
-                    const allEnglishTexts = parentContentBox.querySelectorAll('.english-text');
-                    if (allEnglishTexts.length > 0) {
-                        // 合并所有 .english-text 的内容
-                        const combinedText = Array.from(allEnglishTexts).map(el => el.textContent).join(' ');
-                        textElement = {
-                            textContent: combinedText
-                        };
-                        if (window.location.search.includes('debug=true')) {
-                            console.log('找到范文部分的多个english-text元素，已合并内容');
-                        }
-                    } else {
-                        textElement = parentContentBox;
-                    }
-                }
-            }
-            
-            // 特殊处理：评价句型和预测/建议句型按钮
-            if (buttonTitle.includes('评价句型') || buttonText.includes('评价句型') ||
-                buttonTitle.includes('预测/建议句型') || buttonText.includes('预测/建议句型')) {
-                
-                console.log('处理预测/建议句型按钮，查找对应的文本内容');
-                
-                // 查找按钮父元素（content-title）之后的所有english-expression元素
-                const contentTitle = button.parentElement;
-                let nextElement = contentTitle.nextElementSibling;
-                let allTexts = [];
-                
-                // 收集所有english-expression元素的内容
-                while (nextElement) {
-                    if (nextElement.classList.contains('english-expression')) {
-                        const text = nextElement.textContent.trim();
-                        console.log('找到english-expression元素:', text);
-                        
-                        // 收集所有包含实际英文内容的元素，包括分类标识后的内容
-                        if (text &&
-                            (text.includes('Therefore') || text.includes('In view of') ||
-                             text.includes('predicted') || text.includes('take actions') ||
-                             text.includes('address') || text.includes('problem'))) {
-                            allTexts.push(text);
-                            console.log('添加符合条件的文本:', text);
-                        }
-                    }
-                    
-                    // 如果遇到另一个content-title，停止查找
-                    if (nextElement.classList.contains('content-title')) {
-                        break;
-                    }
-                    nextElement = nextElement.nextElementSibling;
-                }
-                
-                if (allTexts.length > 0) {
-                    textElement = {
-                        textContent: allTexts.join(' ')
-                    };
-                    console.log('找到预测/建议句型内容:', allTexts);
-                } else {
-                    console.log('未找到符合条件的预测/建议句型内容，尝试备用查找方案');
-                    
-                    // 备用方案：查找当前content-box内的所有english-expression
-                    const parentContentBox = button.closest('.content-box');
-                    if (parentContentBox) {
-                        const allExpressions = parentContentBox.querySelectorAll('.english-expression');
-                        let backupTexts = [];
-                        
-                        allExpressions.forEach(expr => {
-                            const text = expr.textContent.trim();
-                            console.log('备用方案找到english-expression:', text);
-                            
-                            if (text &&
-                                (text.includes('Therefore') || text.includes('In view of') ||
-                                 text.includes('predicted') || text.includes('take actions') ||
-                                 text.includes('address') || text.includes('problem'))) {
-                                backupTexts.push(text);
-                                console.log('备用方案添加符合条件的文本:', text);
-                            }
-                        });
-                        
-                        if (backupTexts.length > 0) {
-                            textElement = {
-                                textContent: backupTexts.join(' ')
-                            };
-                            console.log('备用方案找到预测/建议句型内容:', backupTexts);
-                        }
-                    }
-                }
-            }
-            // 其他情况：查找同级的下一个content-box
-            else {
-                const parentContentBox = button.closest('.content-box');
-                if (parentContentBox) {
-                    const nextBox = parentContentBox.nextElementSibling;
-                    if (nextBox && nextBox.classList.contains('content-box')) {
-                        // 查找下一个content-box中的english-text
-                        const englishText = nextBox.querySelector('.english-text');
-                        if (englishText) {
-                            textElement = englishText;
-                        } else {
-                            textElement = nextBox;
-                        }
-                    } else {
-                        // 如果没有下一个，查找当前content-box内的english-text或english-expression
-                        const englishText = parentContentBox.querySelector('.english-text');
-                        const englishExpression = parentContentBox.querySelector('.english-expression');
-                        if (englishText) {
-                            textElement = englishText;
-                        } else if (englishExpression) {
-                            textElement = englishExpression;
-                        } else {
-                            // 最后备用方案：使用当前content-box
-                            textElement = parentContentBox;
-                        }
-                    }
-                }
-            }
-        }
-        // 情况2.2: 按钮在content-box内
-        else if (button.parentElement.classList.contains('content-box')) {
-            textElement = button.parentElement;
-        }
-        // 情况2.3: 特殊处理范文部分
-        else if (buttonTitle.includes('范文')) {
-            // 查找包含多个 .english-text 的容器
-            const contentBox = button.closest('.content-box');
-            if (contentBox) {
-                const allEnglishTexts = contentBox.querySelectorAll('.english-text');
-                if (allEnglishTexts.length > 0) {
-                    // 合并所有 .english-text 的内容
-                    const combinedText = Array.from(allEnglishTexts).map(el => el.textContent).join(' ');
-                    // 直接使用合并后的文本，而不是创建临时元素
-                    textElement = {
-                        textContent: combinedText
-                    };
-                    if (window.location.search.includes('debug=true')) {
-                        console.log('找到范文部分的多个english-text元素，已合并内容');
-                    }
-                } else {
-                    // 如果没有找到english-text，尝试查找english-expression
-                    const englishExpression = contentBox.querySelector('.english-expression');
-                    if (englishExpression) {
-                        textElement = englishExpression;
-                        if (window.location.search.includes('debug=true')) {
-                            console.log('找到范文部分的english-expression元素');
-                        }
-                    } else {
-                        // 最后备用方案：使用当前content-box
-                        textElement = contentBox;
-                    }
-                }
-            }
-        }
-        // 情况2.4: 其他位置的按钮
-        else {
-            // 先尝试查找最近的content-box
-            const nearestContentBox = button.closest('.content-box');
-            if (nearestContentBox) {
-                const englishText = nearestContentBox.querySelector('.english-text');
-                const englishExpression = nearestContentBox.querySelector('.english-expression');
-                if (englishText) {
-                    textElement = englishText;
-                } else if (englishExpression) {
-                    textElement = englishExpression;
-                } else {
-                    textElement = nearestContentBox;
-                }
-            } else {
-                // 如果不在content-box内，查找父级容器内的文本元素
-                const container = button.parentElement;
-                textElement = container.querySelector('.content-box') ||
-                              container.querySelector('.format-box') ||
-                              container.querySelector('.english-text') ||
-                              container.querySelector('.english-expression');
-            }
-        }
-        
-        return textElement;
-    }
-    
-    // 策略3: 处理书信页面的按钮
-    if (isLetterPage) {
-        // 情况3.1: 按钮在content-title内
-        if (button.parentElement.classList.contains('content-title')) {
-            // 特殊处理：开头段-直奔主题-必备句型1个
-            if (buttonTitle.includes('开头段') || buttonText.includes('开头段')) {
-                if (window.location.search.includes('debug=true')) {
-                    console.log('处理开头段按钮');
-                }
-                
-                // 对于开头段按钮，我们需要特殊处理
-                // 它的结构是：content-title(包含按钮) -> content-box(包含文本)
-                const titleElement = button.parentElement;
-                
-                // 查找content-title的下一个兄弟元素
-                let nextElement = titleElement.nextElementSibling;
-                
-                // 查找最近的content-box
-                while (nextElement) {
-                    if (nextElement.classList.contains('content-box')) {
-                        // 查找content-box中的文本内容
-                        const textContent = nextElement.textContent.trim();
-                        
-                        // 检查是否包含预期的文本内容
-                        if (textContent.includes('I am writing this letter/email')) {
-                            if (window.location.search.includes('debug=true')) {
-                                console.log('确认找到开头段对应的文本内容');
-                            }
-                            textElement = nextElement;
-                            break;
-                        }
-                    }
-                    nextElement = nextElement.nextElementSibling;
-                }
-                
-                // 如果没有找到，尝试其他方法
-                if (!textElement) {
-                    // 查找按钮所在的content-box
-                    const parentBox = button.closest('.content-box');
-                    
-                    if (parentBox) {
-                        // 在父级content-box内查找所有content-box
-                        const innerBoxes = parentBox.querySelectorAll('.content-box');
-                        
-                        // 遍历所有内部content-box，查找包含预期文本的元素
-                        for (let box of innerBoxes) {
-                            const text = box.textContent.trim();
-                            if (text.includes('I am writing this letter/email')) {
-                                textElement = box;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            // 特殊处理：动词词组
-            else if (buttonTitle.includes('动词词组')) {
-                // 查找按钮父元素的下一个兄弟元素
-                const titleElement = button.parentElement;
-                let nextElement = titleElement.nextElementSibling;
-                
-                // 找到下一个content-title或content-box
-                while (nextElement) {
-                    if (nextElement.classList.contains('content-title') || nextElement.classList.contains('content-box')) {
-                        // 检查是否有data-target属性
-                        if (nextElement.hasAttribute('data-target')) {
-                            textElement = nextElement;
-                            break;
-                        } else if (nextElement.classList.contains('content-box')) {
-                            // 如果没有data-target属性，查找子元素中的english-text
-                            const englishText = nextElement.querySelector('.english-text');
-                            if (englishText) {
-                                textElement = englishText;
-                                break;
-                            } else {
-                                textElement = nextElement;
-                                break;
-                            }
-                        }
-                    }
-                    nextElement = nextElement.nextElementSibling;
-                }
-                
-                // 如果找到的是content-title，再查找它的下一个content-box
-                if (textElement && textElement.classList.contains('content-title')) {
-                    const nextBox = textElement.nextElementSibling;
-                    if (nextBox && nextBox.classList.contains('content-box')) {
-                        textElement = nextBox;
-                    }
-                }
-            }
-            // 特殊处理：模板
-            else if (buttonTitle.includes('模板')) {
-                // 查找同级的下一个content-box
-                const titleElement = button.parentElement;
-                let nextElement = titleElement.nextElementSibling;
-                
-                // 找到下一个content-box
-                while (nextElement) {
-                    if (nextElement.classList.contains('content-box')) {
-                        // 查找子元素中的english-text
-                        const englishText = nextElement.querySelector('.english-text');
-                        if (englishText) {
-                            textElement = englishText;
-                            break;
-                        } else {
-                            textElement = nextElement;
-                            break;
-                        }
-                    }
-                    nextElement = nextElement.nextElementSibling;
-                }
-            }
-            // 特殊处理：案例
-            else if (buttonTitle.includes('案例')) {
-                // 查找包含 .english-text 的容器
-                const contentBox = button.closest('.content-box');
-                if (contentBox) {
-                    const englishText = contentBox.querySelector('.english-text');
-                    if (englishText) {
-                        textElement = englishText;
-                        if (window.location.search.includes('debug=true')) {
-                            console.log('找到案例部分的english-text元素');
-                        }
-                    }
-                }
-            }
-            // 其他content-title内的按钮
-            else {
-                // 查找同级的下一个content-box
-                const parentContentBox = button.closest('.content-box');
-                if (parentContentBox) {
-                    const nextBox = parentContentBox.nextElementSibling;
-                    if (nextBox && nextBox.classList.contains('content-box')) {
-                        textElement = nextBox;
-                    } else {
-                        // 如果没有下一个，使用当前content-box
-                        textElement = parentContentBox;
-                    }
-                }
-            }
-        }
-        // 情况3.2: 按钮在content-box内
-        else if (button.parentElement.classList.contains('content-box')) {
-            textElement = button.parentElement;
-        }
-        // 情况3.3: 其他位置的按钮
-        else {
-            // 查找按钮附近的文本元素
-            // 先查找同级的下一个元素
-            if (button.nextElementSibling &&
-                (button.nextElementSibling.classList.contains('content-box') ||
-                 button.nextElementSibling.classList.contains('format-box') ||
-                 button.nextElementSibling.classList.contains('english-text'))) {
-                textElement = button.nextElementSibling;
-            }
-            // 查找父级容器内的文本元素
-            else {
-                const container = button.parentElement;
-                textElement = container.querySelector('.content-box') ||
-                              container.querySelector('.format-box') ||
-                              container.querySelector('.english-text');
-            }
-        }
-        
-        return textElement;
-    }
-    
-    // 策略4: 通用查找方法（适用于所有页面）
-    if (!textElement) {
-        // 情况4.1: 按钮在content-title内
-        if (button.parentElement.classList.contains('content-title')) {
-            // 查找同级的下一个content-box
-            const parentContentBox = button.closest('.content-box');
-            if (parentContentBox) {
-                const nextBox = parentContentBox.nextElementSibling;
-                if (nextBox && nextBox.classList.contains('content-box')) {
-                    textElement = nextBox;
-                } else {
-                    // 如果没有下一个，使用当前content-box
-                    textElement = parentContentBox;
-                }
-            }
-        }
-        // 情况4.2: 按钮在content-box内
-        else if (button.parentElement.classList.contains('content-box')) {
-            textElement = button.parentElement;
-        }
-        // 情况4.3: 其他位置的按钮
-        else {
-            // 查找父级容器内的文本元素
-            const container = button.parentElement;
-            textElement = container.querySelector('.content-box') ||
-                          container.querySelector('.format-box') ||
-                          container.querySelector('.english-text') ||
-                          container.querySelector('.sentence-pattern');
-        }
-    }
-    
-    // 如果还是没找到，使用最后的备用方案
-    if (!textElement) {
-        const parentSection = button.closest('.section');
-        if (parentSection) {
-            // 查找section内所有可能的文本元素
-            const candidates = parentSection.querySelectorAll('.content-box, .sentence-pattern, .format-box, .english-text, .english-expression');
-            // 找到第一个非空的候选元素
-            for (let candidate of candidates) {
-                if (candidate.textContent.trim().length > 0) {
-                    textElement = candidate;
-                    if (window.location.search.includes('debug=true')) {
-                        console.log('使用备用方案找到文本元素:', candidate);
-                    }
-                    break;
-                }
-            }
-        }
-    }
-    
-    if (window.location.search.includes('debug=true')) {
-        console.log('最终找到的文本元素:', textElement);
-        if (textElement) {
-            console.log('文本元素内容:', textElement.textContent ? textElement.textContent.trim() : '无内容');
-        }
-    }
-    return textElement;
-}
-
-
-// 新的分段朗读长文本函数
-function speakLongText(text, button) {
-    try {
-        // 停止当前正在播放的语音
-        if (speechSynthesis.speaking) {
-            speechSynthesis.cancel();
-        }
-        
-        // 重置朗读管理器状态
-        readingManager.reset();
-        
-        // 1. 给待朗读文本分段并加唯一标识
-        const segments = readingManager.segmentTextWithIds(text);
-        
-        // 2. 将分段加入朗读队列
-        readingManager.readingQueue = [...segments];
-        
-        // 3. 开始处理朗读队列（避免并发朗读请求）
-        readingManager.processReadingQueue(button);
-        
-    } catch (error) {
-        console.error('分段朗读初始化时出错:', error, '文本:', text);
-        // 重置状态
-        readingManager.reset();
-        button.classList.remove('reading');
+    // 检查文本长度，决定使用单段落还是分段朗读
+    if (cleanText.length > 300) {
+        readingManager.readText(cleanText, true);
+    } else {
+        readingManager.readText(cleanText, false);
     }
 }
 
@@ -1275,13 +607,6 @@ function readDirections() {
         const englishText = englishParts.join(' ');
         const cleanEnglishText = cleanTextForSpeech(englishText);
         
-        // 检查是否包含中文段落（连续5个以上中文字符）
-        const chineseParagraphRegex = /[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]{5,}/;
-        if (chineseParagraphRegex.test(cleanEnglishText)) {
-            console.log('检测到中文段落，停止朗读');
-            readingManager.completeReading();
-            return;
-        }
         
         if (cleanEnglishText.length > 0) {
             // 将英文文本分段并加入队列
@@ -1303,13 +628,6 @@ function readDirections() {
             const chineseText = chineseParts.join('');
             const cleanChineseText = cleanTextForSpeech(chineseText);
             
-            // 检查是否包含中文段落（连续5个以上中文字符）
-            const chineseParagraphRegex = /[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]{5,}/;
-            if (chineseParagraphRegex.test(cleanChineseText)) {
-                console.log('检测到中文段落，停止朗读');
-                readingManager.completeReading();
-                return;
-            }
             
             if (cleanChineseText.length > 0) {
                 const chineseUtterance = new SpeechSynthesisUtterance(cleanChineseText);
@@ -1328,17 +646,8 @@ function readDirections() {
     }
 }
 
-
 // 停止朗读
 function stopReading() {
-    console.log('stopReading 被调用，当前状态:', {
-        isReading: readingManager.isReading,
-        isProcessingQueue: readingManager.isProcessingQueue,
-        queueLength: readingManager.readingQueue.length,
-        currentIndex: readingManager.currentReadingIndex
-    });
-    
-    // 使用朗读管理器停止朗读
     readingManager.stopReading();
 }
 
@@ -1558,6 +867,79 @@ function processTemplateText(element) {
     children.forEach(child => processNode(child));
 }
 
+// 从元素中提取文本内容的辅助函数
+function getTextFromElement(element) {
+    if (!element) return '';
+    
+    // 特殊处理：如果元素是content-box且包含动词词组标题，需要提取所有子内容
+    if (element.classList && element.classList.contains('content-box')) {
+        const titleElement = element.querySelector('.content-title');
+        if (titleElement) {
+            const titleText = titleElement.textContent || titleElement.innerText || '';
+            if (titleText.includes('动词词组') || titleText.includes('常用词汇和短语')) {
+                // 对于动词词组或常用词汇和短语部分，需要提取所有子元素的文本
+                let text = '';
+                const childElements = element.children;
+                for (let i = 0; i < childElements.length; i++) {
+                    const child = childElements[i];
+                    // 跳过包含按钮的标题行
+                    if (child.classList && child.classList.contains('content-title') && 
+                        child.querySelector('button')) {
+                        continue;
+                    }
+                    // 提取子元素文本
+                    if (child.textContent) {
+                        text += child.textContent + '\n';
+                    } else if (child.innerText) {
+                        text += child.innerText + '\n';
+                    }
+                }
+                return text;
+            }
+        }
+    }
+    
+    // 如果元素有直接的文本内容，返回它
+    if (element.textContent) {
+        return element.textContent;
+    }
+    
+    // 如果元素有innerText属性，返回它
+    if (element.innerText) {
+        return element.innerText;
+    }
+    
+    // 如果元素有value属性（如input元素），返回它
+    if (element.value) {
+        return element.value;
+    }
+    
+    // 对于复杂结构，递归获取所有子元素的文本
+    let text = '';
+    const childNodes = element.childNodes;
+    
+    for (let i = 0; i < childNodes.length; i++) {
+        const node = childNodes[i];
+        
+        // 如果是文本节点，直接添加文本内容
+        if (node.nodeType === Node.TEXT_NODE) {
+            text += node.textContent;
+        } 
+        // 如果是元素节点，递归处理
+        else if (node.nodeType === Node.ELEMENT_NODE) {
+            // 特殊处理br标签，替换为换行符
+            if (node.tagName.toLowerCase() === 'br') {
+                text += '\n';
+            } else {
+                // 递归获取子元素的文本
+                text += getTextFromElement(node);
+            }
+        }
+    }
+    
+    return text;
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     initializeCommon();
@@ -1570,16 +952,204 @@ function cleanTextForSpeech(text) {
     return text
         // 移除HTML标签
         .replace(/<[^>]*>/g, '')
-        // 移除中文段落（连续5个以上中文字符）
-        .replace(/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]{5,}/g, '')
-        // 保留更多有用的字符，包括中文和常用符号
-        .replace(/[^\w\s\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff.,!?;:'"()\-]/g, '')
+        // 保留英文、中文、数字和常用标点符号及换行符
+        .replace(/[^\w\s\u4e00-\u9fff.,!?;:'"()\-\/\n]/g, '')
         // 将多个空格替换为单个空格
         .replace(/\s+/g, ' ')
         // 移除首尾空格
         .trim();
 }
 
+// 将文本分段并为每个段落分配ID
+function segmentTextWithIds(text) {
+    if (!text || text.trim().length === 0) {
+        return [];
+    }
+    
+    // 首先清理文本
+    const cleanText = cleanTextForSpeech(text);
+    
+    // 如果文本长度不超过300个字符，作为单个段落处理
+    if (cleanText.length <= 300) {
+        return [{
+            id: 'short_segment_0',
+            text: cleanText
+        }];
+    }
+    
+    // 优先按换行符分割段落（保留有意义的段落边界）
+    const paragraphs = cleanText.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+    
+    // 如果只有一个段落或段落数量较少，尝试进一步按句子分割
+    const allSentences = [];
+    paragraphs.forEach(paragraph => {
+        // 清理段落内的多余空白
+        const cleanParagraph = paragraph.trim();
+        
+        // 按句子结束标点分割
+        const sentences = cleanParagraph.match(/[^.!?。！？]*[.!?。！？]+/g) || [cleanParagraph];
+        
+        // 过滤掉空句子并添加到总句子列表
+        sentences.filter(s => s.trim().length > 0).forEach(sentence => {
+            allSentences.push(sentence.trim());
+        });
+        
+        // 在段落之间添加特殊标记，表示这是一个重要的分隔点
+        allSentences.push('\n\n');
+    });
+    
+    // 移除末尾的分隔符
+    if (allSentences.length > 0 && allSentences[allSentences.length - 1] === '\n\n') {
+        allSentences.pop();
+    }
+    
+    const segments = [];
+    let currentSegment = '';
+    let segmentIndex = 0;
+    
+    for (let i = 0; i < allSentences.length; i++) {
+        const sentence = allSentences[i];
+        
+        // 特殊处理：如果遇到段落分隔符，先完成当前段落
+        if (sentence === '\n\n') {
+            if (currentSegment.trim().length > 0) {
+                segments.push({
+                    id: 'segment_' + segmentIndex++,
+                    text: currentSegment.trim()
+                });
+                currentSegment = '';
+            }
+            continue;
+        }
+        
+        // 检查添加当前句子后是否超出长度限制
+        const potentialSegment = currentSegment ? currentSegment + ' ' + sentence : sentence;
+        
+        if (potentialSegment.length <= 300) {
+            currentSegment = potentialSegment;
+        } else {
+            // 如果当前段落不为空，保存当前段落
+            if (currentSegment.trim().length > 0) {
+                segments.push({
+                    id: 'segment_' + segmentIndex++,
+                    text: currentSegment.trim()
+                });
+            }
+            
+            // 如果单个句子就超过300字符，需要强制分割
+            if (sentence.length > 300) {
+                // 按每290字符分割长句
+                for (let j = 0; j < sentence.length; j += 290) {
+                    const chunk = sentence.substr(j, 290);
+                    segments.push({
+                        id: 'segment_' + segmentIndex++,
+                        text: chunk.trim()
+                    });
+                }
+            } else {
+                // 开始新的段落
+                currentSegment = sentence;
+            }
+        }
+    }
+    
+    // 保存最后一个段落
+    if (currentSegment.trim().length > 0) {
+        segments.push({
+            id: 'segment_' + segmentIndex++,
+            text: currentSegment.trim()
+        });
+    }
+    
+    return segments;
+}
+
+// 精确查找按钮对应的文本元素
+function findTextElementForButton(button, buttonTitle, buttonText) {
+    // 检查按钮是否在.content-box内，如果是，则直接返回该.content-box作为文本元素
+    const buttonParent = button.parentElement;
+    if (buttonParent && buttonParent.classList.contains('content-box')) {
+        return buttonParent;
+    }
+    
+    // 特殊处理：如果按钮在"常用词汇和短语"或"动词词组"标题内，需要找到包含所有相关内容的父级.content-box
+    if (buttonParent && buttonParent.classList.contains('content-title')) {
+        // 检查是否是"常用词汇和短语"或"动词词组"标题
+        const titleText = buttonParent.textContent || buttonParent.innerText || '';
+        if (titleText.includes('常用词汇和短语') || titleText.includes('动词词组')) {
+            // 返回包含所有相关内容的父级.content-box
+            const grandParent = buttonParent.parentElement;
+            if (grandParent && grandParent.classList.contains('content-box')) {
+                return grandParent;
+            }
+        }
+    }
+    
+    // 如果按钮在.content-title内，则查找同级的.content-box元素
+    if (buttonParent && buttonParent.classList.contains('content-title')) {
+        // 查找同级的.content-box元素
+        let nextElement = buttonParent.nextElementSibling;
+        while (nextElement) {
+            if (nextElement.classList.contains('content-box')) {
+                return nextElement;
+            }
+            // 如果遇到另一个content-title，停止查找
+            if (nextElement.classList.contains('content-title')) {
+                break;
+            }
+            nextElement = nextElement.nextElementSibling;
+        }
+    }
+    
+    // 特殊情况处理：如果按钮在.content-title内，但.content-title本身在.content-box内
+    // 则返回.content-title的父元素（即.content-box）
+    if (buttonParent && buttonParent.classList.contains('content-title')) {
+        const titleParent = buttonParent.parentElement;
+        if (titleParent && titleParent.classList.contains('content-box')) {
+            return titleParent;
+        }
+    }
+    
+    // 处理chart页面的结构：按钮在.content-title内，同级有.readable-content元素
+    if (buttonParent && buttonParent.classList.contains('content-title')) {
+        // 查找同级的.readable-content元素
+        let nextElement = buttonParent.nextElementSibling;
+        while (nextElement) {
+            if (nextElement.classList.contains('readable-content')) {
+                return nextElement;
+            }
+            // 如果遇到另一个content-title，停止查找
+            if (nextElement.classList.contains('content-title')) {
+                break;
+            }
+            nextElement = nextElement.nextElementSibling;
+        }
+    }
+    
+    // 处理Cross-Cultural Invitation.html页面的结构：按钮在.title或.letter-type内，查找同级的.sentence-pattern元素
+    if (buttonParent && (buttonParent.classList.contains('title') || buttonParent.classList.contains('letter-type'))) {
+        // 查找同级的.sentence-pattern元素
+        let nextElement = buttonParent.nextElementSibling;
+        while (nextElement) {
+            if (nextElement.classList.contains('sentence-pattern')) {
+                return nextElement;
+            }
+            // 如果遇到另一个title或letter-type，停止查找
+            if (nextElement.classList.contains('title') || nextElement.classList.contains('letter-type')) {
+                break;
+            }
+            nextElement = nextElement.nextElementSibling;
+        }
+    }
+    
+    // 处理Cross-Cultural Invitation.html页面的结构：按钮直接在.sentence-pattern内
+    if (buttonParent && buttonParent.classList.contains('sentence-pattern')) {
+        return buttonParent;
+    }
+    
+    // 如果没有找到，返回null
+    return null;
+}
 
 // 导出函数供其他脚本使用
 window.EnglishLearningCommon = {

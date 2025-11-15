@@ -24,7 +24,7 @@ const defaultConfig = {
     fuzzyMatchThreshold: 0.8,
     
     // 调试模式
-    debugMode: true
+    debugMode: false
 };
 
 /**
@@ -2787,7 +2787,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         if (window.EnglishLearningCommon) {
             // 翻译系统已经在构造函数中初始化
-            console.log('翻译系统与common.js集成完成');
+            // 翻译系统与common.js集成完成
             
             // 重新初始化单词点击事件，确保新系统生效
             const words = document.querySelectorAll('.word');

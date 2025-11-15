@@ -55,48 +55,63 @@
             <!-- 开头段-直奔主题-必备句型1个 -->
             <div class="content-box">
                 <div class="content-title">开头段-直奔主题-必备句型1个<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="letter-opening-expressions">
                 <div class="content-box">
                     I am writing this letter/email to do目的+<span class="color-red">for</span>+原因
                     <br>我写这封信/邮件是为了某事。
                 </div>
+                </div>
                 
                 <div class="content-title">感谢信：<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="thank-you-expressions">
                 <div class="content-box">
                     <span class="color-blue">express my sincere</span> <span class="color-red">gratitude </span>for your kind help
                     <br>对你热心的帮助致以真诚的谢意
                 </div>
+                </div>
 
                 <div class="content-title">建议信：<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="suggestion-expressions">
                 <div class="content-box">
                     <span class="color-blue">make some</span> <span class="color-red">suggestions </span>concerning sth./doing sth.
                     <br>给出关于某事的建议
                 </div>
+                </div>
 
                 <div class="content-title">投诉信：<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="complaint-expressions">
                 <div class="content-box">
                     <span class="color-blue">make my complaint</span> <span class="color-red">concerning </span>sth./doing sth.
                     <br>表达我对某事的不满
                 </div>
+                </div>
 
                 <div class="content-title">祝贺信：<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="congratulation-expressions">
                 <div class="content-box">
                     <span class="color-blue">show my sincere</span> <span class="color-red">congratulations </span>to you because句子/for sth./doing sth
                     <br>因为某事向你表示我真诚的祝贺
                 </div>
+                </div>
 
                 <div class="content-title">道歉信：<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="apology-expressions">
                 <div class="content-box">
                     <span class="color-blue">offer my sincere</span> <span class="color-red">apology </span>to you because句子/for sth./doing sth
                     <br>因为某事向你表示我真诚的歉意
                 </div>
+                </div>
 
                 <div class="content-title">邀请信：<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="invitation-expressions">
                 <div class="content-box">
                     <span class="color-red">invite </span> <span class="color-blue">you to participate in</span> 活动 on behalf of 某人/组织
                     <br>代表某人/组织邀请你来参加活动
                 </div>
+                </div>
 
                 <div class="content-title">通知信：<button class="read-btn" onclick="readSectionText(this)" title="朗读">▶</button></div>
+                <div class="readable-content" id="notification-expressions">
                 <div class="content-box">
                     <span class="color-blue">have </span>某人 <span class="color-red">informed </span>that 句子
                     <br>通知某人某事
@@ -403,7 +418,7 @@
             if (window.translationManager) {
                 // 等待翻译系统初始化完成
                 window.translationManager.init().then(() => {
-                    console.log('单词翻译系统初始化完成');
+                    // 单词翻译系统初始化完成
                     
                     // 设置翻译系统配置 - 仅支持单词翻译
                     window.translationManager.setConfig({
