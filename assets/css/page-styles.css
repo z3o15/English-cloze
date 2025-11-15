@@ -2,12 +2,27 @@
 
 /* CSS变量定义 - 统一的内边距和间距值 */
 :root {
+    /* 内容容器样式变量 */
     --content-padding-primary: 15px;  /* 主级内容容器内边距 */
     --content-padding-secondary: 8px;  /* 次级内容容器内边距 */
     --content-margin: 15px 0;          /* 内容容器外边距 */
     --nested-content-margin: 10px 0;   /* 嵌套内容容器外边距 */
     --content-bg-primary: #ffffff;     /* 主级内容容器背景色 */
     --content-bg-secondary: #f9f9f9;   /* 次级内容容器背景色 */
+    
+    /* 朗读按钮样式变量 */
+    --btn-color: #87CEEB;              /* 朗读按钮颜色 */
+    --btn-active-color: #4A90E2;       /* 朗读按钮激活颜色 */
+    --btn-font-size: 16px;             /* 朗读按钮字体大小 */
+    --btn-padding: 2px 6px;            /* 朗读按钮内边距 */
+    
+    /* 格式框样式变量 */
+    --format-box-bg: #f9f9f9;          /* 格式框背景色 */
+    --format-box-border: #0066cc;      /* 格式框边框颜色 */
+    --format-box-padding: 15px;        /* 格式框内边距 */
+    
+    /* 动画变量 */
+    --animation-duration: 1.5s;         /* 动画持续时间 */
 }
 
 /* 页面整体背景设置为浅灰色 */
@@ -33,7 +48,7 @@ body {
 }
 
 /* 统一内容容器样式 */
-.format-box, .content-box {
+.content-box {
     background: var(--content-bg-primary);
     border-radius: 5px;
     padding: var(--content-padding-primary);
@@ -42,15 +57,24 @@ body {
     box-sizing: border-box;
 }
 
-/* 修复嵌套content-box的宽度问题 */
+/* 格式框样式 - 从common.css移过来，使用CSS变量 */
+.format-box {
+    background-color: var(--format-box-bg);
+    padding: var(--format-box-padding);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--format-box-border);
+}
+
+/* 修复嵌套content-box的宽度问题 - 简化负边距计算 */
 .content-box .content-box {
-    /* 使用负边距补偿嵌套造成的宽度损失 */
-    margin-left: calc(-1 * var(--content-padding-primary));
-    margin-right: calc(-1 * var(--content-padding-primary));
+    /* 使用CSS变量简化负边距计算 */
+    margin-left: calc(0px - var(--content-padding-primary));
+    margin-right: calc(0px - var(--content-padding-primary));
     padding: var(--content-padding-secondary) var(--content-padding-primary);
     margin-top: var(--nested-content-margin);
     margin-bottom: var(--nested-content-margin);
-    background-color: var(--content-bg-secondary);
+    background-color: var(--content-bg-primary);
     width: auto;
 }
 
@@ -62,32 +86,32 @@ body {
 
 /* 四层及更深嵌套的content-box样式 */
 .content-box .content-box .content-box .content-box {
-    background-color: var(--content-bg-secondary);
+    background-color: var(--content-bg-primary);
     border-left-color: #d0d0d0;
 }
 
-/* 统一朗读按钮样式 */
-.read-section-btn, .read-btn {
+/* 统一朗读按钮样式 - 合并common.css中的样式，使用CSS变量 */
+.read-btn, .read-section-btn, .read-directions-btn {
     background: none;
     border: none;
-    padding: 2px 6px;
+    padding: var(--btn-padding);
     cursor: pointer;
-    font-size: 16px;
+    font-size: var(--btn-font-size);
     margin-left: 8px;
     transition: all 0.2s ease;
-    color: #87CEEB;
+    color: var(--btn-color);
     opacity: 0.7;
 }
 
-.read-section-btn:hover, .read-btn:hover {
+.read-btn:hover, .read-section-btn:hover, .read-directions-btn:hover {
     opacity: 1;
     transform: scale(1.1);
 }
 
-.read-section-btn.reading, .read-btn.reading {
-    color: #4A90E2;
+.read-btn.reading, .read-section-btn.reading, .read-directions-btn.reading {
+    color: var(--btn-active-color);
     opacity: 1;
-    animation: pulse 1.5s infinite;
+    animation: pulse var(--animation-duration) infinite;
 }
 
 /* 图表页面特定的朗读按钮样式 */
@@ -97,17 +121,17 @@ body {
 
 /* 书信页面特定的朗读按钮样式 */
 .read-section-btn {
-    /* 可以添加书信页面特定的样式 */
+    /* 书信页面特定样式 */
 }
 
-/* 脉冲动画 */
+/* 脉冲动画 - 合并common.css中的动画定义，保留更完整的版本，使用CSS变量 */
 @keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
+    0% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0.7; transform: scale(1); }
 }
 
-/* 响应式设计 - 针对嵌套容器的宽度问题 */
+/* 响应式设计 - 优化媒体查询规则，合并相似的样式 */
 @media (max-width: 768px) {
     /* 在小屏幕上调整内边距值 */
     :root {
@@ -115,12 +139,13 @@ body {
         --content-padding-secondary: 6px;
         --content-margin: 12px 0;
         --nested-content-margin: 8px 0;
+        --btn-font-size: 14px;          /* 小屏幕按钮字体调整 */
     }
     
     /* 确保嵌套容器在小屏幕上不会超出父容器 */
     .content-box .content-box {
-        margin-left: calc(-1 * var(--content-padding-primary));
-        margin-right: calc(-1 * var(--content-padding-primary));
+        margin-left: calc(0px - var(--content-padding-primary));
+        margin-right: calc(0px - var(--content-padding-primary));
         padding-left: var(--content-padding-primary);
         padding-right: var(--content-padding-primary);
         overflow-x: hidden; /* 防止水平溢出 */
@@ -134,6 +159,7 @@ body {
         --content-padding-secondary: 5px;
         --content-margin: 10px 0;
         --nested-content-margin: 6px 0;
+        --btn-font-size: 12px;          /* 超小屏幕按钮字体调整 */
     }
     
     /* 在超小屏幕上简化嵌套容器的样式 */
@@ -144,4 +170,69 @@ body {
     .content-box .content-box .content-box .content-box {
         border-left-width: 1px;
     }
+}
+
+/* 标题样式 - 确保标题加粗 */
+.content-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 6px;
+    margin-bottom: 14px;
+    display: block;
+}
+
+/* 确保正文内容使用正常字重 */
+.english-text, .chinese-text {
+    font-weight: normal;
+}
+
+/* 其他标题样式 - 确保加粗 */
+.expression-title, .template-title, .case-title {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* 其他正文样式 - 确保正常字重 */
+.chinese-translation, .english-expression {
+    font-weight: normal;
+}
+
+/* 为带有英文对照翻译的中文文本元素添加底部间距 */
+.chinese-translation {
+    margin-top: 6px;
+    margin-bottom: 16px;
+}
+
+.chinese-text {
+    margin-bottom: 16px;
+}
+
+/* 基本格式内容的字体大小设置 */
+.format-content {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.chinese-format {
+    font-size: 17px; /* 中文内容使用17px */
+    color: #333;
+    font-weight: normal;
+    line-height: 1.8;
+}
+
+.english-format {
+    font-size: 18px; /* 英文内容使用18px */
+    color: #333;
+    font-weight: normal;
+    line-height: 1.6;
+}
+
+/* 确保基本格式内容与其他内容一致 */
+.content-box .format-content {
+    font-size: 17px; /* 默认中文大小 */
+}
+
+.content-box .format-content .english-text {
+    font-size: 18px; /* 英文内容使用18px */
 }

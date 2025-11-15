@@ -1,11 +1,25 @@
 /* 导航增强样式 - 确保在所有页面上的导航一致性 */
 
-/* 导航容器样式 - 增强版本 */
+/* CSS变量定义 - 导航样式变量 */
+:root {
+    --navbar-bg-color: #0066cc;        /* 导航栏背景色 */
+    --navbar-text-color: white;         /* 导航栏文字颜色 */
+    --navbar-hover-bg: rgba(255,255,255,0.1); /* 导航悬停背景色 */
+    --navbar-font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+    --navbar-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --navbar-min-height: 60px;          /* 导航栏最小高度 */
+    --navbar-padding: 1rem 0;           /* 导航栏内边距 */
+    --navbar-link-padding: 0.5rem 1rem; /* 导航链接内边距 */
+    --navbar-brand-size: 1.5rem;        /* 品牌名称字体大小 */
+    --navbar-link-size: 1rem;           /* 导航链接字体大小 */
+}
+
+/* 导航容器样式 - 增强版本，使用CSS变量减少!important */
 .navbar {
-    background-color: #0066cc !important;
-    padding: 1rem 0 !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-    min-height: 60px; /* 确保最小高度一致 */
+    background-color: var(--navbar-bg-color);
+    padding: var(--navbar-padding);
+    box-shadow: var(--navbar-shadow);
+    min-height: var(--navbar-min-height);
     position: relative;
     width: 100%;
     z-index: 1000;
@@ -13,124 +27,124 @@
 
 /* 导航容器内部样式 */
 .navbar .container {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    max-width: 1200px !important;
-    margin: 0 auto !important;
-    padding: 0 20px !important;
-    width: 100% !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
     min-height: inherit;
 }
 
 /* 品牌名称样式 */
 .navbar-brand {
-    color: white !important;
-    font-size: 1.5rem !important;
-    font-weight: bold !important;
-    text-decoration: none !important;
-    font-family: 'Arial', 'Microsoft YaHei', sans-serif !important;
-    line-height: 1.2 !important;
+    color: var(--navbar-text-color);
+    font-size: var(--navbar-brand-size);
+    font-weight: bold;
+    text-decoration: none;
+    font-family: var(--navbar-font-family);
+    line-height: 1.2;
     display: inline-block;
     white-space: nowrap;
 }
 
 /* 导航列表样式 */
 .navbar-nav {
-    display: flex !important;
-    list-style: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     align-items: center;
     flex-wrap: nowrap;
 }
 
 /* 导航项样式 */
 .nav-item {
-    margin-left: 1rem !important;
+    margin-left: 1rem;
     flex-shrink: 0;
 }
 
 /* 第一个导航项不设置左边距 */
 .nav-item:first-child {
-    margin-left: 0 !important;
+    margin-left: 0;
 }
 
 /* 导航链接样式 */
 .nav-link {
-    color: white !important;
-    text-decoration: none !important;
-    padding: 0.5rem 1rem !important;
-    border-radius: 4px !important;
-    transition: background-color 0.2s ease !important;
-    font-size: 1rem !important;
-    font-family: 'Arial', 'Microsoft YaHei', sans-serif !important;
-    line-height: 1.4 !important;
+    color: var(--navbar-text-color);
+    text-decoration: none;
+    padding: var(--navbar-link-padding);
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    font-size: var(--navbar-link-size);
+    font-family: var(--navbar-font-family);
+    line-height: 1.4;
     display: inline-block;
     white-space: nowrap;
 }
 
 /* 导航链接悬停和活动状态 */
 .nav-link:hover, .nav-link.active {
-    background-color: rgba(255,255,255,0.1) !important;
+    background-color: var(--navbar-hover-bg);
 }
 
-/* 响应式设计 - 增强版本 */
+/* 响应式设计 - 优化版本，减少!important使用 */
 @media (max-width: 768px) {
     .navbar {
-        padding: 0.75rem 0 !important;
+        padding: 0.75rem 0;
         min-height: auto;
     }
     
     .navbar .container {
-        flex-direction: column !important;
-        text-align: center !important;
-        padding: 0 15px !important;
+        flex-direction: column;
+        text-align: center;
+        padding: 0 15px;
     }
     
     .navbar-nav {
-        margin-top: 1rem !important;
+        margin-top: 1rem;
         flex-wrap: wrap;
         justify-content: center;
     }
     
     .nav-item {
-        margin: 0 0.5rem !important;
-        margin-bottom: 0.5rem !important;
+        margin: 0 0.5rem;
+        margin-bottom: 0.5rem;
     }
     
     .navbar-brand {
-        font-size: 1.25rem !important;
+        font-size: 1.25rem;
         margin-bottom: 0.5rem;
     }
     
     .nav-link {
-        font-size: 0.9rem !important;
-        padding: 0.4rem 0.8rem !important;
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
     }
 }
 
 @media (max-width: 480px) {
     .navbar {
-        padding: 0.5rem 0 !important;
+        padding: 0.5rem 0;
     }
     
     .navbar .container {
-        padding: 0 10px !important;
+        padding: 0 10px;
     }
     
     .navbar-brand {
-        font-size: 1.1rem !important;
+        font-size: 1.1rem;
     }
     
     .nav-link {
-        font-size: 0.85rem !important;
-        padding: 0.3rem 0.6rem !important;
+        font-size: 0.85rem;
+        padding: 0.3rem 0.6rem;
     }
     
     .nav-item {
-        margin: 0 0.25rem !important;
-        margin-bottom: 0.25rem !important;
+        margin: 0 0.25rem;
+        margin-bottom: 0.25rem;
     }
 }
 
@@ -140,7 +154,7 @@
 .navbar-nav, .navbar-nav:before, .navbar-nav:after,
 .nav-item, .nav-item:before, .nav-item:after,
 .nav-link, .nav-link:before, .nav-link:after {
-    box-sizing: border-box !important;
+    box-sizing: border-box;
 }
 
 /* 防止内容溢出 */
@@ -158,13 +172,13 @@
 /* 确保在打印时导航正常显示 */
 @media print {
     .navbar {
-        background-color: #0066cc !important;
+        background-color: var(--navbar-bg-color);
         -webkit-print-color-adjust: exact;
         color-adjust: exact;
     }
     
     .nav-link {
-        color: white !important;
+        color: var(--navbar-text-color);
         -webkit-print-color-adjust: exact;
         color-adjust: exact;
     }
@@ -173,19 +187,19 @@
 /* 高对比度模式支持 */
 @media (prefers-contrast: high) {
     .navbar {
-        background-color: #004499 !important;
-        border: 2px solid white !important;
+        background-color: #004499;
+        border: 2px solid var(--navbar-text-color);
     }
     
     .nav-link:hover, .nav-link.active {
-        background-color: rgba(255,255,255,0.2) !important;
-        border: 1px solid white !important;
+        background-color: rgba(255,255,255,0.2);
+        border: 1px solid var(--navbar-text-color);
     }
 }
 
 /* 减少动画模式支持 */
 @media (prefers-reduced-motion: reduce) {
     .nav-link {
-        transition: none !important;
+        transition: none;
     }
 }

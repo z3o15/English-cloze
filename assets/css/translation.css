@@ -1,0 +1,658 @@
+/**
+ * 交互式翻译功能样式文件
+ * 实现翻译弹窗的样式、动画效果、响应式设计和无障碍支持
+ */
+
+/* CSS变量定义 - 实现主题一致性 */
+:root {
+    --translation-popup-bg: #ffffff;
+    --translation-popup-border: #e1e5e9;
+    --translation-popup-shadow: rgba(0, 0, 0, 0.15);
+    --translation-popup-text: #333333;
+    --translation-popup-muted: #666666;
+    --translation-popup-accent: #0066cc;
+    --translation-popup-hover: #f5f5f5;
+    --translation-popup-success: #28a745;
+    --translation-popup-warning: #ffc107;
+    --translation-popup-error: #dc3545;
+    --translation-popup-animation-duration: 200ms;
+    --translation-popup-border-radius: 8px;
+    --translation-popup-max-width: 300px;
+    --translation-popup-font-size: 14px;
+    --translation-popup-padding: 12px;
+}
+
+/* 弹窗容器样式 */
+.translation-popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+/* 翻译弹窗基础样式 */
+.translation-popup {
+    position: absolute;
+    background-color: var(--translation-popup-bg);
+    border: 1px solid var(--translation-popup-border);
+    border-radius: var(--translation-popup-border-radius);
+    box-shadow: 0 4px 12px var(--translation-popup-shadow);
+    max-width: var(--translation-popup-max-width);
+    font-size: var(--translation-popup-font-size);
+    color: var(--translation-popup-text);
+    font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+    line-height: 1.5;
+    pointer-events: auto;
+    z-index: 10001;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity var(--translation-popup-animation-duration) ease, 
+                transform var(--translation-popup-animation-duration) ease;
+    overflow: hidden;
+}
+
+/* 弹窗显示状态 */
+.translation-popup.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 弹窗头部样式 */
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid var(--translation-popup-border);
+    border-radius: var(--translation-popup-border-radius) var(--translation-popup-border-radius) 0 0;
+}
+
+.popup-type {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--translation-popup-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.popup-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: var(--translation-popup-muted);
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.popup-close:hover {
+    background-color: var(--translation-popup-hover);
+    color: var(--translation-popup-text);
+}
+
+.popup-close:focus {
+    outline: 2px solid var(--translation-popup-accent);
+    outline-offset: 1px;
+}
+
+/* 弹窗内容样式 */
+.popup-content {
+    padding: var(--translation-popup-padding);
+}
+
+.original-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--translation-popup-text);
+    margin-bottom: 8px;
+    word-break: break-word;
+}
+
+.translated-text {
+    font-size: var(--translation-popup-font-size);
+    color: var(--translation-popup-text);
+    margin-bottom: 8px;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.additional-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.match-info {
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background-color: #e9ecef;
+    color: var(--translation-popup-muted);
+}
+
+.match-info.missing {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* 弹窗底部样式 */
+.popup-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border-top: 1px solid var(--translation-popup-border);
+    border-radius: 0 0 var(--translation-popup-border-radius) var(--translation-popup-border-radius);
+    gap: 8px;
+}
+
+.pronounce-btn,
+.add-to-favorites {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    min-height: 32px;
+}
+
+.pronounce-btn:hover,
+.add-to-favorites:hover {
+    background-color: var(--translation-popup-hover);
+    transform: scale(1.1);
+}
+
+.pronounce-btn:focus,
+.add-to-favorites:focus {
+    outline: 2px solid var(--translation-popup-accent);
+    outline-offset: 1px;
+}
+
+.add-to-favorites.active {
+    color: var(--translation-popup-warning);
+}
+
+/* 通知样式 */
+.translation-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--translation-popup-accent);
+    color: white;
+    padding: 12px 16px;
+    border-radius: var(--translation-popup-border-radius);
+    box-shadow: 0 2px 8px var(--translation-popup-shadow);
+    font-size: 14px;
+    z-index: 10002;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.translation-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 可翻译文本样式 */
+.translatable {
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s ease;
+}
+
+/* 可翻译单词样式 - 添加淡蓝色下划线 */
+.word {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.word:hover {
+    background-color: rgba(0, 102, 204, 0.05);
+    border-bottom-color: rgba(102, 178, 255, 0.6); /* 淡蓝色下划线 */
+    transform: translateY(-1px); /* 轻微上移，增强视觉效果 */
+}
+
+.translatable {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.translatable:hover {
+    background-color: rgba(0, 102, 204, 0.1);
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 102, 204, 0.1); /* 添加阴影效果 */
+}
+
+/* 通用可翻译单词样式 - 保留下划线但移除悬停效果 */
+.translatable-word {
+    cursor: pointer;
+    position: relative;
+    /* 保留基本transition */
+    transition: color 0.2s ease;
+    /* 添加淡蓝色虚线下划线，清晰标识可点击单词 */
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: rgba(0, 102, 204, 0.6);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+/* 移除悬停效果但保留下划线 */
+.translatable-word:hover {
+    /* 移除背景色变化 */
+    background-color: transparent;
+    /* 保持下划线但加深颜色 */
+    text-decoration-color: rgba(0, 102, 204, 0.8);
+    transform: none;
+    box-shadow: none;
+}
+
+/* 可翻译区域内所有英文单词的视觉提示 - 确保下划线显示 */
+.translatable-area .translatable-word {
+    /* 确保下划线样式正确显示 */
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: rgba(0, 102, 204, 0.6);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+.translatable-area .translatable-word:hover {
+    /* 移除背景色变化但保持下划线 */
+    background-color: transparent;
+    text-decoration-color: rgba(0, 102, 204, 0.8);
+    box-shadow: none;
+}
+
+/* 深色主题支持 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --translation-popup-bg: #2d3748;
+        --translation-popup-border: #4a5568;
+        --translation-popup-shadow: rgba(0, 0, 0, 0.3);
+        --translation-popup-text: #e2e8f0;
+        --translation-popup-muted: #a0aec0;
+        --translation-popup-accent: #63b3ed;
+        --translation-popup-hover: #4a5568;
+    }
+    
+    .popup-header,
+    .popup-footer {
+        background-color: #1a202c;
+        border-color: #4a5568;
+    }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    :root {
+        --translation-popup-border: #000000;
+        --translation-popup-shadow: rgba(0, 0, 0, 0.5);
+        --translation-popup-text: #000000;
+        --translation-popup-accent: #0000ff;
+    }
+    
+    .translation-popup {
+        border-width: 2px;
+    }
+    
+    .popup-close:focus,
+    .pronounce-btn:focus,
+    .add-to-favorites:focus {
+        outline-width: 3px;
+    }
+}
+
+/* 减少动画模式支持 */
+@media (prefers-reduced-motion: reduce) {
+    .translation-popup {
+        transition: none;
+    }
+    
+    .translation-notification {
+        transition: none;
+    }
+    
+    .popup-close:hover,
+    .pronounce-btn:hover,
+    .add-to-favorites:hover {
+        transform: none;
+    }
+}
+
+/* 响应式设计 - 平板端 */
+@media (max-width: 768px) {
+    :root {
+        --translation-popup-max-width: 260px;
+        --translation-popup-font-size: 13px;
+        --translation-popup-padding: 10px;
+    }
+    
+    .original-text {
+        font-size: 15px;
+    }
+    
+    .popup-header,
+    .popup-footer {
+        padding: 6px 10px;
+    }
+    
+    .translation-notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+
+/* 响应式设计 - 手机端 */
+@media (max-width: 480px) {
+    :root {
+        --translation-popup-max-width: 90vw;
+        --translation-popup-font-size: 12px;
+        --translation-popup-padding: 8px;
+        --translation-popup-border-radius: 6px;
+    }
+    
+    .original-text {
+        font-size: 14px;
+    }
+    
+    .popup-header,
+    .popup-footer {
+        padding: 6px 8px;
+    }
+    
+    .popup-type {
+        font-size: 11px;
+    }
+    
+    .match-info {
+        font-size: 10px;
+        padding: 1px 4px;
+    }
+    
+    .pronounce-btn,
+    .add-to-favorites {
+        font-size: 14px;
+        min-width: 28px;
+        min-height: 28px;
+    }
+}
+
+/* 打印样式 */
+@media print {
+    .translation-popup,
+    .translation-popup-container,
+    .translation-notification {
+        display: none !important;
+    }
+    
+    .translatable {
+        background-color: transparent !important;
+    }
+}
+
+/* 无障碍支持 */
+.translation-popup[role="tooltip"] {
+    /* 确保屏幕阅读器可以识别为工具提示 */
+}
+
+.popup-close[aria-label],
+.pronounce-btn[aria-label],
+.add-to-favorites[aria-label] {
+    /* 确保按钮有适当的ARIA标签 */
+}
+
+/* 焦点指示器 */
+.translation-popup *:focus {
+    outline: 2px solid var(--translation-popup-accent);
+    outline-offset: 1px;
+}
+
+/* 键盘导航支持 */
+.translation-popup:focus-within {
+    box-shadow: 0 0 0 2px var(--translation-popup-accent);
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+    .translatable {
+        /* 移除悬停效果，因为触摸设备没有真正的悬停 */
+    }
+    
+    .popup-close:hover,
+    .pronounce-btn:hover,
+    .add-to-favorites:hover {
+        background-color: transparent;
+        transform: none;
+    }
+    
+    .popup-close:active,
+    .pronounce-btn:active,
+    .add-to-favorites:active {
+        background-color: var(--translation-popup-hover);
+        transform: scale(0.95);
+    }
+}
+
+/* 高分辨率屏幕优化 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .translation-popup {
+        border-width: 0.5px;
+    }
+}
+
+/* 特殊状态样式 */
+.translation-popup.loading {
+    position: relative;
+}
+
+.translation-popup.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--translation-popup-accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 错误状态样式 */
+.translation-popup.error {
+    border-color: var(--translation-popup-error);
+}
+
+.translation-popup.error .popup-header {
+    background-color: #f8d7da;
+    border-bottom-color: var(--translation-popup-error);
+}
+
+/* 成功状态样式 */
+.translation-popup.success {
+    border-color: var(--translation-popup-success);
+}
+
+.translation-popup.success .popup-header {
+    background-color: #d4edda;
+    border-bottom-color: var(--translation-popup-success);
+}
+
+/* 调试模式样式 */
+.debug-mode .translation-popup {
+    border: 2px dashed #ff6b6b;
+}
+
+.debug-mode .translation-popup::before {
+    content: attr(data-debug-info);
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 10px;
+    color: #ff6b6b;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px 4px;
+    border-radius: 2px;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+/* 兼容性修复 */
+/* 确保与现有common.css的翻译样式不冲突 */
+.translation-popup {
+    /* 使用不同的类名避免冲突 */
+}
+
+/* 确保弹窗不会被其他元素遮挡 */
+.translation-popup {
+    z-index: 10001; /* 高于大多数UI元素 */
+}
+
+/* 确保弹窗在固定定位元素上方 */
+.modal-overlay,
+.dialog-overlay {
+    z-index: 9999; /* 低于翻译弹窗 */
+}
+
+/* 性能优化 */
+.translation-popup {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* 动画性能优化 */
+.translation-popup,
+.translation-notification {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 滚动条样式 */
+.translation-popup::-webkit-scrollbar {
+    width: 6px;
+}
+
+.translation-popup::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.translation-popup::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.translation-popup::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* 加载状态样式 */
+.translation-loading-indicator {
+    background-color: var(--translation-popup-bg);
+    border: 1px solid var(--translation-popup-border);
+    border-radius: var(--translation-popup-border-radius);
+    box-shadow: 0 2px 8px var(--translation-popup-shadow);
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--translation-popup-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 10002;
+}
+
+.loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--translation-popup-accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* 错误提示样式 */
+.translation-error-tip {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: var(--translation-popup-border-radius);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.2);
+    padding: 8px 12px;
+    font-size: 13px;
+    max-width: 250px;
+    z-index: 10002;
+}
+
+/* 移动设备优化 */
+@media (max-width: 480px) {
+    .translation-loading-indicator,
+    .translation-error-tip {
+        font-size: 12px;
+        padding: 6px 10px;
+        max-width: 200px;
+    }
+    
+    .loading-spinner {
+        width: 14px;
+        height: 14px;
+    }
+    
+    /* 移动端弹窗点击关闭优化 */
+    .translation-popup {
+        /* 增加点击区域，提高移动端体验 */
+    }
+    
+    .translation-popup::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* 创建44px的最小触摸区域用于关闭 */
+        min-height: 44px;
+    }
+    
+    /* 移动端触摸反馈优化 */
+    .pronounce-btn:active,
+    .add-to-favorites:active {
+        background-color: var(--translation-popup-hover);
+        transform: scale(0.95);
+        transition: all 0.1s ease;
+    }
+}

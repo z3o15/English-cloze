@@ -51,7 +51,13 @@ function initializeReadButtons() {
 
 // 切换单词翻译显示
 function toggleTranslation(element) {
-    const word = element.textContent;
+    const word = element.textContent.trim();
+    
+    // 检查单词是否为空或只有标点
+    if (!word || word.length === 0) {
+        return;
+    }
+    
     let translation = element.nextElementSibling;
     
     // 如果翻译元素不存在，创建一个
@@ -75,8 +81,12 @@ function toggleTranslation(element) {
         translation.style.display = 'none';
     }, 1000);
     
-    // 发音单词
-    speakWord(word);
+    // 发音单词（添加错误处理）
+    try {
+        speakWord(word);
+    } catch (error) {
+        console.error('发音单词时出错:', error, '单词:', word);
+    }
 }
 
 // 发音单个单词
@@ -89,6 +99,12 @@ function speakWord(word) {
     // 清理单词，移除可能导致杂音的字符
     const cleanWord = cleanTextForSpeech(word);
     
+    // 检查单词是否为空或只有标点
+    if (!cleanWord || cleanWord.trim().length === 0) {
+        console.log('跳过空单词或标点符号:', word);
+        return;
+    }
+    
     const utterance = new SpeechSynthesisUtterance(cleanWord);
     utterance.lang = 'en-US';
     utterance.rate = 0.9;
@@ -98,6 +114,13 @@ function speakWord(word) {
     // 添加错误处理
     utterance.onerror = function(event) {
         console.error('语音合成错误:', event.error);
+        // 重置状态
+        isReading = false;
+    };
+    
+    // 添加结束处理，确保状态正确重置
+    utterance.onend = function() {
+        // 单词发音不需要重置isReading状态，因为这是点击事件
     };
     
     speechSynthesis.speak(utterance);
@@ -142,23 +165,66 @@ function readSectionText(button) {
         const parentSection = button.closest('.section');
         if (parentSection) {
             if (buttonTitle.includes('动词词组')) {
-                // 查找动词词组section内的所有sentence-pattern
-                const patterns = parentSection.querySelectorAll('.sentence-pattern');
-                if (patterns.length > 0) {
-                    // 创建一个包含所有动词词组的文本元素
-                    textElement = document.createElement('div');
-                    let allText = '';
-                    patterns.forEach(pattern => {
-                        if (pattern.textContent.trim()) {
-                            allText += pattern.textContent.trim() + ' ';
+                // 修复：使用data-target属性精确定位要朗读的内容
+                // 查找按钮父元素的下一个兄弟元素
+                const titleElement = button.parentElement;
+                let nextElement = titleElement.nextElementSibling;
+                
+                // 找到下一个content-title或content-box
+                while (nextElement) {
+                    if (nextElement.classList.contains('content-title') || nextElement.classList.contains('content-box')) {
+                        // 检查是否有data-target属性
+                        if (nextElement.hasAttribute('data-target')) {
+                            textElement = nextElement;
+                            break;
+                        } else if (nextElement.classList.contains('content-box')) {
+                            // 如果没有data-target属性，查找子元素中的english-text
+                            const englishText = nextElement.querySelector('.english-text');
+                            if (englishText) {
+                                textElement = englishText;
+                                break;
+                            } else {
+                                textElement = nextElement;
+                                break;
+                            }
                         }
-                    });
-                    textElement.textContent = allText;
+                    }
+                    nextElement = nextElement.nextElementSibling;
+                }
+                
+                // 如果找到的是content-title，再查找它的下一个content-box
+                if (textElement && textElement.classList.contains('content-title')) {
+                    const nextBox = textElement.nextElementSibling;
+                    if (nextBox && nextBox.classList.contains('content-box')) {
+                        textElement = nextBox;
+                    }
                 }
             } else if (buttonTitle.includes('模板')) {
                 textElement = parentSection.querySelector('.format-box');
             } else if (buttonTitle.includes('案例')) {
-                textElement = parentSection.querySelector('.english-text');
+                // 修复：使用data-target属性精确定位要朗读的内容
+                // 查找按钮父元素的下一个兄弟元素
+                const titleElement = button.parentElement;
+                let nextElement = titleElement.nextElementSibling;
+                
+                // 找到下一个content-box
+                while (nextElement) {
+                    if (nextElement.classList.contains('content-box')) {
+                        // 检查是否有data-target属性
+                        if (nextElement.hasAttribute('data-target')) {
+                            textElement = nextElement;
+                            break;
+                        } else {
+                            // 如果没有data-target属性，查找子元素中的english-text
+                            const englishText = nextElement.querySelector('.english-text');
+                            if (englishText) {
+                                textElement = englishText;
+                                break;
+                            }
+                        }
+                    }
+                    nextElement = nextElement.nextElementSibling;
+                }
             }
         }
     }
@@ -277,26 +343,103 @@ function readSectionText(button) {
         speechSynthesis.cancel();
     }
     
-    currentUtterance = new SpeechSynthesisUtterance(cleanText);
-    currentUtterance.lang = 'en-US';
-    currentUtterance.rate = 0.9;
-    currentUtterance.pitch = 1;
-    currentUtterance.volume = 1;
-    
-    // 设置朗读开始和结束的事件处理
-    currentUtterance.onstart = function() {
-        isReading = true;
-        button.classList.add('reading');
-        console.log('开始朗读:', text);
-    };
-    
-    currentUtterance.onend = function() {
+    // 检查文本长度，如果太长则分段处理
+    const maxLength = 200; // 设置最大长度限制
+    if (cleanText.length > maxLength) {
+        // 分段朗读长文本
+        speakLongText(cleanText, button);
+    } else {
+        // 朗读短文本
+        currentUtterance = new SpeechSynthesisUtterance(cleanText);
+        currentUtterance.lang = 'en-US';
+        currentUtterance.rate = 0.9;
+        currentUtterance.pitch = 1;
+        currentUtterance.volume = 1;
+        
+        // 设置朗读开始和结束的事件处理
+        currentUtterance.onstart = function() {
+            isReading = true;
+            button.classList.add('reading');
+            console.log('开始朗读:', text);
+        };
+        
+        currentUtterance.onend = function() {
+            isReading = false;
+            button.classList.remove('reading');
+            console.log('朗读结束');
+        };
+        
+        speechSynthesis.speak(currentUtterance);
+    }
+}
+
+// 分段朗读长文本
+function speakLongText(text, button) {
+    try {
+        // 将文本按句子分割
+        const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+        let currentIndex = 0;
+        
+        function speakNextSentence() {
+            try {
+                if (currentIndex >= sentences.length) {
+                    // 所有句子朗读完毕
+                    isReading = false;
+                    button.classList.remove('reading');
+                    console.log('长文本朗读结束');
+                    return;
+                }
+                
+                const sentence = sentences[currentIndex].trim();
+                if (sentence.length === 0) {
+                    currentIndex++;
+                    speakNextSentence();
+                    return;
+                }
+                
+                const utterance = new SpeechSynthesisUtterance(sentence);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                
+                // 添加错误处理
+                utterance.onerror = function(event) {
+                    console.error('长文本朗读句子时出错:', event.error, '句子:', sentence);
+                    // 继续下一句
+                    currentIndex++;
+                    setTimeout(speakNextSentence, 100);
+                };
+                
+                utterance.onend = function() {
+                    currentIndex++;
+                    // 添加短暂延迟，使朗读更自然
+                    setTimeout(speakNextSentence, 300);
+                };
+                
+                // 第一句开始时设置按钮状态
+                if (currentIndex === 0) {
+                    isReading = true;
+                    button.classList.add('reading');
+                    console.log('开始长文本朗读:', text);
+                }
+                
+                speechSynthesis.speak(utterance);
+            } catch (error) {
+                console.error('朗读句子时出错:', error, '句子:', sentences[currentIndex]);
+                // 继续下一句
+                currentIndex++;
+                setTimeout(speakNextSentence, 100);
+            }
+        }
+        
+        speakNextSentence();
+    } catch (error) {
+        console.error('长文本朗读时出错:', error, '文本:', text);
+        // 重置状态
         isReading = false;
         button.classList.remove('reading');
-        console.log('朗读结束');
-    };
-    
-    speechSynthesis.speak(currentUtterance);
+    }
 }
 
 // 朗读写作要求
@@ -373,6 +516,7 @@ function readDirections() {
     }
 }
 
+
 // 停止朗读
 function stopReading() {
     if (speechSynthesis.speaking) {
@@ -410,6 +554,8 @@ function setDefaultTranslations(level = 2) {
         const word = wordElement.textContent;
         const wordData = EnglishLearningCommon.wordTranslations[word];
         
+        // 去除中级难度规则，不显示任何默认翻译
+        /*
         if (wordData && wordData.level === level) { // 只显示指定级别
             const translation = document.createElement('span');
             translation.className = 'translation';
@@ -417,28 +563,188 @@ function setDefaultTranslations(level = 2) {
             translation.style.display = 'block';
             wordElement.parentNode.insertBefore(translation, wordElement.nextSibling);
         }
+        */
     });
 }
 
-// 设置案例部分显示所有超过3个字母的单词的翻译
+// 设置案例部分显示所有超过5个字母的单词的翻译
 function setCaseStudyTranslations() {
-    const caseSection = document.querySelector('.section .content-box .english-text');
-    if (caseSection) {
-        const caseWords = caseSection.querySelectorAll('.word');
-        caseWords.forEach(wordElement => {
-            const word = wordElement.textContent.trim();
-            const wordData = EnglishLearningCommon.wordTranslations[word];
-            
-            // 显示所有超过3个字母的单词的翻译
-            if (word.length > 3 && wordData) {
-                const translation = document.createElement('span');
-                translation.className = 'translation';
-                translation.textContent = wordData.translation;
-                translation.style.display = 'block';
-                wordElement.parentNode.insertBefore(translation, wordElement.nextSibling);
+    try {
+        // 先尝试处理信件页面的案例部分
+        let caseSections = [];
+        
+        // 检测当前页面类型
+        const isChartPage = window.location.pathname.includes('chart');
+        
+        if (isChartPage) {
+            // 图表页面：查找所有包含"范文"或"模板"标题的内容框
+            const contentBoxes = document.querySelectorAll('.content-box');
+            contentBoxes.forEach(box => {
+                try {
+                    const title = box.querySelector('.content-title');
+                    if (title) {
+                        // 处理范文部分和模板部分（现在都使用english-text类）
+                        if (title.textContent.includes('范文') ||
+                            title.textContent.includes('模板') ||
+                            (title.textContent.includes('第一部分：数据变化描述'))) {
+                            // 获取所有的english-text元素，可能有多个
+                            const englishTexts = box.querySelectorAll('.english-text');
+                            englishTexts.forEach(englishText => {
+                                if (englishText) {
+                                    caseSections.push(englishText);
+                                }
+                            });
+                        }
+                    }
+                } catch (error) {
+                    console.error('处理内容框时出错:', error, '内容框:', box);
+                }
+            });
+        } else {
+            // 信件页面：查找信件页面的案例部分
+            try {
+                const letterCaseSection = document.querySelector('.section .content-box .english-text');
+                if (letterCaseSection) {
+                    caseSections.push(letterCaseSection);
+                }
+                
+                // 查找所有包含"范文"标题的内容框
+                const contentBoxes = document.querySelectorAll('.content-box');
+                contentBoxes.forEach(box => {
+                    try {
+                        const title = box.querySelector('.content-title');
+                        if (title && title.textContent.includes('范文')) {
+                            const englishText = box.querySelector('.english-text');
+                            if (englishText) {
+                                caseSections.push(englishText);
+                            }
+                        }
+                    } catch (error) {
+                        console.error('处理信件内容框时出错:', error, '内容框:', box);
+                    }
+                });
+            } catch (error) {
+                console.error('处理信件页面时出错:', error);
+            }
+        }
+        
+        // 处理所有找到的案例部分
+        caseSections.forEach(caseSection => {
+            try {
+                const caseWords = caseSection.querySelectorAll('.word');
+                caseWords.forEach(wordElement => {
+                    try {
+                        const word = wordElement.textContent.trim();
+                        const wordData = EnglishLearningCommon.wordTranslations[word];
+                       
+                        // 显示所有超过5个字母的单词的翻译
+                        if (word.length > 5 && wordData) {
+                            // 检查是否已经有翻译元素，避免重复添加
+                            let existingTranslation = wordElement.nextElementSibling;
+                            if (existingTranslation && existingTranslation.classList.contains('translation')) {
+                                // 如果已存在翻译，更新其内容
+                                existingTranslation.textContent = wordData.translation;
+                                existingTranslation.style.display = 'block';
+                            } else {
+                                // 如果没有翻译，创建新的翻译元素
+                                const translation = document.createElement('span');
+                                translation.className = 'translation';
+                                translation.textContent = wordData.translation;
+                                translation.style.display = 'block';
+                                wordElement.parentNode.insertBefore(translation, wordElement.nextSibling);
+                            }
+                        }
+                    } catch (error) {
+                        console.error('处理单词时出错:', error, '单词元素:', wordElement);
+                    }
+                });
+            } catch (error) {
+                console.error('处理案例部分时出错:', error, '案例部分:', caseSection);
             }
         });
+    } catch (error) {
+        console.error('设置案例翻译时出错:', error);
     }
+}
+
+// 处理模板部分的文本，为超过5个字符的单词添加翻译
+function processTemplateText(element) {
+    // 遍历所有子节点，处理文本节点
+    function processNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            // 处理文本节点
+            const text = node.textContent;
+            const words = text.match(/\b[a-zA-Z]+\b/g) || [];
+            
+            // 如果没有找到单词，直接返回
+            if (words.length === 0) return;
+            
+            // 创建一个文档片段来存放处理后的内容
+            const fragment = document.createDocumentFragment();
+            let lastIndex = 0;
+            
+            // 使用正则表达式找到所有单词位置
+            const wordRegex = /\b[a-zA-Z]+\b/g;
+            let match;
+            
+            while ((match = wordRegex.exec(text)) !== null) {
+                // 添加单词前的文本
+                if (match.index > lastIndex) {
+                    fragment.appendChild(document.createTextNode(text.substring(lastIndex, match.index)));
+                }
+                
+                const word = match[0];
+                
+                // 如果单词超过5个字符且有翻译数据
+                if (word.length > 5 && EnglishLearningCommon.wordTranslations[word]) {
+                    // 创建单词包装元素
+                    const wordWrap = document.createElement('span');
+                    wordWrap.className = 'word-wrap';
+                    
+                    const wordSpan = document.createElement('span');
+                    wordSpan.className = 'word level-2';
+                    wordSpan.style.cursor = 'default';
+                    wordSpan.textContent = word;
+                    
+                    wordWrap.appendChild(wordSpan);
+                    fragment.appendChild(wordWrap);
+                    
+                    // 创建翻译元素
+                    const translation = document.createElement('span');
+                    translation.className = 'translation';
+                    translation.style.display = 'block';
+                    translation.textContent = EnglishLearningCommon.wordTranslations[word].translation;
+                    fragment.appendChild(translation);
+                } else {
+                    // 如果单词不需要翻译，直接添加文本
+                    fragment.appendChild(document.createTextNode(word));
+                }
+                
+                lastIndex = wordRegex.lastIndex;
+            }
+            
+            // 添加剩余的文本
+            if (lastIndex < text.length) {
+                fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+            }
+            
+            // 用处理后的内容替换原始文本节点
+            if (fragment.childNodes.length > 0) {
+                node.parentNode.replaceChild(fragment, node);
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+            // 递归处理子元素节点，但不处理span和已有的翻译元素
+            if (!node.classList.contains('translation') && node.tagName !== 'SCRIPT' && node.tagName !== 'STYLE') {
+                // 将NodeList转换为数组，避免在遍历时修改DOM导致的问题
+                const children = Array.from(node.childNodes);
+                children.forEach(child => processNode(child));
+            }
+        }
+    }
+    
+    // 开始处理元素的所有子节点
+    const children = Array.from(element.childNodes);
+    children.forEach(child => processNode(child));
 }
 
 // 页面加载完成后初始化
@@ -453,13 +759,14 @@ function cleanTextForSpeech(text) {
     return text
         // 移除HTML标签
         .replace(/<[^>]*>/g, '')
-        // 移除特殊字符和符号，保留基本标点
-        .replace(/[^\w\s.,!?;:'"-]/g, '')
+        // 保留更多有用的字符，包括中文和常用符号
+        .replace(/[^\w\s\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff.,!?;:'"()\-]/g, '')
         // 将多个空格替换为单个空格
         .replace(/\s+/g, ' ')
         // 移除首尾空格
         .trim();
 }
+
 
 // 导出函数供其他脚本使用
 window.EnglishLearningCommon = {

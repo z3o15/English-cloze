@@ -964,22 +964,11 @@
                 trans.remove();
             });
             
-            // 默认只显示中级难度单词的翻译
+            // 默认不显示任何单词的翻译（去除中级难度规则）
             const words = document.querySelectorAll('.word');
-            words.forEach(wordElement => {
-                const word = wordElement.textContent;
-                const wordData = wordTranslations[word];
-                
-                if (wordData && wordData.level === 2) { // 只显示中级（level 2）
-                    const translation = document.createElement('span');
-                    translation.className = 'translation';
-                    translation.textContent = wordData.translation;
-                    translation.style.display = 'block';
-                    wordElement.parentNode.insertBefore(translation, wordElement.nextSibling);
-                }
-            });
+            // 移除原来的中级难度筛选逻辑
             
-            // 案例部分：显示所有超过3个字母的单词的翻译
+            // 案例部分：显示所有超过5个字母的单词的翻译
             const caseSection = document.querySelector('.section .format-box .english-text');
             if (caseSection) {
                 const caseWords = caseSection.querySelectorAll('.word');
@@ -987,8 +976,8 @@
                     const word = wordElement.textContent.trim();
                     const wordData = wordTranslations[word];
                     
-                    // 显示所有超过3个字母的单词的翻译
-                    if (word.length > 3 && wordData) {
+                    // 显示所有超过5个字母的单词的翻译
+                    if (word.length > 5 && wordData) {
                         const translation = document.createElement('span');
                         translation.className = 'translation';
                         translation.textContent = wordData.translation;
