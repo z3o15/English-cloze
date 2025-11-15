@@ -146,18 +146,41 @@ function readSectionText(button) {
         // 修复：优先查找按钮所在的content-box内的内容
         const parentContentBox = button.closest('.content-box');
         if (parentContentBox) {
-            // 查找同级的下一个content-box
-            const nextBox = parentContentBox.nextElementSibling;
-            if (nextBox && nextBox.classList.contains('content-box')) {
-                textElement = nextBox;
-            } else {
-                // 如果没有下一个，尝试查找当前content-box内的english-text
-                const englishText = parentContentBox.querySelector('.english-text');
-                if (englishText) {
-                    textElement = englishText;
+            // 特殊处理：如果按钮标题包含"引出图表句型"，查找下一个content-box内的english-text
+            if (buttonTitle.includes('引出图表句型')) {
+                const nextBox = parentContentBox.nextElementSibling;
+                if (nextBox && nextBox.classList.contains('content-box')) {
+                    const englishText = nextBox.querySelector('.english-text');
+                    if (englishText) {
+                        textElement = englishText;
+                    } else {
+                        // 如果没有english-text，使用整个content-box
+                        textElement = nextBox;
+                    }
                 } else {
-                    // 最后备用方案：使用当前content-box
-                    textElement = parentContentBox;
+                    // 如果没有下一个，查找当前content-box内的english-text
+                    const englishText = parentContentBox.querySelector('.english-text');
+                    if (englishText) {
+                        textElement = englishText;
+                    } else {
+                        // 最后备用方案：使用当前content-box
+                        textElement = parentContentBox;
+                    }
+                }
+            } else {
+                // 查找同级的下一个content-box
+                const nextBox = parentContentBox.nextElementSibling;
+                if (nextBox && nextBox.classList.contains('content-box')) {
+                    textElement = nextBox;
+                } else {
+                    // 如果没有下一个，尝试查找当前content-box内的english-text
+                    const englishText = parentContentBox.querySelector('.english-text');
+                    if (englishText) {
+                        textElement = englishText;
+                    } else {
+                        // 最后备用方案：使用当前content-box
+                        textElement = parentContentBox;
+                    }
                 }
             }
         }

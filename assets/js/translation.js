@@ -1756,7 +1756,11 @@ class EventHandler {
         
         // 延迟初始化事件监听，确保与common.js不冲突
         setTimeout(() => {
-            this.initEventListeners();
+            try {
+                this.initEventListeners();
+            } catch (error) {
+                console.error('初始化事件监听器时出错:', error);
+            }
         }, 100);
     }
     
