@@ -143,23 +143,33 @@ function readSectionText(button) {
     
     // 情况1: 按钮是content-title内的按钮（简化后的结构）
     if (button.parentElement.classList.contains('content-title')) {
-        // 查找按钮父元素的下一个兄弟元素（content-box）
-        const parentDiv = button.parentElement.parentElement;
-        if (parentDiv && parentDiv.nextElementSibling && parentDiv.nextElementSibling.classList.contains('content-box')) {
-            textElement = parentDiv.nextElementSibling;
-        }
-        // 如果没有找到，查找父级容器内的content-box
-        else {
-            const container = button.closest('.content-box');
-            if (container) {
-                const nextBox = container.nextElementSibling;
-                if (nextBox && nextBox.classList.contains('content-box')) {
-                    textElement = nextBox;
+        // 修复：优先查找按钮所在的content-box内的内容
+        const parentContentBox = button.closest('.content-box');
+        if (parentContentBox) {
+            // 查找同级的下一个content-box
+            const nextBox = parentContentBox.nextElementSibling;
+            if (nextBox && nextBox.classList.contains('content-box')) {
+                textElement = nextBox;
+            } else {
+                // 如果没有下一个，尝试查找当前content-box内的english-text
+                const englishText = parentContentBox.querySelector('.english-text');
+                if (englishText) {
+                    textElement = englishText;
+                } else {
+                    // 最后备用方案：使用当前content-box
+                    textElement = parentContentBox;
                 }
             }
         }
+        // 备用方案：查找按钮父元素的下一个兄弟元素
+        else {
+            const parentDiv = button.parentElement.parentElement;
+            if (parentDiv && parentDiv.nextElementSibling && parentDiv.nextElementSibling.classList.contains('content-box')) {
+                textElement = parentDiv.nextElementSibling;
+            }
+        }
     }
-    // 情况2: 按钮是标题内的按钮（如"动词词组"、"模板"、"案例"）
+    // 情况2: 按钮是标题内的按钮（如"动词词组"、"模板"、"案例"、"范文"）
     else if (button.parentElement.classList.contains('title') ||
              (button.parentElement.tagName === 'H2' && button.parentElement.classList.contains('title'))) {
         const parentSection = button.closest('.section');
@@ -200,8 +210,31 @@ function readSectionText(button) {
                     }
                 }
             } else if (buttonTitle.includes('模板')) {
-                textElement = parentSection.querySelector('.format-box');
-            } else if (buttonTitle.includes('案例')) {
+                // 优先查找同级的下一个content-box
+                const titleElement = button.parentElement;
+                let nextElement = titleElement.nextElementSibling;
+                
+                // 找到下一个content-box
+                while (nextElement) {
+                    if (nextElement.classList.contains('content-box')) {
+                        // 查找子元素中的english-text
+                        const englishText = nextElement.querySelector('.english-text');
+                        if (englishText) {
+                            textElement = englishText;
+                            break;
+                        } else {
+                            textElement = nextElement;
+                            break;
+                        }
+                    }
+                    nextElement = nextElement.nextElementSibling;
+                }
+                
+                // 如果没找到，使用原来的方法
+                if (!textElement) {
+                    textElement = parentSection.querySelector('.format-box');
+                }
+            } else if (buttonTitle.includes('案例') || buttonTitle.includes('范文')) {
                 // 修复：使用data-target属性精确定位要朗读的内容
                 // 查找按钮父元素的下一个兄弟元素
                 const titleElement = button.parentElement;
@@ -295,20 +328,81 @@ function readSectionText(button) {
     }
     // 情况6: 按钮在其他位置，使用通用查找
     else {
-        // 查找按钮附近的文本元素
-        // 先查找同级的下一个元素
-        if (button.nextElementSibling &&
-            (button.nextElementSibling.classList.contains('content-box') ||
-             button.nextElementSibling.classList.contains('format-box') ||
-             button.nextElementSibling.classList.contains('english-text'))) {
-            textElement = button.nextElementSibling;
-        }
-        // 查找父级容器内的文本元素
-        else {
-            const container = button.parentElement;
-            textElement = container.querySelector('.content-box') ||
-                          container.querySelector('.format-box') ||
-                          container.querySelector('.english-text');
+        // 修复：针对图表页面的特殊处理
+        const isChartPage = window.location.pathname.includes('chart');
+        
+        if (isChartPage) {
+            // 图表页面的特殊处理
+            // 先尝试查找最近的content-box
+            const nearestContentBox = button.closest('.content-box');
+            if (nearestContentBox) {
+                // 查找同级的下一个content-box
+                const nextBox = nearestContentBox.nextElementSibling;
+                if (nextBox && nextBox.classList.contains('content-box')) {
+                    textElement = nextBox;
+                } else {
+                    // 如果没有下一个，查找当前content-box内的english-text
+                    const englishText = nearestContentBox.querySelector('.english-text');
+                    if (englishText) {
+                        textElement = englishText;
+                    } else {
+                        // 最后备用方案：使用当前content-box
+                        textElement = nearestContentBox;
+                    }
+                }
+                
+                // 特殊处理：图表页面的范文部分
+                if (!textElement && buttonTitle.includes('范文')) {
+                    // 查找包含多个 .english-text 的容器
+                    const contentBox = button.closest('.content-box');
+                    if (contentBox) {
+                        const allEnglishTexts = contentBox.querySelectorAll('.english-text');
+                        if (allEnglishTexts.length > 0) {
+                            // 合并所有 .english-text 的内容
+                            const combinedText = Array.from(allEnglishTexts).map(el => el.textContent).join(' ');
+                            // 直接使用合并后的文本，而不是创建临时元素
+                            textElement = {
+                                textContent: combinedText
+                            };
+                        }
+                    }
+                }
+            } else {
+                // 如果不在content-box内，查找父级容器内的文本元素
+                const container = button.parentElement;
+                textElement = container.querySelector('.content-box') ||
+                              container.querySelector('.format-box') ||
+                              container.querySelector('.english-text');
+            }
+        } else {
+            // 书信页面的处理
+            // 查找按钮附近的文本元素
+            // 先查找同级的下一个元素
+            if (button.nextElementSibling &&
+                (button.nextElementSibling.classList.contains('content-box') ||
+                 button.nextElementSibling.classList.contains('format-box') ||
+                 button.nextElementSibling.classList.contains('english-text'))) {
+                textElement = button.nextElementSibling;
+            }
+            // 查找父级容器内的文本元素
+            else {
+                const container = button.parentElement;
+                textElement = container.querySelector('.content-box') ||
+                              container.querySelector('.format-box') ||
+                              container.querySelector('.english-text');
+            }
+            
+            // 特殊处理：书信页面的案例部分
+            if (!textElement && buttonTitle.includes('案例')) {
+                // 查找包含 .english-text 的容器
+                const contentBox = button.closest('.content-box');
+                if (contentBox) {
+                    const englishText = contentBox.querySelector('.english-text');
+                    if (englishText) {
+                        textElement = englishText;
+                    }
+                }
+            }
         }
     }
     
@@ -333,7 +427,10 @@ function readSectionText(button) {
         return;
     }
     
-    const text = textElement.textContent;
+    // 处理可能的对象形式（如图表页面范文部分）
+    const text = typeof textElement === 'object' && textElement.textContent !== undefined
+                ? textElement.textContent
+                : textElement.textContent || textElement;
     
     // 清理文本，移除可能导致杂音的字符
     const cleanText = cleanTextForSpeech(text);
