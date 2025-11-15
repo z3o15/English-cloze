@@ -143,22 +143,33 @@ function readSectionText(button) {
     
     // 情况1: 按钮是content-title内的按钮（简化后的结构）
     if (button.parentElement.classList.contains('content-title')) {
+        // 获取按钮的文本内容，用于更精确的匹配
+        const buttonText = button.parentElement.textContent.trim();
+        
         // 修复：优先查找按钮所在的content-box内的内容
         const parentContentBox = button.closest('.content-box');
         if (parentContentBox) {
-            // 特殊处理：如果按钮标题包含"引出图表句型"，查找下一个content-box内的english-text
-            if (buttonTitle.includes('引出图表句型')) {
-                const nextBox = parentContentBox.nextElementSibling;
-                if (nextBox && nextBox.classList.contains('content-box')) {
-                    const englishText = nextBox.querySelector('.english-text');
-                    if (englishText) {
-                        textElement = englishText;
-                    } else {
-                        // 如果没有english-text，使用整个content-box
-                        textElement = nextBox;
+            // 特殊处理：如果按钮标题包含"引出图表句型"，查找按钮之后的english-expression
+            if (buttonTitle.includes('引出图表句型') || buttonText.includes('引出图表句型')) {
+                // 查找按钮父元素（content-title）之后的english-expression元素
+                const contentTitle = button.parentElement;
+                let nextElement = contentTitle.nextElementSibling;
+                
+                // 查找紧邻的english-expression元素
+                while (nextElement) {
+                    if (nextElement.classList.contains('english-expression')) {
+                        textElement = nextElement;
+                        break;
                     }
-                } else {
-                    // 如果没有下一个，查找当前content-box内的english-text
+                    // 如果遇到另一个content-title，停止查找
+                    if (nextElement.classList.contains('content-title')) {
+                        break;
+                    }
+                    nextElement = nextElement.nextElementSibling;
+                }
+                
+                // 如果没找到english-expression，尝试查找当前content-box内的english-text
+                if (!textElement) {
                     const englishText = parentContentBox.querySelector('.english-text');
                     if (englishText) {
                         textElement = englishText;
