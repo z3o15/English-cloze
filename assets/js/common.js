@@ -324,8 +324,35 @@ function findTextElementForButton(button, buttonTitle, buttonText) {
     if (isLetterPage) {
         // 情况3.1: 按钮在content-title内
         if (button.parentElement.classList.contains('content-title')) {
+            // 特殊处理：开头段-直奔主题-必备句型1个
+            if (buttonTitle.includes('开头段') || buttonText.includes('开头段')) {
+                // 查找同级的下一个content-box
+                const parentContentBox = button.closest('.content-box');
+                if (parentContentBox) {
+                    const nextBox = parentContentBox.nextElementSibling;
+                    if (nextBox && nextBox.classList.contains('content-box')) {
+                        // 查找下一个content-box中的english-text
+                        const englishText = nextBox.querySelector('.english-text');
+                        if (englishText) {
+                            textElement = englishText;
+                            console.log('找到开头段-直奔主题-必备句型1个对应的english-text元素');
+                        } else {
+                            textElement = nextBox;
+                        }
+                    } else {
+                        // 如果没有下一个，使用当前content-box
+                        textElement = parentContentBox;
+                    }
+                } else {
+                    // 如果没有父级content-box，使用当前content-title所在的content-box
+                    const currentBox = button.closest('.content-box');
+                    if (currentBox) {
+                        textElement = currentBox;
+                    }
+                }
+            }
             // 特殊处理：动词词组
-            if (buttonTitle.includes('动词词组')) {
+            else if (buttonTitle.includes('动词词组')) {
                 // 查找按钮父元素的下一个兄弟元素
                 const titleElement = button.parentElement;
                 let nextElement = titleElement.nextElementSibling;
