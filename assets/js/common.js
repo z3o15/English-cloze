@@ -226,26 +226,52 @@ function findTextElementForButton(button, buttonTitle, buttonText) {
     if (isChartPage) {
         // 情况2.1: 按钮在content-title内
         if (button.parentElement.classList.contains('content-title')) {
-            // 查找同级的下一个content-box
-            const parentContentBox = button.closest('.content-box');
-            if (parentContentBox) {
-                const nextBox = parentContentBox.nextElementSibling;
-                if (nextBox && nextBox.classList.contains('content-box')) {
-                    // 查找下一个content-box中的english-text
-                    const englishText = nextBox.querySelector('.english-text');
-                    if (englishText) {
-                        textElement = englishText;
+            // 特殊处理：引出图表句型已在策略1中处理
+            if (buttonTitle.includes('引出图表句型') || buttonText.includes('引出图表句型')) {
+                // 已在策略1中处理，这里跳过
+                return null;
+            }
+            
+            // 特殊处理：比大小类和比趋势类的范文部分
+            if (buttonTitle.includes('范文') || buttonText.includes('范文')) {
+                // 查找当前content-box内的所有english-text
+                const parentContentBox = button.closest('.content-box');
+                if (parentContentBox) {
+                    const allEnglishTexts = parentContentBox.querySelectorAll('.english-text');
+                    if (allEnglishTexts.length > 0) {
+                        // 合并所有 .english-text 的内容
+                        const combinedText = Array.from(allEnglishTexts).map(el => el.textContent).join(' ');
+                        textElement = {
+                            textContent: combinedText
+                        };
+                        console.log('找到范文部分的多个english-text元素，已合并内容');
                     } else {
-                        textElement = nextBox;
-                    }
-                } else {
-                    // 如果没有下一个，查找当前content-box内的english-text
-                    const englishText = parentContentBox.querySelector('.english-text');
-                    if (englishText) {
-                        textElement = englishText;
-                    } else {
-                        // 最后备用方案：使用当前content-box
                         textElement = parentContentBox;
+                    }
+                }
+            }
+            // 其他情况：查找同级的下一个content-box
+            else {
+                const parentContentBox = button.closest('.content-box');
+                if (parentContentBox) {
+                    const nextBox = parentContentBox.nextElementSibling;
+                    if (nextBox && nextBox.classList.contains('content-box')) {
+                        // 查找下一个content-box中的english-text
+                        const englishText = nextBox.querySelector('.english-text');
+                        if (englishText) {
+                            textElement = englishText;
+                        } else {
+                            textElement = nextBox;
+                        }
+                    } else {
+                        // 如果没有下一个，查找当前content-box内的english-text
+                        const englishText = parentContentBox.querySelector('.english-text');
+                        if (englishText) {
+                            textElement = englishText;
+                        } else {
+                            // 最后备用方案：使用当前content-box
+                            textElement = parentContentBox;
+                        }
                     }
                 }
             }
